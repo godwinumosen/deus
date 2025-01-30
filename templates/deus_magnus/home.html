@@ -1,0 +1,300 @@
+ 
+{% extends "base.html" %}
+{% load static %}
+{% block content%}
+
+
+{% for first_video in first_videos %}
+<video autoplay muted playsinline loop width="100%" height="400"controls id="myVideo">
+    <source src="{{ first_video.deus_magnus_first_video.url }}" type="video/mp4">
+    <source src="{{ first_video.deus_magnus_first_video.url }}" type="video/webm">
+    Your browser does not support the video tag.
+</video>
+
+{% endfor %}
+
+
+<center>
+    <section class="section db">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="stat-count">
+                        <h4 id="years-experience" class="stat-timer">5+</h4>
+                        <h3 style="color: #98681e; font-family: Georgia;">
+                            <i class="fa fa-university"></i> Combined Years of Experience
+                        </h3>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4">
+                    <div class="stat-count">
+                        <h4 id="properties-sold" class="stat-timer">10+</h4>
+                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-list"></i> Properties Sold</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <div class="stat-count">
+                        <h4 id="completed-projects" class="stat-timer">5+</h4>
+                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-table"></i> Completed Construction Projects</h3>
+                    </div>    
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <div class="stat-count">
+                        <h4 id="ongoing-projects" class="stat-timer">21+</h4>
+                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-building"></i> Ongoing Projects</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </center><br><br>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% for bash_p in bash_ps %}
+                <div class="custom-module">
+                    <img style="margin-top: 1px; border-radius: 5px;"src="{{ bash_p.deus_magnus_bash_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-8">  
+                <div class="custom-module p40l">
+                    <h3 style="color: #98681e; font-family: Georgia;">Redefining excellence in construction, real estate, and facility management across Nigeria.</h3>
+                    <h5>At Deus Magnus, we redefine excellence in construction, real estate, and facility management across Nigeria. Our integrated approach covers:</h5><br>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul <!--class="ch"-->
+                                <li>Bespoke Residential Development</li>
+                                <li>High-End Commercial Spaces</li>
+                                <li>Investment Properties</li>
+                                <li>Construction Services</li>
+                                <li>Real Estate Consultancy</li>
+                                <li>Premium Facility Management</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->    
+                    </div><!-- end row -->   
+                    <hr class="invis">
+                    <div class="btn-wrapper">
+                        <a href="{% url 'founder_message' %}" class="btn btn-primary" style="border-radius:5px;font-family: Georgia;">About us</a>
+                    </div>
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br><br>
+
+       <!-- the first category of the home page after cate -->
+ 
+
+<section class="section gb nopadtop">
+    <div class="container"><br>
+        <div class="section-title text-center">
+            <h3 style="color: #98681e;">Commitment</h3>
+            <p>With over 15 years of construction experience.</p>
+        </div><br><br><!-- end title -->
+        <div class="boxed boxedp3">
+            <div class="row blog-grid">
+                <div class="col-md-4">
+                    <div class="course-box">
+                        <div class="course-details">
+                            <center><i class="fa fa-3x fa-handshake-o text-primary mb-4"></i></center>
+                            <h4 style=" color: #04245c;font-family:sarif;"><center>Customer Satisfaction Guaranteed</center></h4>
+                            <p>Our success is measured by the satisfaction of our clients. We offer a robust 
+                                feedback system and continuous improvement process.</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+                <div class="col-md-4">
+                    <div class="course-box">
+                        <div class="course-details">
+                            <center><i class="fa fa-3x fa-star-o text-primary mb-4"></i></center>
+                            <h4 style="color: #04245c; font-family:sarif;"><center>Service Par Excellence</center></h4>
+                            <p>We commit to delivering top-notch services that exceed industry standards and client expectations.</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+                <div class="col-md-4">
+                    <div class="course-box">
+                        <div class="course-details">
+                            <center><i class="fa fa-3x fa-wpexplorer text-primary mb-4"></i></center>
+                            <h4 style="color: #04245c;font-family:sarif;"><center>Quality Assurance Measures</center></h4>
+                            <p> Regular quality audits Adherence to international 
+                                construction and management standardsOngoing staff training and development</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end boxed -->
+    </div><!-- end container -->
+</section><br><br><br>
+
+<section class="section gb">
+    <div class="container"><br>
+        <div class="section-title text-center">
+            <h3 style="color: #98681e;">Featured Projects</h3>
+            <p>Our collection of elegance, comfort and luxury at the heart of Lagos, Nigeria.</p>
+        </div><!-- end title -->
+        <div class="row">
+            {% for second_construction in second_constructions %}
+            <div class="col-lg-4 col-md-12">
+                <div class="blog-box">
+                    <div class="image-wrap entry">
+                        {% if second_construction.second_deus_magnus_img %}
+                        <a href="{% url 'second_detail' second_construction.pk %}">
+                        <img src="{{ second_construction.second_deus_magnus_img.url }}"height="230px"  class="custom-image">
+                        </a>
+                        <!--<span  style="font-family:sarif;" class="badge rounded-pill bg-primary">{{ second_construction.second_deus_magnus_status}}</span>-->
+                        {% endif %}
+                       
+                    </div><!-- end image-wrap -->
+                    <div class="blog-desc">
+                        <h4><a href="{% url 'second_detail' second_construction.pk %}">{{ second_construction.second_deus_magnus_title |truncatechars:30}}</a></h4>
+                        <p>{{ second_construction.second_deus_magnus_description |truncatechars:75}}</p>
+                    </div><!-- end blog-des -->
+                    <div class="post-meta">
+                            <div class="btn-wrapper">
+                                <a href="{% url 'second_detail' second_construction.pk %} "class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;">Read More </a>
+                            </div>       
+                    </div><!-- end post-meta -->
+                </div><!-- end blog -->
+            </div><!-- end col -->
+            {%endfor%}
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br><br>
+
+
+<section class="section db p110">
+    <div class="container"><br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tagline-message text-center">
+                <h3>"At Deus Magnus, we're not just building structures; we're crafting legacies. 
+                    Our commitment to excellence and innovation drives us to create spaces that inspire, impress, and endure." <br><br>
+                    - Mr. Kuteyi Rasaq, CEO</h3><br>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section --><br><br><br>
+
+    
+<!-- the first category of the home page after cate -->
+<section class="section gb">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3 style="color: #98681e;">Upcoming Projects</h3>
+            <p>Designed to redefine excellence in construction and real estate.</p>
+        </div>
+
+        <div class="row">
+            {% for post in object_list %}
+            <div class="col-lg-4 col-md-12">
+                <div class="blog-box">
+                    <a href="{% url 'detail' post.pk %}">
+                        <div class="image-wrap entry">
+                            <video autoplay muted playsinline loop controls width="100%" height="auto"style="border-radius: 5px;">
+                                <source src="{{ post.deus_manus_video.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <!--<span  style="font-family:sarif;" class="badge rounded-pill bg-primary">{{  post.deus_magnus_status }}</span>-->
+                        </div>
+                    </a>
+                    <div class="blog-desc">
+                        <h4><a href="{% url 'detail' post.pk %}">{{ post.deus_magnus_title }}</a></h4>
+                        <p>{{ post.deus_magnus_description|truncatechars:77 }}</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="btn-wrapper">
+                            <a href="{% url 'detail' post.pk %}" class="btn btn-primary" style="border-radius: 5px; font-family: Georgia;">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section><br>
+
+
+<section class="parallax event-section" data-stellar-background-ratio="0.5" style="background-image:url({% static "images/device.png" %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-121">
+                <div class="tagline-message event-title text-center">
+                    <div class="btn-wrapper">
+                        <a href="{% url 'projects' %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">See More Projects</a>
+                    </div>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section --><br><br>
+
+<section class="section gb">
+    <div class="container"><br>
+        <div class="section-title text-center">
+            <h3 style="color: #98681e;">Recent News</h3>
+            <p>Read the latest news and update from Deusmagnus and the construction industry.</p>
+        </div><!-- end title -->
+        <div class="row"> 
+            {% for news_construction in news_constructions %}
+            <div class="col-lg-4 col-md-12">
+                <div class="blog-box">
+                    <div class="image-wrap entry">
+                        {% if news_construction.deus_magnus_event_img %}
+                        <a href="{% url 'events_article_detail' news_construction.pk %}">
+                            <img src="{{ news_construction.deus_magnus_event_img.url }}"height="230px"  class="custom-image"><br><br>
+                        </a>
+                        {% endif %}
+                    </div><!--end image-wrap -->
+                    <div class="blog-desc">
+                        <h4><a href="{% url 'events_article_detail' news_construction.pk %}">{{ news_construction.deus_magnus_event_title }}</a></h4>
+                        <p> {{ news_construction.deus_magnus_event_description |truncatechars:65}}</p>
+                    </div><!-- end blog-descriptional -->
+                    <div class="post-meta">
+                        <div class="btn-wrapper">
+                            <a href="{% url 'events_article_detail' news_construction.pk %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">Read More</a>
+                        </div>
+                    </div><!-- end post-meta -->
+                </div><!-- end blog -->
+                <br>
+            </div><!-- end col -->
+            {% endfor %}
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br><br>
+
+<section class="section bgcolor1">
+    <div class="container">
+        <a href="{% url 'contact' %}">
+        <div class="row callout">
+            <div class="col-md-4 text-center">
+                <h3 style="font-family: Georgia;"><sup>RN:</sup>1377130</h3>
+                <h4 style="font-family: Georgia;">Schedule a Free Consultation.</h4>
+            </div><!-- end col -->
+
+            <div class="col-md-8">
+                <p class="lead"style="font-family: Georgia;">Deus Magnus Limited: Architecting Luxury Real Estate Beyond Boundaries.</p>
+            </div>
+        </div><!-- end row -->
+        </a>
+    </div><!-- end container -->  
+</section><br><br><br>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+        {% endblock %}

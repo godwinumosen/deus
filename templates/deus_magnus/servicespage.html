@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Services Page  {% endblock %}
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Our Services</h1> 
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->   
+
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for post in object_list %}
+                <div class="custom-module">
+                    <img style="border-radius: 5px; "src="{{ post.deus_magnus_services_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <h3 style="color: #98681e;font-family: Georgia;">Comprehensive/Sustainable Building Solutions for Nigeria's Real Estate Challenges</h3>
+                    <p>From tackling Nigeria's infrastructure deficit to optimizing long-term asset performance in prime locations like Victoria Island and Ikoyi, 
+                        we are your trusted partner in navigating the complexities of the African real estate landscape.
+                        Deus Magnus Limited offers end-to-end services in construction, real estate development, and facility management. Our expertise spans:
+                    </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for equipment in equipments %}
+                <div class="custom-module">
+                    <a href="{% url 'equipmenthire' %}">
+                    <img style="border-radius: 5px; "src="{{ equipment.deus_magnus_equipment_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                    </a>
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'equipmenthire' %}">
+                    <h3 style="color: #98681e;font-family: Georgia;">Equipment Hire</h3></a>
+                    <p>Offers construction vehicles and equipment such as boom pumps, double drum 
+                        rollers, and more to support efficient project execution.   
+                    </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for boom in booms %}
+                <div class="custom-module">
+                    <a href="{% url 'boom' %}">
+                    <img style="border-radius: 5px; "src="{{ boom.deus_magnus_boom_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                    </a>
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'boom' %}">
+                    <h3 style="color: #98681e;font-family: Georgia;">Boom Pump</h3></a>
+                    <p>Welcome Home to Power and Precision: The 52M Boom Pump
+                        Whether you’re taking on high-rise builds or expansive construction projects, our 52-meter boom pump brings reach, 
+                        power, and efficiency straight to your site. Capable of delivering concrete exactly 
+                        where it’s needed—no matter the height or depth—our pump is designed for the highest standards in modern construction.
+                        </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for concrete in concretes %}
+                <div class="custom-module">
+                    <a href="{% url 'concrete' %}">
+                    <img style="border-radius: 5px; "src="{{ concrete.deus_magnus_concrete_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                    </a>
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'concrete' %}">
+                    <h3 style="color: #98681e;font-family: Georgia;">Concrete Supply</h3></a>
+                    <p>Provides mixed concrete solutions tailored to project specifications, 
+                        ensuring consistency and quality.
+                    </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for material in materials %}
+                <div class="custom-module">
+                    <a href="{% url 'material' %}">
+                    <img style="border-radius: 5px; "src="{{ material.deus_magnus_material_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                    </a>
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'material' %}">
+                    <h3 style="color: #98681e;font-family: Georgia;">Material Supply</h3></a>
+                    <p>Supplies essential construction materials, including granite and sand, directly to project sites. 
+                    </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for specialized in specializeds %}
+                <div class="custom-module">
+                    <a href="{% url 'specialized' %}">
+                    <img style="border-radius: 5px; "src="{{ specialized.deus_magnus_specialized_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                    </a>
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'specialized' %}">
+                    <h3 style="color: #98681e;font-family: Georgia;">Specialized Services</h3></a>
+                    <p>Includes project consultation, site supervision, and logistical support to 
+                        ensure seamless operations from start to finish.
+                    </p>               
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for construction in constructions %}
+                <a href="{% url 'construction_development' %}">
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ construction.deus_magnus_construction_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                </a>
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'construction_development' %}"><h3 style="color: #98681e;font-family: Georgia;">Construction Services</h3></a>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Building construction (residential, commercial, industrial)</li>
+                                <li>Civil engineering (roads, bridges, water supply)</li>
+                                <li>Renovation and Upgrades (Structural changes, major overhauls)</li>
+                                <li>Industrial warehouse</li>
+                                <li>Service apartments</li>
+                                <li>Luxury apartments and homes</li>
+                                <li>Student housing</li>
+                                <li>Office spaces</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->       
+                    </div><!-- end row -->                  
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for real in reals %}
+                <a href="{% url 'real_estate_services' %}">
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ real.deus_magnus_real_estate_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                 </a>    
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                    <a href="{% url 'real_estate_services' %}"><h3 style="color: #98681e;font-family: Georgia;">Real Estate Services</h3></a>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Property development (residential, commercial, industrial)</li>
+                                <li>Property management (leasing, sales, marketing)</li>
+                                <li>Real estate advisory sevices</li>
+                                <li>Land acquisition</li>
+                                <li>Feasibility and viability studies</li>
+                                <li>Architecture and planning</li>
+                                <li>Structural designing</li>
+                                <li>Project management</li>
+                                <li>Renovations</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->       
+                    </div><!-- end row -->                  
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for facility in facilitys %}
+                <a href="{% url 'facility_management' %}">
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ facility.deus_magnus_facility_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+            </a>
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-7">  
+                <div class="custom-module p40l">
+                   
+                    <a href="{% url 'facility_management' %}"><h3 style="color: #98681e;font-family: Georgia;">Facility Management</h3></a>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Property maintenance and repairs</li>
+                                <li>Utilities management (energy, water, waste)</li>
+                                <li>Facility operations</li>
+                                <li>Building systems maintenance</li>
+                                <li>Security services</li>
+                                <li>Cleaning and janitorial services</li>
+                                <li>Waste management</li>
+                                <li>Landscaping and grounds maintenance</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->       
+                    </div><!-- end row --> 
+                    <hr class="invis">
+                    <div class="btn-wrapper">
+                        <a href="{% url 'founder_message' %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">About us</a>
+                    </div>                 
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+
+                
+ 
+{% endblock %}

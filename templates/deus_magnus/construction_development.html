@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Construction and Development  {% endblock %}
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:40px;">Construction Services</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section --><br>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% for post in object_list %}
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ post.deus_magnus_construction_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-8">  
+                <div class="custom-module p40l">
+                    <h3 style="color: #98681e;font-family: Georgia;">Construction Development</h3>
+                    <h4>From groundbreaking to finishing touches, our construction services
+                        ensure impeccable quality and timely delivery of your dream property.
+                    </h4><br>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Building construction (residential, commercial, industrial)</li>
+                                <li>Civil engineering (roads, bridges, water supply)</li>
+                                <li>Project management and consultancy</li>
+                                <li>Industrial warehouse</li>
+                                <li>Service apartments</li>
+                                <li>Luxury apartments and homes</li>
+                                <li>Student housing</li>
+                                <li>Office spaces</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->   
+                    </div><!-- end row -->  
+                    <h3 style="color: #98681e;font-family: Georgia;">Pioneers in Construction and Development</h3>
+                    <p>Deus Magnus Limited stands at the forefront of the construction and development industry,
+                         renowned for its commitment to innovation, sustainability, and excellence. With a rich 
+                         history of successful projects and a forward-thinking approach, the company has 
+                         established itself as a leader in shaping modern infrastructure and real estate..</p><br>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                               
+                                <li>Excellence in Execution</li>
+                                <li>Innovation and Technology</li>
+                                <li>Sustainability and Environmental Responsibility</li>
+                                <li>Residential Developments</li>
+                                <li>Infrastructure and Public Works</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->    
+                    </div><!-- end row -->   
+                    <hr class="invis">
+                    <div class="btn-wrapper">
+                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
+                    </div>
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+{% endblock %}

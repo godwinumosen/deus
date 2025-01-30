@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Facility Management  {% endblock %}
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Facility Management</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% for post in object_list %}
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ post.deus_magnus_facility_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-8">  
+                <div class="custom-module p40l">
+                    <h3 style="color: #98681e;font-family: Georgia;">Our premium facility management services ensure your property
+                        maintains its value and prestige for years to come.</h3><br>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Property maintenance and repairs</li>
+                                <li>Utilities management (energy, water, waste)</li>
+                                <li>Facility operations</li>
+                                <li>Building systems maintenance</li>
+                                <li>Security services</li>
+                                <li>Cleaning and janitorial services</li>
+                                <li>Waste management</li>
+                                <li>Landscaping and grounds maintenance</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->    
+                    </div><!-- end row -->   
+                                 
+                    <hr class="invis">
+                    <div class="btn-wrapper">
+                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
+                    </div>
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+{% endblock %}

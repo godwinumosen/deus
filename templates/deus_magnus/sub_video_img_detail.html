@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ sub_video_img.video_sub_title }} {% endblock %}
+{% block content%}
+
+<section class="section db p120">
+    <div class="container"> 
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">{{ sub_video_img.video_sub_title|truncatechars:22 }}</h1>
+                </div>
+            </div><!-- end_col -->
+        </div><!-- end_row -->
+    </div><!-- end_container -->
+</section><!-- end_section -->
+
+<section class="section gb nopadtop">
+    <div class="container">
+        <div class="boxed">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="content blog-list">
+                        <div class="blog-wrapper clearfix">
+                            <div class="blog-meta">
+                                <h3 style="color: #98681e;"> </h3>
+                                <ul class="list-inline">  
+                                    <li>{{ sub_video_img.video_sub_publish_date }}</li>
+                                    <li><span>written by</span>Deus Magnus</li>
+                                </ul>
+                            </div><!-- end_blog_meta -->
+                            <div class="blog-media">
+                                <img src="{{ sub_video_img.video_sub_image.url }}" alt="" class="img-responsive img-rounded">   
+                            </div><!-- end_media -->
+                            <div class="blog-desc-big">
+                                <p style="color: #98681e;"class="lead">{{ sub_video_img.video_sub_title }}</p>
+                                <p>{{ sub_video_img.video_sub_description }}</p> 
+                            </div><!-- end_desc -->
+                        </div><!-- end_blog -->
+                    <div class="btn-wrapper">
+                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
+                    </div>
+                    </div><!-- end_content -->
+                </div><!-- end_col -->
+                <div class="sidebar col-md-4">
+                    <div class="widget clearfix">
+                        <div class="banner-widget">
+                            <img src="upload/banner.jpeg" alt="" class="img-responsive img-rounded">
+                        </div>
+                    </div>
+                </div><!-- end_sidebar -->
+            </div><!-- end_row -->
+        </div><!-- end_boxed -->
+    </div><!-- end_container -->
+</section>
+<!--Start_of_Tawk.to_Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+{% endblock %}

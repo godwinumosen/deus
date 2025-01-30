@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} About Deus Magnus{% endblock %}
+{% block content %}
+        
+
+
+<section class="parallax event-section" data-stellar-background-ratio="0.5" style="background-image:url({% static "images/m_v_s.jpg" %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tagline-message event-title text-center">
+                    <h3>Message About Us</h3>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+
+<section class="section">
+    <div class="container">
+        <div class=" ">   
+            <div class="row">
+                <center><h3 style="color: #98681e;font-family: Georgia;">  </h3></center><br>
+                <div class="col-md-6 shop-media">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for post in object_list %}
+                            <video autoplay muted playsinline loop width="100%" height="70%"  controls>
+                                <source src="{{ post.deus_magnus_about_video.url }}" type="video/mp4">
+                                <source src="{{ post.deus_magnus_about_video.url }}" type="video/webm">
+                                Your browser does not support the video tag.
+                            </video>
+                            {% endfor %}
+                        </div>
+                    </div><!-- end row -->
+                        <hr class="invis">
+                        <div class="row">
+                    </div><!-- end row -->
+                </div><!-- end col -->
+                <div class="col-md-6"><br><br>
+                    <div class="shop-desc">   
+                        <p>Deus Magnus is a dynamic company that specializes in integrated construction solutions, 
+                            real estate development, and facility management. Our team of engineers, estate surveyors & 
+                            valuers, architects, structural designers, project managers etc. go above and beyond to produce 
+                            outstanding design by synchronizing our abilities to the needs of the clients.
+                            At Deus Magnus, we believe in delivering service-per-excellence in all our building 
+                            projects ranging from industrial warehouses, service apartments, luxury apartments, luxury 
+                            homes, student housing, office spaces, amongst others.  
+                            We serve a large range of clientele, whose trust we have earned by rendering 
+                            our top-notch service per excellence, and leaving a positive indelible mark on 
+                            the people we serve. We are headquartered in Lagos, Nigeria..<br><br>
+                            
+                            Mr. Kuteyi Rasaq<br>
+                            CEO, Deus Magnus Limited
+                        </p><br>
+                    </div><!-- end desc -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end boxed -->
+    </div><!-- end container -->    
+</section>
+
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tagline-message page-title text-center">
+                    <h3>Our History</h3>
+                    <ul class="breadcrumb">
+                        <li><a style="border-radius: 5px;font-family: Georgia;" href="{% url 'contact' %}">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+<section class="section gb nopadtop">
+    <div class="container">
+        <div class="boxed boxedp4">
+
+    <div class="shadow p-5 mb-5 bg-body rounded">
+        <div class="row">   
+    <div class="col-md-12">
+    <div class="shop-extra">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home" style="font-family: Georgia;">OUR VISION</a></li>
+            <li><a data-toggle="tab" href="#menu2" style="font-family: Georgia;">OUR MISSION</a></li>
+            <li><a data-toggle="tab" href="#menu3" style="font-family: Georgia;">OUR APPROACH</a></li>
+            <li><a data-toggle="tab" href="#menu4" style="font-family: Georgia;">OUR PROMISE</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3 style="color: #98681e;font-family: Georgia;">Vision</h3>
+                <p>To be a leading integrated construction, real estate, and facility management company 
+                    in Nigeria, delivering innovative, sustainable, and high-quality solutions 
+                    that enhance the built environment and quality of life. To emerge as the leading construction and real estate service provider in Africa 
+                    and globally, accomplished through the delivery of internationally acclaimed structures.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3 style="color: #98681e;font-family: Georgia;">Mission</h3>
+                <p>To provide exceptional services, exceeding client expectations, 
+                    while fostering a culture of safety, integrity, and community engagement. 
+                    To revolutionize the Nigerian real estate landscape by delivering unparalleled quality through cutting-edge 
+                    innovation, superior quality, and unwavering commitment to sustainability.</p>
+            </div>
+            <div id="menu4" class="tab-pane fade">
+                <h3 style="color: #98681e;font-family: Georgia;">Promise</h3>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Service Par Excellence</li>
+                                <li>Quality Assurance Measures</li>
+                                <li>Customer Satisfaction Guarantee</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->   
+                    </div><!-- end row --> 
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                <h3 style="color: #98681e;font-family: Georgia;">Approach</h3>
+                <p>At Deus Magnus, we address complex challenges facing high-net-worth property developers, 
+                    investors, and owners. Our innovative approach significantly reduces risks, delays, and 
+                    premature deterioration by focusing on five key areas:</p>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6 col-sm-4 col-xs-12 first">
+                            <ul class="check">
+                                <li>Integrated Solutions Model</li>
+                                <li>Lifecycle Cost Optimization</li>
+                                <li>Technology Integration</li>
+                                <li>Sustainability Focus</li>
+                                <li>Quality Assurance and Project Management</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->    
+                    </div><!-- end row -->  
+                   
+                    </div><!-- end row -->
+                </div><!-- end container -->
+            </div>
+        </div>
+        </div><!-- end shop-extra -->
+    </div><!-- end col --><br>
+    <div class="btn-wrapper">
+        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back </a>
+    </div>
+    </div><!-- end row -->
+</div>
+</div> 
+
+       
+</section>
+
+
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+
+{% endblock %}

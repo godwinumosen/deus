@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ object.second_deus_magnus_title }} {% endblock %}
+{% block content%}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tagline-message page-title text-center"><br><br>
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">{{ object.second_deus_magnus_title }}</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+        
+<section class="section">
+    <div class="container">
+        <div class=" ">
+            <div class="row">
+                <div class="col-md-9 shop-media">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="image-wrap entry">
+                                {% if object.second_deus_magnus_img %}
+                                <img src="{{ object.second_deus_magnus_img.url }}"style="border-radius:5px;" alt="" class="img-responsive">
+                                {% endif %}
+                            </div><!-- end image-wrap -->
+                        </div>
+                    </div><!-- end row -->
+                        <hr class="invis">
+                        <div class="row">
+                    </div><!-- end row -->
+                </div><!-- end col -->
+
+                <div class="col-md-9">
+                    <div class="shop-desc">
+                        <h3 style="color: #98681e;">{{ object.second_deus_magnus_title }}</h3>
+                        <p>{{ object.second_deus_magnus_description }}</p>
+                        <div class="shop-meta">
+                            <div class="btn-wrapper">
+                                <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;">Back </a>
+                            </div>
+                            <ul class="list-inline">
+                                <li>{{ object.second_deus_magnus_publish_date }}</li>
+                                <li>Posted by: Deus Magnus</li>
+                            </ul>
+                        </div><!-- end shop meta -->
+                    </div><!-- end desc -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+            <hr class="invis">
+            <div class="row">   
+                <div class="col-md-12">
+                    <div class="shop-extra">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Description</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Reviews</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <p>{{ object.second_deus_magnus_description }}</p>
+                                <a href="{% url 'home' %}" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;">Back</a>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <h3>Reviews</h3>
+                                <p>Your email address will not be published. Required fields are marked.</p>
+                                <div class="rating">
+                                    <p>Your Rating</p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <hr class="invis">
+                            
+                                <form class="big-contact-form row" role="search">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" placeholder="Your reviews.."></textarea>
+                                    </div>              
+                                    <div class="col-md-6">   
+                                        <input type="text" class="form-control" placeholder="Enter your name..">
+                                    </div>     
+                                    <div class="col-md-6">   
+                                        <input type="email" class="form-control" placeholder="Enter email..">
+                                    </div>             
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">Submit</button>
+                                    </div>              
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- end shop-extra -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+
+            <hr class="invis">
+            <div class="related-products">
+                <div class="text-widget">
+                    <h3 style="color: #98681e;">See More Projects</h3>
+                </div><!-- end title -->        
+                <div class="row blog-grid shop-grid">
+                 {% for sub in subs %}
+                    <div class="col-md-3">
+                        <div class="course-box shop-wrapper">
+                            <div class="image-wrap entry">
+                                <a href="{% url 'sub_detail' pk=sub.pk %}">
+                                <img src="{{ sub.sub_image_1.url }}"height="180px" alt="" class="img-responsive">
+                                </a>
+                            </div>
+                            <!-- end image-wrap -->
+                            <div class="course-details shop-box text-center">
+                                <a href="{% url 'sub_detail' pk=sub.pk %}">{{ sub.sub_title_1 }}</a>
+                                <p>{{ sub.sub_description_1|truncatechars:40 }}</p>
+                                <a style="border-radius: 5px;font-family: Georgia;" href="{% url 'sub_detail' pk=sub.pk %}"><small>View More</small></a>
+                            </div><!-- end details -->
+                        </div> 
+                             
+                  </div><!-- end row -->   
+                {% endfor %} 
+            </div><!-- end related -->
+        </div><!-- end boxed -->
+    </div><!-- end container -->
+</section>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+
+{% endblock %}

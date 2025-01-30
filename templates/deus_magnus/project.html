@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Projects {% endblock %}
+{% block content%}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">All Projects</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+            <h3 style="color: #98681e;font-family: Georgia;">Deus Magnus Projects: Where Vision Meets Precision</h3>
+            </div><!-- end title -->
+        
+        <div class="row text-center">
+            {% for post in object_list %}
+            <div class="col-md-4 col-sm-6">
+                <div class="teammembers">
+                    <div class="entry">
+                        <a href="{% url 'sub_detail' post.pk %}">
+                            <img src="{{ post.sub_image_1.url }}"height="240px"style="border-radius: 5px; alt="" >
+                        </a>
+                    </div><!-- end box -->
+                    <div class="teamdesc">
+                       <a href="{% url 'sub_detail' post.pk %}">
+                        <h4 style="color: #98681e;font-family: Georgia;">{{ post.sub_title_1 }}</h4>
+                        </a>
+                        <hr>
+                        <h5>{{ post.sub_description_1|truncatechars:40 }}</h5>
+                        <div class="btn-wrapper">
+                            <a href="{% url 'sub_detail' post.pk %}"class="btn btn-primary"style="border-radius: 5px;font-family: "Georgia;">Read More</a>
+                        </div>
+                    </div><!-- end teamdesc -->
+                </div><!-- end teammembers --><br>
+            </div><!-- end col -->
+            {% endfor %}
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+
+
+
+{% endblock %}

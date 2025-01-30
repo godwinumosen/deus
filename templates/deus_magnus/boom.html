@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Boom Pump {% endblock %}
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:40px;">Boom Pump</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section --><br>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% for post in object_list %}
+                <div class="custom-module">
+                    <img style="border-radius: 5px;"src="{{ post.deus_magnus_boom_p.url }}" alt="" class="img-responsive wow slideInLeft">
+                </div><!-- end module -->
+                {% endfor %}
+            </div><!-- end col -->
+            <div class="col-md-8">  
+                <div class="custom-module p40l">
+                    <h3 style="color: #98681e;font-family: Georgia;">Boom Pump</h3>
+                    <h4>Welcome Home to Power and Precision: The 52M Boom Pump
+                    </h4><br>
+                    <p>Whether you’re taking on high-rise builds or expansive construction projects, our 52-meter 
+                        boom pump brings reach, power, and efficiency straight to your site. Capable of delivering 
+                        concrete exactly where it’s needed—no matter the height or depth—our pump is 
+                        designed for the highest standards in modern construction.</p><br>
+                    
+                    <p>Available for Hire Now<br>
+                        For inquiries, let us support your next project with seamless concrete pouring.
+                    </p>                        
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
+                            <ul class="check"> 
+                                <li>Contact Us:</li>
+                                <li>📧 Send a DM</li>
+                                <li>📱 Call +234 812 492 8163</li>
+                            </ul><!-- end check -->
+                        </div><!-- end col-lg-4 -->    
+                    </div><!-- end row -->  
+                    <p>#DeusMServices #ConstructionSolutions 
+                        #ConcretePumping #52MBoomPump #ProjectPrecision 
+                        #ModernConstruction #BuildingWithPurpose 
+                    </p>
+                    <hr class="invis">
+                    <div class="btn-wrapper">
+                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
+                    </div>
+                </div><!-- end module -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><br><br>
+
+{% endblock %}

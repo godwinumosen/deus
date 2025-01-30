@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ object.deus_magnus_title }} {% endblock %}
+{% block content%}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">{{ object.deus_magnus_title }}</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+<section class="section gb nopadtop">
+    <div class="container">
+        <div class="boxed">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="content blog-list">
+                        <div class="blog-wrapper clearfix">
+                            <div class="blog-meta">
+                                <h3 style="color: #98681e;font-family: Georgia;">{{ object.deus_magnus_title }}</h3>
+                                <ul class="list-inline">
+                                    <li>{{ object.deus_magnus_publish_date }}</li>
+                                    <li><span>written by</span>Deus Magnus</li>
+                                </ul>
+                            </div><!-- end blog-meta -->
+                            <div class="blog-media">
+                                <!-- <img src="upload/blog_01.jpg" alt="" class="img-responsive img-rounded"> -->
+                                <video autoplay muted playsinline loop width="100%"style="border-radius: 5px;" controls >
+                                    <source src="{{ object.deus_manus_video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag. 
+                                </video>
+                            </div><!-- end media -->
+                            <div class="blog-desc-big">
+                                <p style="color: #98681e;font-family: Georgia;"class="lead">{{ object.deus_magnus_title }}</p>
+                                <p>{{ object.deus_magnus_description }}</p>  
+                            </div><!-- end desc -->
+                        </div><!-- end blog -->
+                        <div class="btn-wrapper">
+                            <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back </a>
+                        </div>
+                    </div><!-- end content -->
+                </div><!-- end col -->
+                <div class="sidebar col-md-4">
+                    <div class="widget clearfix">
+                        <div class="banner-widget">
+                            <img src="upload/banner.jpeg" alt="" class="img-responsive img-rounded">
+                        </div>
+                    </div>
+
+                    <div class="widget clearfix">
+                        <h3 style="color: #98681e;" class="widget-title">Popular Post Views</h3>
+                            <div class="post-widget"> 
+                                {% for sub_v_img in sub_v_imgs %}
+                                <div class="media"> 
+                                    <a href="{% url 'sub_video_img_detail' pk=sub_v_img.pk %}">
+                                    <img src="{{ sub_v_img.video_sub_image.url }}"height="20px" alt="" class="img-responsive alignleft img-rounded">
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="mt-0"><a href="{% url 'sub_video_img_detail' pk=sub_v_img.pk %}">{{ sub_v_img.video_sub_title|truncatechars:30 }}</a></h5>
+                                        <div class="blog-meta">
+                                            <ul class="list-inline">
+                                                <li>{{ sub_v_img.video_sub_publish_date }}</li>
+                                                <li><span>by</span>Deus Magnus</li>
+                                            </ul>
+                                        </div><!-- end blog-meta -->            
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div><!-- end post-widget -->
+                    </div><!-- end widget -->
+                </div><!-- end sidebar -->
+            </div><!-- end row -->
+        </div><!-- end boxed -->
+    </div><!-- end container -->
+</section>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Contact Us {% endblock %}
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><br>
+                <div class="tagline-message page-title text-center">
+                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Contact Us</h1>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end section -->
+
+<section class="section gb nopadtop" style="padding: 0; margin: 0;">
+    <div class="container" style="padding: 0;">
+        {% for post in object_list %}
+        <video autoplay muted playsinline loop width="100%" height="auto" controls style="border-radius: 5px; display: block;">
+            <source src="{{ post.deus_magnus_contact_video.url }}" type="video/mp4">
+            <source src="{{ post.deus_magnus_contact_video.url }}" type="video/webm">
+            Your browser does not support the video tags.
+        </video>
+        {% endfor %}
+    </div>
+</section>
+
+     
+        <div class="boxed boxedp4">
+            <div class="row contactv2 text-center">
+                <div class="col-md-4">
+                    <div class="small-box">
+                        <a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?"target="_blank">
+                        <i style="color: #04245c;"class="fa fa-whatsapp"></i></a>
+                        <h4 style="font-family: Georgia;">Book an Inspection </h4>
+                        <h5> <a style="font-weight:400;"href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?"target="_blank">+234 812 492 8163</a></h5>
+                    
+                    </div><!-- end small-box -->
+                </div><!-- end col -->
+            
+                <div class="col-md-4"id="bb">
+                    <div class="small-box">
+                        <a href="mailto:info@deusmagnus.com"target="_blank">
+                        <i style="color: #04245c;"class="fa fa-envelope-o"></i></a> 
+                        <h4 style="font-family: Georgia;">Send Us an Email</h4>
+                        <p><a style="font-weight:400;" href="mailto:info@deusmagnus.com"target="_blank">info@deusmagnus.com</a></p>
+     
+                    </div><!-- end small-box -->
+                </div><!-- end col -->
+
+                <div class="col-md-4"id="bc">
+                    <div class="small-box">
+                         <a href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"target="_blank">
+                        <i style="color: #04245c;"class="fa fa-flag-o"></i>      
+                        <h4 style="font-family: Georgia;">Visit Our Offices</h4>
+                        <a href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"target="_blank">
+                        <label>Head Office:</labe> <span style="font-weight:100;">19, Fatai Atere Way, Mushin, Lagos</span></a>
+                        <a href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"target="_blank">
+                            <label>Lekki Office:</labe> <span style="font-weight:100;">Block 58a, Plot 10a, Omorinre <br>Johnson Street, Lekki, Lagos</span></a>
+                        </a> 
+                        <a style="font-weight:100;"href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"target="_blank"><p >View on Google Map</p></a>  
+                    </div><!-- end small-box -->
+                </div><!-- end col -->   
+
+            </div><!-- end contactv2 -->
+        </div>
+
+        
+        <div class="boxe">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="section-title text-center">
+                        <h3 style="font-family: Georgia;"id="bc">Contact Form</h3>
+                        <p>Ready to elevate your property portfolio in Lagos or beyond? 
+                            Our team of experts is prepared to bring your vision to life, 
+                            ensuring quality, efficiency, and long-term value for your real estate investments.</p>
+                    </div><!-- end title -->
+                    <form action="{% url 'contact' %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="message-name" class="form-control" placeholder="Enter your name.."><br>
+                        <input type="email" name="message-email" class="form-control" placeholder="Enter email.."><br>
+                        <input type="email" name="message-subject" class="form-control" placeholder="Enter subject.."><br>
+                        <textarea name="message" class="form-control" placeholder="Message Senwin here.."></textarea><br>
+                        <center><button type="submit" class="btn btn-primary" style="border-radius: 5px; font-family: Georgia;">Submit</button></center>
+                    </form>
+                    
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div>
+</div>
+</section>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66b25f401601a2195ba175fc/1i4kc85n1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+       {% endblock %}
