@@ -237,6 +237,7 @@ def message (request):
     return render (request, 'deus_magnus/message.html', {})
 
 #This is the blog services category of deus magnus
+
 class BlogView(ListView):
     model = BlogDeusMagnus
     template_name = 'deus_magnus/blog.html'
