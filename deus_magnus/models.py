@@ -85,7 +85,6 @@ class SubPicture_2 (models.Model):
         return reverse('home','sub_video_img_detail','sub_detail_video','sub_detail',
                        'board_detail','blog_detail','last_detail','second_detail','detail')
     
-    
 #first sub video category of the video
 class VideoSubImage(models.Model):
     video_sub_title = models.CharField(max_length=200, blank=True, null=True)
