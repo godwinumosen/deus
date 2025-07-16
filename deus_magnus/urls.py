@@ -19,7 +19,9 @@ urlpatterns = [
     path('message/', views.message, name='message'),
     path('sub_picture/<int:pk>/', SubPictureDetailView.as_view(), name="sub_detail"),
     path('sub_video/<int:pk>/', SubVideoDetailView.as_view(), name="sub_detail_video"),
+    
     path('sub_video_img/<int:pk>/', VideoImageDetailView.as_view(), name="sub_video_img_detail"),
+    
     path('blog/', BlogView.as_view(), name='blog'),
     path('blog_article/<int:pk>/', BlogArticleDetail.as_view(), name="blog_detail"),
     path('deus_magnus_event/', EventBlog.as_view(), name='deus_magnus_event'),

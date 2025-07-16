@@ -77,6 +77,21 @@ class SecondConstructionDetailViewArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['subs'] = SubPicture_1.objects.all() 
         return context 
+    
+#This is for our projects view
+class Project(ListView):
+    model = SubPicture_1
+    template_name = 'deus_magnus/project.html'
+
+#sub_picture article display inside second detailsview
+class SubPictureDetailView(DetailView):
+    model = SubPicture_1
+    template_name = 'deus_magnus/sub_picture_detail.html'
+    context_object_name = 'sub_picture'
+    def SubPictureDetailView(request, pk):
+        object = get_object_or_404(SubPictureDetailView, pk=pk)
+        return render(request, 'deus_magnus/sub_picture_detail.html', {'sub_detail': object})
+
 
 # About page of  the deus magnus blog app
 class AboutView(ListView): 
@@ -178,20 +193,6 @@ class VideoImageDetailView(DetailView):
     def VideoImageDetailView(request, pk):  
         object = get_object_or_404(VideoImageDetailView, pk=pk)
         return render(request, 'deus_magnus/sub_video_img_detail.html', {'sub_video_img_detail': object})
-
-#This is for our projects view
-class Project(ListView):
-    model = SubPicture_1
-    template_name = 'deus_magnus/project.html'
-
-#sub_picture article display inside second detailsview
-class SubPictureDetailView(DetailView):
-    model = SubPicture_1
-    template_name = 'deus_magnus/sub_picture_detail.html'
-    context_object_name = 'sub_picture'
-    def SubPictureDetailView(request, pk):
-        object = get_object_or_404(SubPictureDetailView, pk=pk)
-        return render(request, 'deus_magnus/sub_picture_detail.html', {'sub_detail': object})
     
     
 #sub_picture article display inside second detailsview
