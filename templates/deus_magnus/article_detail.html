@@ -59,7 +59,7 @@
                                 {% for sub_v_img in sub_v_imgs %}
                                 <div class="media"> 
                                     <a href="{% url 'sub_video_img_detail' pk=sub_v_img.pk %}">
-                                    <img src="{{ sub_v_img.video_sub_image.url }}"height="20px" alt="" class="img-responsive alignleft img-rounded">
+                                    <img src="{{ sub_v_img.video_sub_image.url }}" width="30" height="20" alt="" class="img-responsive alignleft img-rounded">
                                     </a>
                                     <div class="media-body">
                                         <h5 class="mt-0"><a href="{% url 'sub_video_img_detail' pk=sub_v_img.pk %}">{{ sub_v_img.video_sub_title|truncatechars:30 }}</a></h5>
