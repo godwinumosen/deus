@@ -40,10 +40,6 @@
                                 <p>{{ sub_picture.sub_description_1 }}</p>
                             </div><!-- end desc -->
                         </div><!-- end blog -->
-                        
-                    <div class="btn-wrapper">
-                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
-                    </div>
                     </div><!-- end content -->
                 </div><!-- end col -->
             </div><!-- end row -->
@@ -59,27 +55,18 @@
                 <div class="col-md-9">
                     <div class="content blog-list">
                         <div class="blog-wrapper clearfix">
-                            <div class="blog-meta">
-                                <h3 style="color: #98681e;">{{ sub_video_img.video_sub_title }}</h3>
-                                <ul class="list-inline">  
-                                    <li>{{ sub_video_img.video_sub_publish_date }}</li>
-                                    <li><span>written by</span>Deus Magnus</li>
-                                </ul>
-                            </div><!-- end blog-meta -->
+                        
                             <div class="blog-media">
-                                {% if sub_picture.sub_image_1 %}
-                                <img src="{{ sub_picture.sub_image_1.url }}" alt="" class="img-responsive">
-                                {% endif  %}
+                             {% if sub_picture.sub_image_2 %}
+                                <img src="{{ sub_picture.sub_image_2.url }}" alt="" class="img-responsive">
+                            {% endif %}
+
                             </div><!-- end media -->
                             <div class="blog-desc-big">
                                 <h3 style="color: #98681e;">{{ sub_picture.sub_title_1 }}</h3>
-                                <p>{{ sub_picture.sub_description_1 }}</p>
+                                <p>{{ sub_picture.sub_description_2 }}</p>
                             </div><!-- end desc -->
                         </div><!-- end blog -->
-                        
-                    <div class="btn-wrapper">
-                        <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Back</a>
-                    </div>
                     </div><!-- end content -->
                 </div><!-- end col -->
             </div><!-- end row -->
@@ -94,21 +81,15 @@
                 <div class="col-md-9">
                     <div class="content blog-list">
                         <div class="blog-wrapper clearfix">
-                            <div class="blog-meta">
-                                <h3 style="color: #98681e;">{{ sub_video_img.video_sub_title }}</h3>
-                                <ul class="list-inline">  
-                                    <li>{{ sub_video_img.video_sub_publish_date }}</li>
-                                    <li><span>written by</span>Deus Magnus</li>
-                                </ul>
-                            </div><!-- end blog-meta -->
+                          
                             <div class="blog-media">
-                                {% if sub_picture.sub_image_1 %}
-                                <img src="{{ sub_picture.sub_image_1.url }}" alt="" class="img-responsive">
+                                {% if sub_picture.sub_image_3 %}
+                                <img src="{{ sub_picture.sub_image_3.url }}" alt="" class="img-responsive">
                                 {% endif  %}
                             </div><!-- end media -->
                             <div class="blog-desc-big">
-                                <h3 style="color: #98681e;">{{ sub_picture.sub_title_1 }}</h3>
-                                <p>{{ sub_picture.sub_description_1 }}</p>
+                                <h3 style="color: #98681e;">{{ sub_picture.sub_title_3 }}</h3>
+                                <p>{{ sub_picture.sub_description_3 }}</p>
                             </div><!-- end desc -->
                         </div><!-- end blog -->
                         
