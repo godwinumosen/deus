@@ -82,7 +82,6 @@ class SecondConstructionDetailViewArticleDetailView(DetailView):
 class Project(ListView):
     model = SubPicture_1
     template_name = 'deus_magnus/project.html'
-
 #sub_picture article display inside second detailsview
 class SubPictureDetailView(DetailView):
     model = SubPicture_1
