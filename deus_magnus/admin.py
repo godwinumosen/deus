@@ -2,7 +2,7 @@ from django.contrib import admin
 # Register your models here.
 from . import models
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
-from .models import SubPicture_1,ProjectSubPicture_1, VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture
+from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #ProjectSubPicture_1,
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
 from .models import ConcreteSupply,BoomPump,EquipmentHire,MaterialSupply
@@ -26,10 +26,10 @@ class SubPicture_1_ModelAdmin (admin.ModelAdmin):
 admin.site.register(SubPicture_1, SubPicture_1_ModelAdmin)
 
 #The inner sub category of the detailview page view
-class Project_SubPicture_1_ModelAdmin (admin.ModelAdmin):
+'''class Project_SubPicture_1_ModelAdmin (admin.ModelAdmin):
     prepopulated_fields = {'project_sub_slug_1': ('project_sub_title_1',)}
     list_display = ['project_sub_title_1','project_sub_description_1','project_sub_image_1','project_sub_author_1']
-admin.site.register(ProjectSubPicture_1, Project_SubPicture_1_ModelAdmin)
+admin.site.register(ProjectSubPicture_1, Project_SubPicture_1_ModelAdmin)'''
 
 #The inner second sub category of the detailview page view
 class SubPicture_2_ModelAdmin (admin.ModelAdmin):

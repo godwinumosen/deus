@@ -48,14 +48,18 @@ class SecondDeusMagnusMainPicturePost(models.Model):
         return reverse('home',)
 
     
-#first sub picture category of the picture
+#project first sub picture category of the picture
 class SubPicture_1(models.Model):
     sub_title_1 = models.CharField(max_length=200, blank=True, null=True)
     sub_description_1 = models.TextField()
     sub_slug_1 = models.SlugField (max_length=255,blank=True, null=True)
     sub_image_1 = models.ImageField(upload_to='images_sub/')
-    #sub_image_2 = models.ImageField(upload_to='images_sub2/')
-    #sub_image_3 = models.ImageField(upload_to='images_sub2/')
+    sub_title_2 = models.CharField(max_length=200, blank=True, null=True)
+    sub_description_2 = models.TextField()
+    sub_image_2 = models.ImageField(upload_to='images_sub2/')
+    sub_title_3 = models.CharField(max_length=200, blank=True, null=True)
+    sub_description_3 = models.TextField()
+    sub_image_3 = models.ImageField(upload_to='images_sub3/')
     sub_publish_date_1 = models.DateTimeField (auto_now_add= True)
     sub_author_1 = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -68,10 +72,11 @@ class SubPicture_1(models.Model):
         return reverse('home')
 
 #Sub picture in Project details category of the picture
-class ProjectSubPicture_1(models.Model):
+'''class ProjectSubPicture_1(models.Model):
     project_sub_title_1 = models.CharField(max_length=200, blank=True, null=True)
     project_sub_description_1 = models.TextField()
     project_sub_slug_1 = models.SlugField (max_length=255,blank=True, null=True)
+    project_sub_image_1 = models.ImageField(upload_to='project_images_sub/')
     project_sub_image_1 = models.ImageField(upload_to='project_images_sub/')
     project_sub_publish_date_1 = models.DateTimeField (auto_now_add= True)
     project_sub_author_1 = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,7 +87,7 @@ class ProjectSubPicture_1(models.Model):
         return self.project_sub_title_1 + ' | ' + str(self.project_sub_author_1)
 
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('home')'''
     
     
 class SubPicture_2 (models.Model):
