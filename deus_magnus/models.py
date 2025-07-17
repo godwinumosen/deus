@@ -71,23 +71,22 @@ class SubPicture_1(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
-#Sub picture in Project details category of the picture
-'''class ProjectSubPicture_1(models.Model):
-    project_sub_title_1 = models.CharField(max_length=200, blank=True, null=True)
-    project_sub_description_1 = models.TextField()
-    project_sub_slug_1 = models.SlugField (max_length=255,blank=True, null=True)
-    project_sub_image_1 = models.ImageField(upload_to='project_images_sub/')
-    project_sub_image_1 = models.ImageField(upload_to='project_images_sub/')
-    project_sub_publish_date_1 = models.DateTimeField (auto_now_add= True)
-    project_sub_author_1 = models.ForeignKey(User, on_delete=models.CASCADE)
+#Project Video Listviews category of the picture
+class ProjectVideo(models.Model):
+    project_video_title = models.CharField(max_length=200, blank=True, null=True)
+    project_video_description = models.TextField()
+    project_video_slug = models.SlugField (max_length=255,blank=True, null=True)
+    project_video = models.FileField(upload_to='video_sub/')
+    project_video_publish_date = models.DateTimeField (auto_now_add= True)
+    project_video_author= models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        ordering =['-project_sub_publish_date_1']
+        ordering =['-project_video_publish_date']
     def __str__(self):
-        return self.project_sub_title_1 + ' | ' + str(self.project_sub_author_1)
+        return self.project_video_title + ' | ' + str(self.project_video_author)
 
     def get_absolute_url(self):
-        return reverse('home')'''
+        return reverse('home')
     
     
 class SubPicture_2 (models.Model):
