@@ -75,7 +75,6 @@ class SubPicture_1(models.Model):
 class ProjectVideo(models.Model):
     project_video_title = models.CharField(max_length=200, blank=True, null=True)
     project_video_description = models.TextField()
-    project_video_slug = models.SlugField (max_length=255,blank=True, null=True)
     project_video = models.FileField(upload_to='video_sub/')
     project_video_publish_date = models.DateTimeField (auto_now_add= True)
     project_video_author= models.ForeignKey(User, on_delete=models.CASCADE)

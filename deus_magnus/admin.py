@@ -2,7 +2,7 @@ from django.contrib import admin
 # Register your models here.
 from . import models
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
-from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #ProjectSubPicture_1,
+from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture,ProjectVideo
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
 from .models import ConcreteSupply,BoomPump,EquipmentHire,MaterialSupply
@@ -79,7 +79,10 @@ class GLOSSARYModelAdmin (admin.ModelAdmin):
     list_display = ['GLOSSARY_title','GLOSSARY_response','GLOSSARY_author']
 admin.site.register(GLOSSARY, GLOSSARYModelAdmin)
 
-
+#Project video class 
+class ProjectVideoModelAdmin (admin.ModelAdmin):
+    list_display = ['project_video_title','project_video_description','project_video']
+admin.site.register(ProjectVideo, ProjectVideoModelAdmin)
 
 class MainvideoModelAdmin (admin.ModelAdmin):
     list_display = ['deus_magnus_first_video']
