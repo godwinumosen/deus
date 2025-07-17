@@ -6,7 +6,7 @@ from .views import SubPictureDetailView,SubVideoDetailView
 from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView,AboutView
 from .views import DeusMagnusEventBlogArticleDetailView,BlogView,FAQs_item,GLOSSARY_item,GuidesView,GuidesDetailView
 from .views import FounderMessageView,ServicesPage,RealEstateServices,FacilityManagement,ConstructionDevelopment,Project
-from .views import Equipment,Boom,Concrete,Material,Specialized
+from .views import Equipment,Boom,Concrete,Material,Specialized,ProjectVideo
 
 urlpatterns = [
     path('index/', views.index, name='index'),
@@ -19,11 +19,12 @@ urlpatterns = [
     path('message/', views.message, name='message'),
     path('sub_picture/<int:pk>/', SubPictureDetailView.as_view(), name="sub_detail"),
     path('sub_video/<int:pk>/', SubVideoDetailView.as_view(), name="sub_detail_video"),
-    
     path('sub_video_img/<int:pk>/', VideoImageDetailView.as_view(), name="sub_video_img_detail"),
-    
     path('blog/', BlogView.as_view(), name='blog'),
     path('blog_article/<int:pk>/', BlogArticleDetail.as_view(), name="blog_detail"),
+    
+    path('projectvideo/', ProjectVideo.as_view(), name='projectvideo'),
+    
     path('deus_magnus_event/', EventBlog.as_view(), name='deus_magnus_event'),
     path('projects', Project.as_view(), name="projects"),
     path('events_article_detail/<int:pk>/', DeusMagnusEventBlogArticleDetailView.as_view(), name='events_article_detail'),

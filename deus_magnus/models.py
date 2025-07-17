@@ -72,10 +72,10 @@ class SubPicture_1(models.Model):
         return reverse('home')
 
 #Project Video Listviews category of the picture
-class ProjectVideo(models.Model):
+class ProjectsVideoModel(models.Model):
     project_video_title = models.CharField(max_length=200, blank=True, null=True)
     project_video_description = models.TextField()
-    project_video = models.FileField(upload_to='video_sub/')
+    project_video = models.FileField(upload_to='project_videos/')
     project_video_publish_date = models.DateTimeField (auto_now_add= True)
     project_video_author= models.ForeignKey(User, on_delete=models.CASCADE)
 

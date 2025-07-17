@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from .models import ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
 from .models import SubPicture_1, SubPicture_2,VideoSubImage, BlogDeusMagnus,DeusMagnusEventBlog,FAQs,Mainvideo
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,FounderPicture,BashPicture
-from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo,Aboutvideo
+from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo,Aboutvideo,ProjectsVideoModel
 from .models import EquipmentHire,BoomPump,ConcreteSupply,MaterialSupply,SpecializedServices
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -50,6 +50,12 @@ class DeusMagnusEventBlogArticleDetailView(DetailView):
         object = get_object_or_404(DeusMagnusEventBlog, pk=pk)
         return render(request, 'deus_magnus/deus_magnus_event_article.html',{'events_article_detail': object})
 
+#This deus_magnus_events view
+class ProjectVideo(ListView):
+    model = ProjectsVideoModel
+    template_name = 'deus_magnus/project_video.html'
+    
+    
  #The first Deus Magnus Video ArticleDetailView page
 class ArticleDetailView(DetailView):
     model = DeusMagnusMainPost
