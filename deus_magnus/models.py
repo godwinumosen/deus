@@ -71,6 +71,7 @@ class SubPicture_1(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
+
 #Project Video Listviews category of the picture
 class ProjectsVideoModel(models.Model):
     project_video_title = models.CharField(max_length=200, blank=True, null=True)
