@@ -2,7 +2,7 @@ from django.contrib import admin
 # Register your models here.
 from . import models
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
-from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture,ProjectsVideoModel
+from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #,ProjectsVideoModel
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
 from .models import ConcreteSupply,BoomPump,EquipmentHire,MaterialSupply
@@ -30,6 +30,12 @@ admin.site.register(SubPicture_1, SubPicture_1_ModelAdmin)
     prepopulated_fields = {'project_sub_slug_1': ('project_sub_title_1',)}
     list_display = ['project_sub_title_1','project_sub_description_1','project_sub_image_1','project_sub_author_1']
 admin.site.register(ProjectSubPicture_1, Project_SubPicture_1_ModelAdmin)'''
+
+
+#Project video class 
+'''class ProjectVideoModelAdmin (admin.ModelAdmin):
+    list_display = ['project_video_title','project_video_description','project_video']
+admin.site.register(ProjectsVideoModel, ProjectVideoModelAdmin)'''
 
 #The inner second sub category of the detailview page view
 class SubPicture_2_ModelAdmin (admin.ModelAdmin):
@@ -78,11 +84,6 @@ class GLOSSARYModelAdmin (admin.ModelAdmin):
     prepopulated_fields = {'GLOSSARY_slug': ('GLOSSARY_title',)}
     list_display = ['GLOSSARY_title','GLOSSARY_response','GLOSSARY_author']
 admin.site.register(GLOSSARY, GLOSSARYModelAdmin)
-
-#Project video class 
-class ProjectVideoModelAdmin (admin.ModelAdmin):
-    list_display = ['project_video_title','project_video_description','project_video']
-admin.site.register(ProjectsVideoModel, ProjectVideoModelAdmin)
 
 class MainvideoModelAdmin (admin.ModelAdmin):
     list_display = ['deus_magnus_first_video']

@@ -73,7 +73,7 @@ class SubPicture_1(models.Model):
 
 
 #Project Video Listviews category of the picture
-class ProjectsVideoModel(models.Model):
+'''class ProjectsVideoModel(models.Model):
     project_video_title = models.CharField(max_length=200, blank=True, null=True)
     project_video_description = models.TextField()
     project_video = models.FileField(upload_to='project_videos/')
@@ -86,7 +86,7 @@ class ProjectsVideoModel(models.Model):
         return self.project_video_title + ' | ' + str(self.project_video_author)
 
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('home')'''
     
     
 class SubPicture_2 (models.Model):
