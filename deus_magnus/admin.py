@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
 from . import models
-from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
+from .models import ClientReview, DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
 from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #,ProjectsVideoModel
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
@@ -136,3 +136,17 @@ class SpecializedServicesModelAdmin (admin.ModelAdmin):
     list_display = ['deus_magnus_specialized_p']
 admin.site.register(SpecializedServices, SpecializedServicesModelAdmin)
 
+
+class ClientReviewModelAdmin(admin.ModelAdmin):
+    list_display = [
+        'client_name',
+        'client_company',
+        'rating',
+        'published',
+        'created_at'
+    ]
+    list_filter = ['published', 'rating']
+    search_fields = ['client_name', 'client_company', 'review']
+
+
+admin.site.register(ClientReview, ClientReviewModelAdmin)

@@ -301,3 +301,21 @@ class SpecializedServices(models.Model):
     deus_magnus_specialized_p = models.ImageField(upload_to='specialized_p/')
 
 
+class ClientReview(models.Model):
+    client_name = models.CharField(max_length=255)
+    client_company = models.CharField(max_length=255, blank=True, null=True)
+    client_photo = models.ImageField(
+        upload_to='client_reviews/',
+        blank=True,
+        null=True
+    )
+    review = models.TextField()
+    rating = models.PositiveIntegerField(default=5)
+    published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.client_name

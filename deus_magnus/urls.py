@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from .views import HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView
+from .views import ClientReviewsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView
 from .views import SubPictureDetailView,SubVideoDetailView
 from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView,AboutView
 from .views import DeusMagnusEventBlogArticleDetailView,BlogView,FAQs_item,GLOSSARY_item,GuidesView,GuidesDetailView
@@ -33,6 +33,7 @@ urlpatterns = [
     path('our_management_team_article/<int:pk>/', ManagementTeamArticleOfDuesMagnusDetail.as_view(), name="our_management_team_article"),
     path('mission_vision_strategy/', views.MissionVisionStrategesView, name='mission_vision_strategy'),
     path('faqs_items/', FAQs_item.as_view(), name='faqs_items'),
+
     path('glossary_items/', GLOSSARY_item.as_view(), name='glossary_items'),
     path('founder_message/', FounderMessageView.as_view(), name='founder_message'),
     path('services/', ServicesPage.as_view(), name='services'),
@@ -44,6 +45,8 @@ urlpatterns = [
     path('concrete/', Concrete.as_view(), name='concrete'),
     path('material/', Material.as_view(), name='material'),
     path('specialized/', Specialized.as_view(), name='specialized'),
+
+    path('reviews/', ClientReviewsView.as_view(), name='client_reviews'),
 
     
     
