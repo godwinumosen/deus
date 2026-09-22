@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from .views import ClientReviewsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView
+from .views import ClientReviewsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView, what_we_do
 from .views import SubPictureDetailView,SubVideoDetailView
 from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView,AboutView
 from .views import DeusMagnusEventBlogArticleDetailView,BlogView,FAQs_item,GLOSSARY_item,GuidesView,GuidesDetailView
@@ -47,6 +47,7 @@ urlpatterns = [
     path('specialized/', Specialized.as_view(), name='specialized'),
 
     path('reviews/', ClientReviewsView.as_view(), name='client_reviews'),
+    path("what-we-do/", what_we_do, name="what_we_do"),
 
     
     

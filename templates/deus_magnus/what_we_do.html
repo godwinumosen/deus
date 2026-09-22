@@ -1,0 +1,662 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}What We Do | Deus Magnus Limited{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+
+<section class="py-5"
+         style="background-color: #04245c;">
+
+
+<div class="container">
+
+    <div class="row align-items-center py-5">
+
+        <div class="col-lg-7">
+
+            <p class="text-uppercase fw-bold mb-3"
+               style="
+                   color: #d6a84f;
+                   letter-spacing: 4px;
+                   font-size: 13px;
+               ">
+                What We Do
+            </p>
+
+            <h1 class="display-4 fw-bold text-white mb-4"
+                style="font-family: Georgia, serif;">
+                Building Solutions.
+                <br>
+                Creating Value.
+            </h1>
+
+            <p class="lead text-white-50 mb-4"
+               style="line-height: 1.8;">
+                At Deus Magnus Limited, we provide professional,
+                reliable and innovative solutions designed to meet
+                the needs of individuals, businesses and organisations.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <a href="#services"
+                   class="btn btn-lg px-4 py-3"
+                   style="
+                       background-color: #98681e;
+                       color: #ffffff;
+                       border: none;
+                   ">
+                    Explore Our Services
+                </a>
+
+                <a href="{% url 'contact' %}"
+                   class="btn btn-outline-light btn-lg px-4 py-3">
+                    Contact Us
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-5 mt-5 mt-lg-0">
+
+            <div class="bg-white p-4 shadow-lg">
+
+                <div class="p-4"
+                     style="border: 1px solid #e8e8e8;">
+
+                    <div class="mb-4"
+                         style="
+                             color: #98681e;
+                             font-size: 45px;
+                         ">
+                        ★
+                    </div>
+
+                    <h3 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Professional Excellence
+                    </h3>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        We combine professionalism, experience and
+                        dedication to deliver solutions that create
+                        meaningful results for our clients.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- INTRODUCTION -->
+
+<section class="py-5 bg-light">
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9 text-center py-4">
+
+            <p class="text-uppercase fw-bold mb-2"
+               style="
+                   color: #98681e;
+                   letter-spacing: 3px;
+                   font-size: 13px;
+               ">
+                Our Approach
+            </p>
+
+            <h2 class="fw-bold mb-4"
+                style="
+                    color: #04245c;
+                    font-family: Georgia, serif;
+                ">
+                Solutions Designed Around You
+            </h2>
+
+            <div class="mx-auto mb-4"
+                 style="
+                     width: 55px;
+                     height: 2px;
+                     background-color: #98681e;
+                 ">
+            </div>
+
+            <p class="text-muted"
+               style="
+                   line-height: 1.9;
+                   font-size: 16px;
+               ">
+                We understand that every client is different.
+                That is why we take the time to understand your
+                requirements, identify opportunities and provide
+                practical solutions tailored to your goals.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services" class="py-5">
+
+
+<div class="container">
+
+    <div class="text-center mb-5">
+
+        <p class="text-uppercase fw-bold mb-2"
+           style="
+               color: #98681e;
+               letter-spacing: 3px;
+               font-size: 13px;
+           ">
+            Our Services
+        </p>
+
+        <h2 class="fw-bold"
+            style="
+                color: #04245c;
+                font-family: Georgia, serif;
+            ">
+            What We Do
+        </h2>
+
+        <div class="mx-auto mt-3"
+             style="
+                 width: 55px;
+                 height: 2px;
+                 background-color: #98681e;
+             ">
+        </div>
+
+    </div>
+
+
+    <div class="row g-4">
+
+
+        <!-- SERVICE 1 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        01
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Consulting
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Professional advice and practical guidance
+                        to help clients make informed decisions,
+                        improve performance and achieve their goals.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE 2 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        02
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Business Solutions
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Tailored solutions that help businesses
+                        address challenges, improve operations and
+                        create sustainable opportunities for growth.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE 3 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        03
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Project Management
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Structured project support focused on
+                        planning, coordination, execution and
+                        achieving clearly defined objectives.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE 4 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        04
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Advisory Services
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Strategic insight and professional support
+                        to help organisations identify opportunities
+                        and navigate important decisions.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE 5 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        05
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Business Development
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Support for identifying new opportunities,
+                        developing partnerships and building
+                        strategies for long-term growth.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE 6 -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="mb-4"
+                         style="
+                             width: 65px;
+                             height: 65px;
+                             background-color: #04245c;
+                             color: #ffffff;
+                             display: flex;
+                             align-items: center;
+                             justify-content: center;
+                             font-size: 27px;
+                         ">
+                        06
+                    </div>
+
+                    <h4 class="fw-bold mb-3"
+                        style="
+                            color: #04245c;
+                            font-family: Georgia, serif;
+                        ">
+                        Professional Support
+                    </h4>
+
+                    <p class="text-muted mb-0"
+                       style="line-height: 1.8;">
+                        Reliable professional support designed
+                        around the specific requirements of each
+                        client and project.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- WHY CHOOSE US -->
+
+<section class="py-5 bg-light">
+
+
+<div class="container">
+
+    <div class="row align-items-center py-4">
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+
+            <p class="text-uppercase fw-bold mb-2"
+               style="
+                   color: #98681e;
+                   letter-spacing: 3px;
+                   font-size: 13px;
+               ">
+                Why Deus Magnus
+            </p>
+
+            <h2 class="fw-bold mb-4"
+                style="
+                    color: #04245c;
+                    font-family: Georgia, serif;
+                ">
+                Professionalism You Can Rely On
+            </h2>
+
+            <p class="text-muted mb-4"
+               style="line-height: 1.9;">
+                Our focus is on creating lasting value through
+                professionalism, integrity, collaboration and
+                a commitment to delivering quality results.
+            </p>
+
+            <div class="d-flex mb-3">
+
+                <div class="me-3"
+                     style="color: #98681e; font-size: 22px;">
+                    ✓
+                </div>
+
+                <div>
+                    <h5 class="fw-bold mb-1"
+                        style="color: #04245c;">
+                        Client Focused
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        We put the needs and objectives of our
+                        clients at the centre of our work.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="d-flex mb-3">
+
+                <div class="me-3"
+                     style="color: #98681e; font-size: 22px;">
+                    ✓
+                </div>
+
+                <div>
+                    <h5 class="fw-bold mb-1"
+                        style="color: #04245c;">
+                        Quality Driven
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        We maintain a strong commitment to quality
+                        in every service we provide.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="d-flex">
+
+                <div class="me-3"
+                     style="color: #98681e; font-size: 22px;">
+                    ✓
+                </div>
+
+                <div>
+                    <h5 class="fw-bold mb-1"
+                        style="color: #04245c;">
+                        Results Oriented
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        We focus on practical solutions and
+                        meaningful outcomes.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-6">
+
+            <div class="p-5"
+                 style="background-color: #04245c;">
+
+                <div class="text-center">
+
+                    <div class="mb-4"
+                         style="
+                             color: #d6a84f;
+                             font-size: 55px;
+                         ">
+                        ★
+                    </div>
+
+                    <h3 class="text-white fw-bold mb-4"
+                        style="font-family: Georgia, serif;">
+                        Let's Work Together
+                    </h3>
+
+                    <p class="text-white-50 mb-4"
+                       style="line-height: 1.8;">
+                        Whether you are looking for professional
+                        advice, business support or a tailored
+                        solution, we are ready to discuss your needs.
+                    </p>
+
+                    <a href="{% url 'contact' %}"
+                       class="btn btn-lg px-5"
+                       style="
+                           background-color: #98681e;
+                           color: #ffffff;
+                           border: none;
+                       ">
+                        Get In Touch
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="py-5"
+         style="background-color: #04245c;">
+
+
+<div class="container">
+
+    <div class="text-center py-4">
+
+        <p class="text-uppercase fw-bold mb-2"
+           style="
+               color: #d6a84f;
+               letter-spacing: 3px;
+               font-size: 13px;
+           ">
+            Deus Magnus Limited
+        </p>
+
+        <h2 class="text-white fw-bold mb-3"
+            style="font-family: Georgia, serif;">
+            Let's Create Something Valuable Together
+        </h2>
+
+        <p class="text-white-50 mb-4">
+            Speak with our team about your next project or business need.
+        </p>
+
+        <a href="{% url 'contact' %}"
+           class="btn btn-light btn-lg px-5">
+            Contact Us
+        </a>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

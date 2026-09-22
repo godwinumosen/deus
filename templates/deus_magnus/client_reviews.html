@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block title %}Client Reviews | Deus Magnus Limited{% endblock %}
@@ -10,6 +11,7 @@
 
 <div class="container">
 
+    <!-- Page Header -->
     <div class="text-center" style="margin-bottom: 65px;">
 
         <p style="
@@ -25,7 +27,7 @@
 
         <h2 style="
             color: #04245c;
-            font-family: Georgia;
+            font-family: Georgia, serif;
             font-size: 38px;
             margin: 0 0 18px;
         ">
@@ -54,6 +56,7 @@
     </div>
 
 
+    <!-- Reviews -->
     <div class="row">
 
         {% for review in reviews %}
@@ -69,9 +72,10 @@
                 transition: all 0.3s ease;
             ">
 
+                <!-- Quote -->
                 <div style="
                     color: #98681e;
-                    font-family: Georgia;
+                    font-family: Georgia, serif;
                     font-size: 55px;
                     line-height: 40px;
                     margin-bottom: 15px;
@@ -80,7 +84,7 @@
                 </div>
 
 
-                <!-- Review limited to 26 words -->
+                <!-- Review -->
                 <p style="
                     color: #555;
                     font-size: 15px;
@@ -92,6 +96,7 @@
                 </p>
 
 
+                <!-- Client Information -->
                 <div style="
                     display: flex;
                     align-items: center;
@@ -101,28 +106,31 @@
 
                     {% if review.client_photo %}
 
-                        <img src="{{ review.client_photo.url }}"
-                             alt="{{ review.client_name }}"
-                             style="
+                        <img
+                            src="{{ review.client_photo.url }}"
+                            alt="{{ review.client_name }}"
+                            style="
                                 width: 65px;
                                 height: 65px;
                                 border-radius: 50%;
                                 object-fit: cover;
                                 margin-right: 15px;
-                             ">
+                            "
+                        >
 
                     {% else %}
 
                         <div style="
                             width: 65px;
                             height: 65px;
+                            min-width: 65px;
                             border-radius: 50%;
                             background: #04245c;
                             color: #ffffff;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            font-family: Georgia;
+                            font-family: Georgia, serif;
                             font-size: 24px;
                             margin-right: 15px;
                         ">
@@ -134,16 +142,20 @@
 
                     <div>
 
+                        <!-- Client Name -->
                         <h4 style="
                             color: #04245c;
-                            font-family: Georgia;
+                            font-family: Georgia, serif;
                             font-size: 17px;
                             margin: 0 0 5px;
                         ">
                             {{ review.client_name }}
                         </h4>
 
+
+                        <!-- Company -->
                         {% if review.client_company %}
+
                             <p style="
                                 color: #999;
                                 font-size: 13px;
@@ -151,20 +163,27 @@
                             ">
                                 {{ review.client_company }}
                             </p>
+
                         {% endif %}
 
+
+                        <!-- Rating -->
                         <div style="
                             color: #98681e;
                             font-size: 15px;
                             letter-spacing: 1px;
                         ">
+
                             {% for i in "12345" %}
+
                                 {% if forloop.counter <= review.rating %}
                                     ★
                                 {% else %}
                                     ☆
                                 {% endif %}
+
                             {% endfor %}
+
                         </div>
 
                     </div>

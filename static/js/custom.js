@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const stats = [
-        { id: 'years-experience', target: 6, duration: 2000 },
+        { id: 'years-experience', target: 16, duration: 2000 },
         { id: 'properties-sold', target: 11, duration: 2000 },
         { id: 'ongoing-projects', target: 23, duration: 2000 },
         { id: 'completed-projects', target: 7, duration: 2000 }

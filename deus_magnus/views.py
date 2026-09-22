@@ -300,3 +300,7 @@ class ClientReviewsView(ListView):
 
     def get_queryset(self):
         return ClientReview.objects.filter(published=True)
+
+
+def what_we_do(request):
+    return render(request, "deus_magnus/what_we_do.html")
