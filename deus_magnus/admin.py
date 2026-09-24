@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
 from . import models
-from .models import ClientReview, DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,SubPicture_2
+from .models import ClientReview, DeusMagnusMainPost, FeaturedProjects, SecondDeusMagnusMainPicturePost,SubPicture_2
 from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #,ProjectsVideoModel
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
@@ -150,3 +150,8 @@ class ClientReviewModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ClientReview, ClientReviewModelAdmin)
+
+
+class FeaturedProjectsModelAdmin (admin.ModelAdmin):
+    list_display = ['project_title','project_description','project_author']
+admin.site.register(FeaturedProjects, FeaturedProjectsModelAdmin)

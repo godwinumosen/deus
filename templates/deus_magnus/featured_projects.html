@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Featured Projects{% endblock %}
+
+{% block content %}
+
+<section class="section db p120">
+    <div class="container">
+        <div class="row">
+
+
+        <div class="col-md-12">
+            <br><br>
+
+            <div class="tagline-message page-title text-center">
+                <h1 style="color:#fff;font-family:Georgia;font-size:50px;">
+                    FEATURED PROJECTS
+                </h1>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+</section>
+
+<section class="section">
+
+
+<div class="container">
+
+    <div class="section-title text-center">
+
+        <h3>Spaces That Speak for Themselves</h3>
+
+        <p>
+            Every project tells a story of vision, planning, execution
+            and attention to detail. Explore selected Deus Magnus
+            projects and discover what goes into creating spaces built
+            to perform and endure.
+        </p>
+
+    </div>
+
+
+    <!-- PROJECTS -->
+
+    <div class="row">
+
+        {% for project in projects %}
+
+        <div class="col-md-4 col-sm-6">
+
+            <div class="teammembers">
+
+                <div class="entry">
+
+                    <img
+                        src="{{ project.project_img.url }}"
+                        alt="{{ project.project_title }}"
+                        class="img-responsive"
+                    >
+
+                    <div class="magnifier">
+
+                        <div class="visible-buttons1 teambuttons">
+
+                            <p>
+                                {{ project.project_description|truncatewords:25 }}
+                            </p>
+
+                            <div class="social-links">
+
+                                <a href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+
+                                <a href="#">
+                                    <i class="fa fa-dribbble"></i>
+                                </a>
+
+                                <a href="#">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+
+                                <a href="#">
+                                    <i class="fa fa-skype"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teamdesc">
+
+                    <h4>
+                        {{ project.project_title }}
+                    </h4>
+
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-md-12 text-center">
+
+            <p>
+                No featured projects available yet.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

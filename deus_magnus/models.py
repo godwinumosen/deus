@@ -304,11 +304,7 @@ class SpecializedServices(models.Model):
 class ClientReview(models.Model):
     client_name = models.CharField(max_length=255)
     client_company = models.CharField(max_length=255, blank=True, null=True)
-    client_photo = models.ImageField(
-        upload_to='client_reviews/',
-        blank=True,
-        null=True
-    )
+    client_photo = models.ImageField(upload_to='client_reviews/',blank=True,null=True)
     review = models.TextField()
     rating = models.PositiveIntegerField(default=5)
     published = models.BooleanField(default=True)
@@ -319,3 +315,19 @@ class ClientReview(models.Model):
 
     def __str__(self):
         return self.client_name
+
+
+class FeaturedProjects(models.Model):
+    project_title = models.CharField(max_length=255, blank=True, null=True)
+    project_description = models.TextField()
+    project_img = models.ImageField(upload_to='our_team_images/')
+    project_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    project_publish_date = models.DateTimeField (auto_now_add= True)
+
+    class Meta:
+        ordering =['-project_publish_date']
+    
+    def __str__(self):
+        return self.project_title + ' | ' + str(self.project_author)
+
+    

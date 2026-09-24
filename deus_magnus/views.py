@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse
 from django.urls import reverse_lazy
-from .models import ClientReview, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
+from .models import ClientReview, FeaturedProjects, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
 from .models import SubPicture_1, SubPicture_2,VideoSubImage, BlogDeusMagnus,DeusMagnusEventBlog,FAQs,Mainvideo
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,FounderPicture,BashPicture
 from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo,Aboutvideo #,ProjectsVideoModel
@@ -304,3 +304,20 @@ class ClientReviewsView(ListView):
 
 def what_we_do(request):
     return render(request, "deus_magnus/what_we_do.html")
+
+
+class FeaturedProjectsView(ListView):
+    model = FeaturedProjects
+    template_name = 'deus_magnus/featured_projects.html'
+    context_object_name = 'projects'
+    
+    
+#The blog article of the blog project of Deus Magnus
+"""class FeaturedProjectsArticleDetail(DetailView):
+    model = FeaturedProjects
+    template_name = 'deus_magnus/blog_article_detail.html'
+
+    def BlogArticleDetail(request, pk):  
+        object = get_object_or_404(BlogDeusMagnus, pk=pk)
+        return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})"""
+    
