@@ -131,38 +131,104 @@
 
 <section class="section gb">
     <div class="container"><br>
-        <div class="section-title text-center">
-            <h3 style="color: #98681e;">Featured Projects</h3>
-            <p>Our collection of elegance, comfort and luxury at the heart of Lagos, Nigeria.</p>
-        </div><!-- end title -->
-        <div class="row">
-            {% for second_construction in second_constructions %}
-            <div class="col-lg-4 col-md-12">
-                <div class="blog-box">
-                    <div class="image-wrap entry">
-                        {% if second_construction.second_deus_magnus_img %}
+
+
+    <div class="section-title text-center">
+        <h3 style="color: #98681e;">Featured Projects</h3>
+        <p>Our collection of elegance, comfort and luxury at the heart of Lagos, Nigeria.</p>
+    </div><!-- end title -->
+
+    <div class="row">
+
+        {% for second_construction in second_constructions %}
+
+        <div class="col-lg-4 col-md-12">
+
+            <div class="blog-box">
+
+                <div class="image-wrap entry">
+
+                    {% if second_construction.second_deus_magnus_img %}
+
+                    <a href="{% url 'second_detail' second_construction.pk %}">
+                        <img
+                            src="{{ second_construction.second_deus_magnus_img.url }}"
+                            height="230px"
+                            class="custom-image"
+                        >
+                    </a>
+
+                    {% endif %}
+
+                </div><!-- end image-wrap -->
+
+
+                <div class="blog-desc">
+
+                    <h4>
                         <a href="{% url 'second_detail' second_construction.pk %}">
-                        <img src="{{ second_construction.second_deus_magnus_img.url }}"height="230px"  class="custom-image">
+                            {{ second_construction.second_deus_magnus_title|truncatechars:30 }}
                         </a>
-                        <!--<span  style="font-family:sarif;" class="badge rounded-pill bg-primary">{{ second_construction.second_deus_magnus_status}}</span>-->
-                        {% endif %}
-                       
-                    </div><!-- end image-wrap -->
-                    <div class="blog-desc">
-                        <h4><a href="{% url 'second_detail' second_construction.pk %}">{{ second_construction.second_deus_magnus_title |truncatechars:30}}</a></h4>
-                        <p>{{ second_construction.second_deus_magnus_description |truncatechars:75}}</p>
-                    </div><!-- end blog-des -->
-                    <div class="post-meta">
-                            <div class="btn-wrapper">
-                                <a href="{% url 'second_detail' second_construction.pk %} "class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;">Read More </a>
-                            </div>       
-                    </div><!-- end post-meta -->
-                </div><!-- end blog -->
-            </div><!-- end col -->
-            {%endfor%}
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br><br>
+                    </h4>
+
+                    <p>
+                        {{ second_construction.second_deus_magnus_description|truncatechars:75 }}
+                    </p>
+
+                </div><!-- end blog-desc -->
+
+
+                <div class="post-meta">
+
+                    <div class="btn-wrapper">
+
+                        <a
+                            href="{% url 'second_detail' second_construction.pk %}"
+                            class="btn btn-primary"
+                            style="border-radius: 5px; font-family: Georgia;"
+                        >
+                            Read More
+                        </a>
+
+                    </div>
+
+                </div><!-- end post-meta -->
+
+            </div><!-- end blog -->
+
+        </div><!-- end col -->
+
+        {% endfor %}
+
+    </div><!-- end row -->
+
+
+    <!-- EXPLORE MORE BUTTON -->
+    <div class="text-center" style="margin-top: 35px;">
+
+        <a
+            href="{% url 'projects' %}"
+            class="btn btn-primary"
+            style="
+                border-radius: 5px;
+                font-family: Georgia;
+                padding: 12px 30px;
+            "
+        >
+            Explore More
+        </a>
+
+    </div>
+    <!-- END EXPLORE MORE BUTTON -->
+
+
+</div><!-- end container -->
+
+
+</section>
+
+<br><br><br>
+
 
 <section class="section db p110">
     <div class="container"><br>

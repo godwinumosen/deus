@@ -1,10 +1,15 @@
+from xml.dom import ValidationErr
+
 from django.shortcuts import render,redirect,get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView,ListView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView,ListView
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.urls import reverse_lazy
-from .models import ClientReview, FeaturedProjects, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
+from django.views.decorators.http import require_POST
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from .models import ClientReview, FeaturedProjects, NewsletterSubscriber, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
 from .models import SubPicture_1, SubPicture_2,VideoSubImage, BlogDeusMagnus,DeusMagnusEventBlog,FAQs,Mainvideo
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,FounderPicture,BashPicture
 from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo,Aboutvideo #,ProjectsVideoModel
@@ -310,7 +315,7 @@ class FeaturedProjectsView(ListView):
     model = FeaturedProjects
     template_name = 'deus_magnus/featured_projects.html'
     context_object_name = 'projects'
-    
+
     
 #The blog article of the blog project of Deus Magnus
 """class FeaturedProjectsArticleDetail(DetailView):
@@ -320,4 +325,64 @@ class FeaturedProjectsView(ListView):
     def BlogArticleDetail(request, pk):  
         object = get_object_or_404(BlogDeusMagnus, pk=pk)
         return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})"""
-    
+
+
+class WhyDeusMagnusView(TemplateView): 
+    template_name = 'deus_magnus/why_deus_magnus.html'
+
+
+@require_POST
+def newsletter_subscribe(request):
+
+    name = request.POST.get('name', '').strip()
+    email = request.POST.get('email', '').strip().lower()
+
+    if not name:
+        return JsonResponse({
+            'success': False,
+            'message': 'Please enter your name.'
+        }, status=400)
+
+    if not email:
+        return JsonResponse({
+            'success': False,
+            'message': 'Please enter your email address.'
+        }, status=400)
+
+    try:
+        validate_email(email)
+    except ValidationError:
+        return JsonResponse({
+            'success': False,
+            'message': 'Please enter a valid email address.'
+        }, status=400)
+
+    subscriber, created = NewsletterSubscriber.objects.get_or_create(
+        email=email,
+        defaults={
+            'name': name,
+            'is_active': True,
+        }
+    )
+
+    if not created:
+
+        if not subscriber.is_active:
+            subscriber.name = name
+            subscriber.is_active = True
+            subscriber.save(update_fields=['name', 'is_active'])
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Welcome back! You have been subscribed again.'
+            })
+
+        return JsonResponse({
+            'success': False,
+            'message': 'This email is already subscribed.'
+        }, status=400)
+
+    return JsonResponse({
+        'success': True,
+        'message': 'Thank you! You have been subscribed successfully.'
+    })

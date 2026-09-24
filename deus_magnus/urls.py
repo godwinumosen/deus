@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from .views import ClientReviewsView, FeaturedProjectsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView, what_we_do
+from .views import ClientReviewsView, FeaturedProjectsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView, WhyDeusMagnusView, what_we_do
 from .views import SubPictureDetailView,SubVideoDetailView
 from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView,AboutView
 from .views import DeusMagnusEventBlogArticleDetailView,BlogView,FAQs_item,GLOSSARY_item,GuidesView,GuidesDetailView
@@ -47,8 +47,7 @@ urlpatterns = [
     path('specialized/', Specialized.as_view(), name='specialized'),
     path('reviews/', ClientReviewsView.as_view(), name='client_reviews'),
     path('featured_projects/', FeaturedProjectsView.as_view(), name='featured_projects'),
-  
-
-    
-    
+    path('why-deus-magnus/',WhyDeusMagnusView.as_view(),name='why_deus_magnus'), 
+    path('newsletter/subscribe/',views.newsletter_subscribe,name='newsletter_subscribe'),
+       
 ]   

@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
 from . import models
-from .models import ClientReview, DeusMagnusMainPost, FeaturedProjects, SecondDeusMagnusMainPicturePost,SubPicture_2
+from .models import ClientReview, DeusMagnusMainPost, FeaturedProjects, NewsletterSubscriber, SecondDeusMagnusMainPicturePost,SubPicture_2
 from .models import SubPicture_1,VideoSubImage, DeusMagnusEventBlog,OurManagementsInDeusMagnus,FAQs,BashPicture #,ProjectsVideoModel
 from .models import GLOSSARY,Mainvideo,BlogDeusMagnus,Guides,Contactvideo,Aboutvideo,FounderPicture,ServicesPagePicture
 from .models import RealEstatePicture,FacilityManagementPicture,ConstructionPicture,SpecializedServices
@@ -155,3 +155,11 @@ admin.site.register(ClientReview, ClientReviewModelAdmin)
 class FeaturedProjectsModelAdmin (admin.ModelAdmin):
     list_display = ['project_title','project_description','project_author']
 admin.site.register(FeaturedProjects, FeaturedProjectsModelAdmin)
+
+
+@admin.register(NewsletterSubscriber)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subscribed_at', 'is_active')
+    list_filter = ('is_active', 'subscribed_at')
+    search_fields = ('name', 'email')
+    readonly_fields = ('subscribed_at',)
