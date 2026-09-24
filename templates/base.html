@@ -87,7 +87,6 @@
                         <ul class="dropdown-menu" role="menu"> 
                             <li><a href="{% url 'founder_message' %}">Who We Are</a></li>
                             <li><a href="{% url 'about' %}">   </a></li> 
-                            <li><a href="{% url 'what_we_do' %}">What We Do </a></li> 
                             <li><a href="{% url 'mission_vision_strategy' %}"> </a></li>
                             <li><a href="{% url 'our_management_team' %}">Our Management Team </a></li> 
                             <li class="dropdown hassubmenu">
@@ -100,7 +99,13 @@
                         </ul>
                     </li> 
 
-                    <li><a href="{% url 'services'%}">Our Services</a></li>
+                   
+                    <li class="dropdown hassubmenu">
+                        <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">Our Services <span class="fa fa-angle-down"></span></a>
+                        <ul class="dropdown-menu" role="menu"> 
+                            <li><a href="{% url 'services' %}">What We Do </a></li>
+                        </ul>
+                    </li> 
                     <li><a href="{% url 'projects'%}">Projects</a></li> 
                     <li class="dropdown hassubmenu">
                         <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">Media <span class="fa fa-angle-down"></span></a>

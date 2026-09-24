@@ -6,47 +6,47 @@
 
 {% block content %}
 
-<section style="background: #f8f8f8; padding: 90px 0 100px;">
+<section style="background:#f8f8f8; padding:90px 0 100px;">
 
-
+```
 <div class="container">
 
     <!-- Page Header -->
-    <div class="text-center" style="margin-bottom: 65px;">
+    <div class="text-center" style="margin-bottom:65px;">
 
         <p style="
-            color: #98681e;
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
+            color:#98681e;
+            font-size:13px;
+            font-weight:bold;
+            letter-spacing:3px;
+            text-transform:uppercase;
+            margin-bottom:12px;
         ">
             Client Testimonials
         </p>
 
         <h2 style="
-            color: #04245c;
-            font-family: Georgia, serif;
-            font-size: 38px;
-            margin: 0 0 18px;
+            color:#04245c;
+            font-family:Georgia, serif;
+            font-size:38px;
+            margin:0 0 18px;
         ">
             What Our Clients Say
         </h2>
 
         <div style="
-            width: 55px;
-            height: 2px;
-            background: #98681e;
-            margin: 0 auto 20px;
+            width:55px;
+            height:2px;
+            background:#98681e;
+            margin:0 auto 20px;
         "></div>
 
         <p style="
-            max-width: 650px;
-            margin: auto;
-            color: #777;
-            font-size: 15px;
-            line-height: 1.8;
+            max-width:650px;
+            margin:auto;
+            color:#777;
+            font-size:15px;
+            line-height:1.8;
         ">
             Our clients are at the heart of everything we do.
             Discover what they have to say about their experience
@@ -56,133 +56,168 @@
     </div>
 
 
-    <!-- Reviews -->
-    <div class="row">
+    <!-- CLIENT REVIEWS CAROUSEL -->
+    {% if reviews %}
 
-        {% for review in reviews %}
+    <div id="reviewsCarousel" style="
+        position:relative;
+        width:100%;
+        overflow:hidden;
+    ">
 
-        <div class="col-md-6 col-lg-4" style="margin-bottom: 35px;">
+        <div id="reviewsTrack" style="
+            display:flex;
+            transition:transform 0.5s ease;
+            width:100%;
+        ">
 
-            <div style="
-                background: #ffffff;
-                padding: 40px 35px 35px;
-                min-height: 360px;
-                position: relative;
-                border: 1px solid #eeeeee;
-                transition: all 0.3s ease;
+            {% for review in reviews %}
+
+            <div class="review-slide" style="
+                flex:0 0 33.333333%;
+                width:33.333333%;
+                padding:0 15px;
+                box-sizing:border-box;
             ">
 
-                <!-- Quote -->
+                <!-- Equal Height Card -->
                 <div style="
-                    color: #98681e;
-                    font-family: Georgia, serif;
-                    font-size: 55px;
-                    line-height: 40px;
-                    margin-bottom: 15px;
-                ">
-                    “
-                </div>
-
-
-                <!-- Review -->
-                <p style="
-                    color: #555;
-                    font-size: 15px;
-                    line-height: 1.9;
-                    font-style: italic;
-                    margin-bottom: 30px;
-                ">
-                    {{ review.review|truncatewords:26 }}
-                </p>
-
-
-                <!-- Client Information -->
-                <div style="
-                    display: flex;
-                    align-items: center;
-                    border-top: 1px solid #eeeeee;
-                    padding-top: 22px;
+                    background:#ffffff;
+                    padding:40px 35px 35px;
+                    height:420px;
+                    min-height:420px;
+                    position:relative;
+                    border:1px solid #eeeeee;
+                    box-sizing:border-box;
+                    display:flex;
+                    flex-direction:column;
                 ">
 
-                    {% if review.client_photo %}
+                    <!-- Quote -->
+                    <div style="
+                        color:#98681e;
+                        font-family:Georgia, serif;
+                        font-size:55px;
+                        line-height:40px;
+                        margin-bottom:15px;
+                        flex-shrink:0;
+                    ">
+                        “
+                    </div>
+
+
+                    <!-- Equal Review Area -->
+                    <div style="
+                        height:185px;
+                        min-height:185px;
+                        overflow:hidden;
+                        margin-bottom:25px;
+                    ">
+
+                        <p style="
+                            color:#555;
+                            font-size:15px;
+                            line-height:1.9;
+                            font-style:italic;
+                            margin:0;
+                        ">
+                            {{ review.review|truncatewords:26 }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Client Information -->
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        border-top:1px solid #eeeeee;
+                        padding-top:22px;
+                        margin-top:auto;
+                    ">
+
+                        {% if review.client_photo %}
 
                         <img
                             src="{{ review.client_photo.url }}"
                             alt="{{ review.client_name }}"
                             style="
-                                width: 65px;
-                                height: 65px;
-                                border-radius: 50%;
-                                object-fit: cover;
-                                margin-right: 15px;
+                                width:65px;
+                                height:65px;
+                                min-width:65px;
+                                border-radius:50%;
+                                object-fit:cover;
+                                margin-right:15px;
                             "
                         >
 
-                    {% else %}
+                        {% else %}
 
                         <div style="
-                            width: 65px;
-                            height: 65px;
-                            min-width: 65px;
-                            border-radius: 50%;
-                            background: #04245c;
-                            color: #ffffff;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-family: Georgia, serif;
-                            font-size: 24px;
-                            margin-right: 15px;
+                            width:65px;
+                            height:65px;
+                            min-width:65px;
+                            border-radius:50%;
+                            background:#04245c;
+                            color:#ffffff;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-family:Georgia, serif;
+                            font-size:24px;
+                            margin-right:15px;
                         ">
                             {{ review.client_name|first|upper }}
                         </div>
 
-                    {% endif %}
+                        {% endif %}
 
 
-                    <div>
+                        <div>
 
-                        <!-- Client Name -->
-                        <h4 style="
-                            color: #04245c;
-                            font-family: Georgia, serif;
-                            font-size: 17px;
-                            margin: 0 0 5px;
-                        ">
-                            {{ review.client_name }}
-                        </h4>
+                            <!-- Client Name -->
+                            <h4 style="
+                                color:#04245c;
+                                font-family:Georgia, serif;
+                                font-size:17px;
+                                margin:0 0 5px;
+                            ">
+                                {{ review.client_name }}
+                            </h4>
 
 
-                        <!-- Company -->
-                        {% if review.client_company %}
+                            <!-- Company -->
+                            {% if review.client_company %}
 
                             <p style="
-                                color: #999;
-                                font-size: 13px;
-                                margin: 0 0 7px;
+                                color:#999;
+                                font-size:13px;
+                                margin:0 0 7px;
                             ">
                                 {{ review.client_company }}
                             </p>
 
-                        {% endif %}
+                            {% endif %}
 
 
-                        <!-- Rating -->
-                        <div style="
-                            color: #98681e;
-                            font-size: 15px;
-                            letter-spacing: 1px;
-                        ">
+                            <!-- Rating -->
+                            <div style="
+                                color:#98681e;
+                                font-size:15px;
+                                letter-spacing:1px;
+                            ">
 
-                            {% for i in "12345" %}
+                                {% for i in "12345" %}
 
-                                {% if forloop.counter <= review.rating %}
-                                    ★
-                                {% else %}
-                                    ☆
-                                {% endif %}
+                                    {% if forloop.counter <= review.rating %}
+                                        ★
+                                    {% else %}
+                                        ☆
+                                    {% endif %}
 
-                            {% endfor %}
+                                {% endfor %}
+
+                            </div>
 
                         </div>
 
@@ -192,28 +227,281 @@
 
             </div>
 
-        </div>
-
-        {% empty %}
-
-        <div class="col-md-12 text-center">
-
-            <p style="
-                color: #777;
-                font-size: 16px;
-            ">
-                No client reviews available yet.
-            </p>
+            {% endfor %}
 
         </div>
 
-        {% endfor %}
+
+        <!-- Previous Button -->
+        <button
+            type="button"
+            id="reviewsPrev"
+            style="
+                position:absolute;
+                left:0;
+                top:50%;
+                transform:translateY(-50%);
+                width:45px;
+                height:45px;
+                border:0;
+                border-radius:50%;
+                background:#04245c;
+                color:#ffffff;
+                font-size:25px;
+                line-height:45px;
+                cursor:pointer;
+                z-index:10;
+                padding:0;
+            "
+        >
+            &#10094;
+        </button>
+
+
+        <!-- Next Button -->
+        <button
+            type="button"
+            id="reviewsNext"
+            style="
+                position:absolute;
+                right:0;
+                top:50%;
+                transform:translateY(-50%);
+                width:45px;
+                height:45px;
+                border:0;
+                border-radius:50%;
+                background:#04245c;
+                color:#ffffff;
+                font-size:25px;
+                line-height:45px;
+                cursor:pointer;
+                z-index:10;
+                padding:0;
+            "
+        >
+            &#10095;
+        </button>
 
     </div>
 
-</div>
 
+    <!-- Dots -->
+    <div
+        id="reviewsDots"
+        style="
+            text-align:center;
+            margin-top:30px;
+        "
+    ></div>
+
+
+    {% else %}
+
+    <div class="text-center">
+
+        <p style="
+            color:#777;
+            font-size:16px;
+        ">
+            No client reviews available yet.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
 
 </section>
+
+{% if reviews %}
+
+<script>
+(function () {
+
+    var track = document.getElementById("reviewsTrack");
+    var slides = document.querySelectorAll(".review-slide");
+    var nextButton = document.getElementById("reviewsNext");
+    var prevButton = document.getElementById("reviewsPrev");
+    var dotsContainer = document.getElementById("reviewsDots");
+
+    if (!track || !slides.length) {
+        return;
+    }
+
+    var currentPage = 0;
+    var totalReviews = slides.length;
+    var visibleSlides = 3;
+    var totalPages = Math.ceil(totalReviews / visibleSlides);
+
+
+    function getVisibleSlides() {
+
+        if (window.innerWidth <= 767) {
+            return 1;
+        }
+
+        if (window.innerWidth <= 991) {
+            return 2;
+        }
+
+        return 3;
+    }
+
+
+    function updateCarousel() {
+
+        visibleSlides = getVisibleSlides();
+
+        totalPages = Math.ceil(totalReviews / visibleSlides);
+
+        if (currentPage >= totalPages) {
+            currentPage = totalPages - 1;
+        }
+
+        if (currentPage < 0) {
+            currentPage = 0;
+        }
+
+
+        var slideWidth = 100 / visibleSlides;
+
+        for (var i = 0; i < slides.length; i++) {
+
+            slides[i].style.flex = "0 0 " + slideWidth + "%";
+            slides[i].style.width = slideWidth + "%";
+
+        }
+
+
+        track.style.transform =
+            "translateX(-" + (currentPage * 100) + "%)";
+
+
+        createDots();
+
+    }
+
+
+    function createDots() {
+
+        dotsContainer.innerHTML = "";
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+
+        for (var i = 0; i < totalPages; i++) {
+
+            var dot = document.createElement("button");
+
+            dot.type = "button";
+
+            dot.style.width = "10px";
+            dot.style.height = "10px";
+            dot.style.padding = "0";
+            dot.style.margin = "0 5px";
+            dot.style.borderRadius = "50%";
+            dot.style.border = "0";
+            dot.style.cursor = "pointer";
+
+            dot.style.background =
+                i === currentPage ? "#98681e" : "#cccccc";
+
+
+            (function (page) {
+
+                dot.addEventListener("click", function () {
+
+                    currentPage = page;
+
+                    updateCarousel();
+
+                });
+
+            })(i);
+
+
+            dotsContainer.appendChild(dot);
+
+        }
+
+    }
+
+
+    nextButton.addEventListener("click", function () {
+
+        if (currentPage < totalPages - 1) {
+
+            currentPage++;
+
+        } else {
+
+            currentPage = 0;
+
+        }
+
+        updateCarousel();
+
+    });
+
+
+    prevButton.addEventListener("click", function () {
+
+        if (currentPage > 0) {
+
+            currentPage--;
+
+        } else {
+
+            currentPage = totalPages - 1;
+
+        }
+
+        updateCarousel();
+
+    });
+
+
+    window.addEventListener("resize", function () {
+
+        updateCarousel();
+
+    });
+
+
+    updateCarousel();
+
+
+    /* Automatic sliding */
+
+    setInterval(function () {
+
+        if (totalPages > 1) {
+
+            if (currentPage < totalPages - 1) {
+
+                currentPage++;
+
+            } else {
+
+                currentPage = 0;
+
+            }
+
+            updateCarousel();
+
+        }
+
+    }, 5000);
+
+
+})();
+</script>
+
+{% endif %}
 
 {% endblock %}

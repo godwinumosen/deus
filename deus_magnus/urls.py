@@ -47,7 +47,7 @@ urlpatterns = [
     path('specialized/', Specialized.as_view(), name='specialized'),
 
     path('reviews/', ClientReviewsView.as_view(), name='client_reviews'),
-    path("what-we-do/", what_we_do, name="what_we_do"),
+    #path("what-we-do/", what_we_do, name="what_we_do"),
 
     
     
