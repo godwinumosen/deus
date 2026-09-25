@@ -320,7 +320,7 @@ class ClientReview(models.Model):
 class FeaturedProjects(models.Model):
     project_title = models.CharField(max_length=255, blank=True, null=True)
     project_description = models.TextField()
-    project_img = models.ImageField(upload_to='our_team_images/')
+    project_img = models.ImageField(upload_to='featured_images/')
     project_author = models.ForeignKey(User, on_delete=models.CASCADE)
     project_publish_date = models.DateTimeField (auto_now_add= True)
 
