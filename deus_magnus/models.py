@@ -260,9 +260,6 @@ class Mainvideo(models.Model):
 #The Contactvideo on deusmagnus website
 class Contactvideo(models.Model):
     deus_magnus_contact_video = models.FileField(upload_to='contact_videos/') 
-#The Aboutvideo on deusmagnus website
-class Aboutvideo(models.Model):
-    deus_magnus_about_video = models.FileField(upload_to='about_videos/') 
 
 class FounderPicture(models.Model):
     deus_magnus_founder_p = models.ImageField(upload_to='founder_p/') 

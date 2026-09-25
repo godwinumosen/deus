@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 from .models import ClientReview, FeaturedProjects, NewsletterSubscriber, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
 from .models import SubPicture_1, SubPicture_2,VideoSubImage, BlogDeusMagnus,DeusMagnusEventBlog,FAQs,Mainvideo
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,FounderPicture,BashPicture
-from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo,Aboutvideo #,ProjectsVideoModel
+from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo
 from .models import EquipmentHire,BoomPump,ConcreteSupply,MaterialSupply,SpecializedServices
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -314,10 +314,8 @@ class FeaturedProjectsView(ListView):
 class FeaturedProjectsArticleDetail(DetailView):
     model = FeaturedProjects
     template_name = 'deus_magnus/featured_article_detail.html'
+    context_object_name = 'project'
 
-    def FeaturedProjectsArticleDetail(request, pk):  
-        object = get_object_or_404(FeaturedProjects, pk=pk)
-        return render(request, 'deus_magnus/featured_article_detail.html', {'blog_detail': object})
 
 
 class WhyDeusMagnusView(TemplateView): 
