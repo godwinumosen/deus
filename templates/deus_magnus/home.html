@@ -1,356 +1,1603 @@
- 
 {% extends "base.html" %}
 {% load static %}
-{% block content%}
+
+{% block content %}
+
+<style>
+    /* =========================================================
+       DEUS MAGNUS PREMIUM HOMEPAGE
+       ========================================================= */
+
+    :root {
+        --dm-navy: #04245c;
+        --dm-gold: #98681e;
+        --dm-dark: #111111;
+        --dm-light: #f7f6f3;
+        --dm-white: #ffffff;
+        --dm-border: #e7e4de;
+    }
+
+    .dm-home {
+        background: #fff;
+        color: var(--dm-dark);
+    }
+
+    .dm-home * {
+        box-sizing: border-box;
+    }
+
+    /* HERO */
+    .dm-hero {
+        position: relative;
+        min-height: 78vh;
+        height: 760px;
+        max-height: 900px;
+        overflow: hidden;
+        background: #111;
+    }
+
+    .dm-hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .dm-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.78) 0%,
+                rgba(0, 0, 0, 0.48) 45%,
+                rgba(0, 0, 0, 0.20) 100%
+            );
+    }
+
+    .dm-hero-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .dm-hero-copy {
+        max-width: 720px;
+        color: #fff;
+        padding-top: 40px;
+    }
+
+    .dm-eyebrow {
+        display: inline-block;
+        margin-bottom: 22px;
+        color: #d5ad62;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+    .dm-hero h1 {
+        margin: 0;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(48px, 6vw, 86px);
+        font-weight: 500;
+        line-height: 1.03;
+        letter-spacing: -2px;
+    }
+
+    .dm-hero h1 span {
+        display: block;
+        color: #d5ad62;
+    }
+
+    .dm-hero-text {
+        max-width: 620px;
+        margin: 28px 0 35px;
+        color: rgba(255,255,255,0.88);
+        font-size: 18px;
+        line-height: 1.8;
+    }
+
+    .dm-hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .dm-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 0 28px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        font-family: Georgia, serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none !important;
+        transition: all .3s ease;
+    }
+
+    .dm-btn-gold {
+        background: var(--dm-gold);
+        border-color: var(--dm-gold);
+        color: #fff !important;
+    }
+
+    .dm-btn-gold:hover {
+        background: #b17c25;
+        border-color: #b17c25;
+    }
+
+    .dm-btn-outline {
+        background: transparent;
+        border-color: rgba(255,255,255,.65);
+        color: #fff !important;
+    }
+
+    .dm-btn-outline:hover {
+        background: #fff;
+        color: var(--dm-dark) !important;
+        border-color: #fff;
+    }
+
+    .dm-scroll {
+        position: absolute;
+        z-index: 4;
+        bottom: 30px;
+        left: 40px;
+        color: rgba(255,255,255,.75);
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .dm-scroll:after {
+        content: "";
+        display: inline-block;
+        width: 55px;
+        height: 1px;
+        margin-left: 14px;
+        vertical-align: middle;
+        background: rgba(255,255,255,.55);
+    }
 
 
-{% for first_video in first_videos %}
-<video autoplay muted playsinline loop width="100%" height="400"controls id="myVideo">
-    <source src="{{ first_video.deus_magnus_first_video.url }}" type="video/mp4">
-    <source src="{{ first_video.deus_magnus_first_video.url }}" type="video/webm">
-    Your browser does not support the video tag.
-</video>
+    /* STATISTICS */
+    .dm-stats {
+        position: relative;
+        z-index: 5;
+        margin-top: -1px;
+        background: var(--dm-navy);
+        color: #fff;
+    }
 
-{% endfor %}
+    .dm-stat {
+        min-height: 150px;
+        padding: 35px 20px;
+        text-align: center;
+        border-right: 1px solid rgba(255,255,255,.14);
+    }
 
+    .dm-stat:last-child {
+        border-right: none;
+    }
 
-<center>
-    <section class="section db">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-4">
-                    <div class="stat-count">
-                        <h4 id="years-experience" class="stat-timer">16+</h4>
-                        <h3 style="color: #98681e; font-family: Georgia;">
-                            <i class="fa fa-university"></i> Combined Years of Experience
-                        </h3>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <div class="stat-count">
-                        <h4 id="properties-sold" class="stat-timer">11+</h4>
-                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-list"></i> Properties Sold</h3>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <div class="stat-count">
-                        <h4 id="completed-projects" class="stat-timer">7+</h4>
-                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-table"></i> Completed Construction Projects</h3>
-                    </div>    
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <div class="stat-count">
-                        <h4 id="ongoing-projects" class="stat-timer">23+</h4>
-                        <h3 style="color: #98681e;font-family: Georgia;"><i class="fa fa-building"></i> Ongoing Projects</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </center><br><br>
+    .dm-stat-number {
+        margin: 0 0 8px;
+        color: #d5ad62;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 43px;
+        line-height: 1;
+        font-weight: 500;
+    }
 
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                {% for bash_p in bash_ps %}
-                <div class="custom-module">
-                    <img style="margin-top: 1px; border-radius: 5px;"src="{{ bash_p.deus_magnus_bash_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-8">  
-                <div class="custom-module p40l">
-                    <h3 style="color: #98681e; font-family: Georgia;">Redefining excellence in construction, real estate, and facility management across Nigeria.</h3>
-                    <h5>At Deus Magnus, we redefine excellence in construction, real estate, and facility management across Nigeria. Our integrated approach covers:</h5><br>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 first">
-                        <ul>
-                            <li>Premium Facility Management</li>
-                            <li>Real Estate Consultancy</li>
-                            <li>Investment Properties</li>
-                            <li>Bespoke Residential Development</li>
-                            <li>High-End Commercial Spaces</li>
-                            <li>Construction Services</li>             
-                        </ul><!-- end check -->
-                    </div><!-- end col-lg-4 --> 
-                    </div><!-- end row -->   
-                    <hr class="invis">
-                    <div class="btn-wrapper">
-                        <a href="{% url 'founder_message' %}" class="btn btn-primary" style="border-radius:5px;font-family: Georgia;">About us</a>
-                    </div>
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br><br>
-
-       <!-- the first category of the home page after cate -->
-
-<section class="section gb nopadtop">
-    <div class="container"><br>
-        <div class="section-title text-center">
-            <h3 style="color: #98681e;">Commitment</h3>
-            <p>With over 16 years of construction experience.</p>
-        </div><br><br><!-- end title -->
-        <div class="boxed boxedp3">
-            <div class="row blog-grid">
-                <div class="col-md-4">
-                    <div class="course-box">
-                        <div class="course-details">
-                            <center><i class="fa fa-3x fa-handshake-o text-primary mb-4"></i></center>
-                            <h4 style=" color: #04245c;font-family:sarif;"><center>Customer Satisfaction Guaranteed</center></h4>
-                            <p>Our success is measured by the satisfaction of our clients. We offer a robust 
-                                feedback system and continuous improvement process.</p>
-                        </div><!-- end details -->
-                    </div><!-- end box -->
-                </div><!-- end col -->
-                <div class="col-md-4">
-                    <div class="course-box">
-                        <div class="course-details">
-                            <center><i class="fa fa-3x fa-star-o text-primary mb-4"></i></center>
-                            <h4 style="color: #04245c; font-family:sarif;"><center>Service Par Excellence</center></h4>
-                            <p>We commit to delivering top-notch services that exceed industry standards and client expectations.</p>
-                        </div><!-- end details -->
-                    </div><!-- end box -->
-                </div><!-- end col -->
-                <div class="col-md-4">
-                    <div class="course-box">
-                        <div class="course-details">
-                            <center><i class="fa fa-3x fa-wpexplorer text-primary mb-4"></i></center>
-                            <h4 style="color: #04245c;font-family:sarif;"><center>Quality Assurance Measures</center></h4>
-                            <p> Regular quality audits Adherence to international 
-                                construction and management standardsOngoing staff training and development</p>
-                        </div><!-- end details -->
-                    </div><!-- end box -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end boxed -->
-    </div><!-- end container -->
-</section><br><br><br>
-
-<section class="section gb">
-    <div class="container"><br>
+    .dm-stat-label {
+        margin: 0;
+        color: rgba(255,255,255,.82);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.4px;
+        line-height: 1.5;
+        text-transform: uppercase;
+    }
 
 
-    <div class="section-title text-center">
-        <h3 style="color: #98681e;">Featured Projects</h3>
-        <p>Our collection of elegance, comfort and luxury at the heart of Lagos, Nigeria.</p>
-    </div><!-- end title -->
+    /* GENERAL */
+    .dm-section {
+        padding: 110px 0;
+    }
 
-    <div class="row">
+    .dm-section-light {
+        background: var(--dm-light);
+    }
 
-        {% for second_construction in second_constructions %}
+    .dm-container {
+        width: 100%;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 35px;
+    }
 
-        <div class="col-lg-4 col-md-12">
+    .dm-section-heading {
+        max-width: 750px;
+        margin-bottom: 55px;
+    }
 
-            <div class="blog-box">
+    .dm-section-heading.center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
 
-                <div class="image-wrap entry">
+    .dm-kicker {
+        display: block;
+        margin-bottom: 13px;
+        color: var(--dm-gold);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
 
-                    {% if second_construction.second_deus_magnus_img %}
+    .dm-section-heading h2 {
+        margin: 0;
+        color: var(--dm-navy);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(34px, 4vw, 55px);
+        line-height: 1.15;
+        font-weight: 500;
+    }
 
-                    <a href="{% url 'second_detail' second_construction.pk %}">
-                        <img
-                            src="{{ second_construction.second_deus_magnus_img.url }}"
-                            height="230px"
-                            class="custom-image"
-                        >
-                    </a>
-
-                    {% endif %}
-
-                </div><!-- end image-wrap -->
-
-
-                <div class="blog-desc">
-
-                    <h4>
-                        <a href="{% url 'second_detail' second_construction.pk %}">
-                            {{ second_construction.second_deus_magnus_title|truncatechars:30 }}
-                        </a>
-                    </h4>
-
-                    <p>
-                        {{ second_construction.second_deus_magnus_description|truncatechars:75 }}
-                    </p>
-
-                </div><!-- end blog-desc -->
-
-
-                <div class="post-meta">
-
-                    <div class="btn-wrapper">
-
-                        <a
-                            href="{% url 'second_detail' second_construction.pk %}"
-                            class="btn btn-primary"
-                            style="border-radius: 5px; font-family: Georgia;"
-                        >
-                            Read More
-                        </a>
-
-                    </div>
-
-                </div><!-- end post-meta -->
-
-            </div><!-- end blog -->
-
-        </div><!-- end col -->
-
-        {% endfor %}
-
-    </div><!-- end row -->
+    .dm-section-heading p {
+        margin: 20px 0 0;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.8;
+    }
 
 
-    <!-- EXPLORE MORE BUTTON -->
-    <div class="text-center" style="margin-top: 35px;">
+    /* ABOUT */
+    .dm-about-image {
+        position: relative;
+        min-height: 570px;
+        overflow: hidden;
+    }
 
-        <a
-            href="{% url 'featured_projects' %}"
-            class="btn btn-primary"
-            style="
-                border-radius: 5px;
-                font-family: Georgia;
-                padding: 12px 30px;
-            "
+    .dm-about-image img {
+        width: 100%;
+        height: 570px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .dm-about-image-badge {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 185px;
+        padding: 25px;
+        background: var(--dm-gold);
+        color: #fff;
+    }
+
+    .dm-about-image-badge strong {
+        display: block;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1;
+    }
+
+    .dm-about-image-badge span {
+        display: block;
+        margin-top: 8px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .dm-about-copy {
+        padding: 35px 0 35px 55px;
+    }
+
+    .dm-about-copy h3 {
+        margin: 0 0 22px;
+        color: var(--dm-navy);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 35px;
+        line-height: 1.25;
+        font-weight: 500;
+    }
+
+    .dm-about-copy p {
+        margin-bottom: 18px;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.85;
+    }
+
+    .dm-list {
+        margin: 28px 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .dm-list li {
+        position: relative;
+        margin-bottom: 13px;
+        padding-left: 28px;
+        color: #333;
+        font-size: 15px;
+    }
+
+    .dm-list li:before {
+        content: "◆";
+        position: absolute;
+        left: 0;
+        top: 1px;
+        color: var(--dm-gold);
+        font-size: 9px;
+    }
+
+
+    /* EXPERTISE */
+    .dm-expertise {
+        background: var(--dm-navy);
+        color: #fff;
+    }
+
+    .dm-expertise .dm-section-heading h2 {
+        color: #fff;
+    }
+
+    .dm-expertise .dm-section-heading p {
+        color: rgba(255,255,255,.72);
+    }
+
+    .dm-expertise-card {
+        height: 100%;
+        min-height: 280px;
+        padding: 40px 32px;
+        border: 1px solid rgba(255,255,255,.15);
+        background: rgba(255,255,255,.035);
+        transition: all .3s ease;
+    }
+
+    .dm-expertise-card:hover {
+        transform: translateY(-7px);
+        background: rgba(255,255,255,.08);
+        border-color: rgba(213,173,98,.6);
+    }
+
+    .dm-expertise-number {
+        color: #d5ad62;
+        font-family: Georgia, serif;
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+
+    .dm-expertise-card h3 {
+        margin: 35px 0 18px;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 28px;
+        font-weight: 500;
+    }
+
+    .dm-expertise-card p {
+        color: rgba(255,255,255,.7);
+        line-height: 1.8;
+    }
+
+
+    /* PROJECTS */
+    .dm-project-card {
+        height: 100%;
+        margin-bottom: 30px;
+        background: #fff;
+        box-shadow: 0 12px 40px rgba(0,0,0,.07);
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .dm-project-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 20px 55px rgba(0,0,0,.12);
+    }
+
+    .dm-project-image {
+        position: relative;
+        height: 330px;
+        overflow: hidden;
+        background: #ddd;
+    }
+
+    .dm-project-image img,
+    .dm-project-image video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        border: 0;
+    }
+
+    .dm-project-content {
+        padding: 28px;
+    }
+
+    .dm-project-label {
+        margin-bottom: 10px;
+        color: var(--dm-gold);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .dm-project-content h3 {
+        margin: 0 0 12px;
+        color: var(--dm-navy);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 26px;
+        line-height: 1.25;
+        font-weight: 500;
+    }
+
+    .dm-project-content h3 a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .dm-project-content p {
+        min-height: 54px;
+        margin-bottom: 22px;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .dm-project-link {
+        color: var(--dm-gold);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none !important;
+    }
+
+    .dm-project-link i {
+        margin-left: 8px;
+        transition: margin .2s ease;
+    }
+
+    .dm-project-link:hover i {
+        margin-left: 14px;
+    }
+
+
+    /* FEATURED STATEMENT */
+    .dm-statement {
+        position: relative;
+        min-height: 520px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(rgba(4,36,92,.86), rgba(4,36,92,.86)),
+            url("{% static 'images/device.png' %}") center/cover no-repeat;
+        color: #fff;
+    }
+
+    .dm-statement-content {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 50px 30px;
+        text-align: center;
+    }
+
+    .dm-statement-content .dm-kicker {
+        color: #d5ad62;
+    }
+
+    .dm-statement-content h2 {
+        margin: 0;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(38px, 5vw, 66px);
+        line-height: 1.15;
+        font-weight: 500;
+    }
+
+    .dm-statement-content p {
+        max-width: 700px;
+        margin: 25px auto 35px;
+        color: rgba(255,255,255,.78);
+        font-size: 17px;
+        line-height: 1.8;
+    }
+
+
+    /* COMMITMENT */
+    .dm-commitment-card {
+        height: 100%;
+        min-height: 290px;
+        padding: 40px 32px;
+        border-top: 3px solid var(--dm-gold);
+        background: #fff;
+        box-shadow: 0 10px 35px rgba(0,0,0,.06);
+    }
+
+    .dm-commitment-icon {
+        margin-bottom: 28px;
+        color: var(--dm-gold);
+        font-size: 35px;
+    }
+
+    .dm-commitment-card h3 {
+        margin: 0 0 15px;
+        color: var(--dm-navy);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    .dm-commitment-card p {
+        margin: 0;
+        color: #666;
+        line-height: 1.8;
+    }
+
+
+    /* CEO */
+    .dm-ceo {
+        background: #f1eee7;
+    }
+
+    .dm-ceo-quote {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .dm-ceo-quote-mark {
+        color: var(--dm-gold);
+        font-family: Georgia, serif;
+        font-size: 70px;
+        line-height: .7;
+    }
+
+    .dm-ceo-quote blockquote {
+        margin: 20px 0 30px;
+        padding: 0;
+        border: 0;
+        color: var(--dm-navy);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(27px, 3vw, 40px);
+        line-height: 1.45;
+        font-weight: 400;
+    }
+
+    .dm-ceo-name {
+        color: #555;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+
+    /* NEWS */
+    .dm-news-card {
+        height: 100%;
+        margin-bottom: 30px;
+        background: #fff;
+        box-shadow: 0 10px 35px rgba(0,0,0,.06);
+    }
+
+    .dm-news-image {
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .dm-news-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .dm-news-content {
+        padding: 27px;
+    }
+
+    .dm-news-content h3 {
+        margin: 0 0 13px;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 23px;
+        line-height: 1.35;
+    }
+
+    .dm-news-content h3 a {
+        color: var(--dm-navy);
+        text-decoration: none;
+    }
+
+    .dm-news-content p {
+        color: #666;
+        line-height: 1.7;
+        font-size: 14px;
+    }
+
+
+    /* FINAL CTA */
+    .dm-final-cta {
+        padding: 90px 0;
+        background: var(--dm-gold);
+        color: #fff;
+    }
+
+    .dm-final-cta h2 {
+        margin: 0 0 15px;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(36px, 4vw, 55px);
+        font-weight: 500;
+    }
+
+    .dm-final-cta p {
+        margin: 0;
+        color: rgba(255,255,255,.9);
+        font-size: 16px;
+    }
+
+    .dm-final-cta .dm-btn {
+        background: #fff;
+        color: var(--dm-navy) !important;
+    }
+
+
+    /* RESPONSIVE */
+    @media (max-width: 991px) {
+
+        .dm-hero {
+            height: 700px;
+        }
+
+        .dm-about-copy {
+            padding: 45px 0 0;
+        }
+
+        .dm-about-image,
+        .dm-about-image img {
+            min-height: 430px;
+            height: 430px;
+        }
+
+        .dm-stat {
+            border-bottom: 1px solid rgba(255,255,255,.14);
+        }
+
+        .dm-project-image {
+            height: 280px;
+        }
+    }
+
+    @media (max-width: 767px) {
+
+        .dm-hero {
+            min-height: 650px;
+            height: 650px;
+        }
+
+        .dm-hero-content {
+            padding: 0 22px;
+        }
+
+        .dm-hero h1 {
+            font-size: 48px;
+            letter-spacing: -1px;
+        }
+
+        .dm-hero-text {
+            font-size: 15px;
+        }
+
+        .dm-scroll {
+            left: 22px;
+        }
+
+        .dm-section {
+            padding: 75px 0;
+        }
+
+        .dm-container {
+            padding: 0 22px;
+        }
+
+        .dm-stat {
+            min-height: 125px;
+            padding: 28px 10px;
+        }
+
+        .dm-stat-number {
+            font-size: 35px;
+        }
+
+        .dm-stat-label {
+            font-size: 10px;
+        }
+
+        .dm-about-image,
+        .dm-about-image img {
+            min-height: 350px;
+            height: 350px;
+        }
+
+        .dm-project-image {
+            height: 260px;
+        }
+
+        .dm-hero-buttons {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dm-btn {
+            width: auto;
+            min-width: 190px;
+        }
+    }
+</style>
+
+<div class="dm-home">
+
+
+<!-- ======================================================
+     HERO
+     ====================================================== -->
+
+<section class="dm-hero">
+
+    {% for first_video in first_videos %}
+    <video
+        class="dm-hero-video"
+        autoplay
+        muted
+        playsinline
+        loop
+        preload="metadata"
+    >
+        <source
+            src="{{ first_video.deus_magnus_first_video.url }}"
+            type="video/mp4"
         >
-            Explore More
-        </a>
+        <source
+            src="{{ first_video.deus_magnus_first_video.url }}"
+            type="video/webm"
+        >
+    </video>
+    {% endfor %}
 
+    <div class="dm-hero-overlay"></div>
+
+    
+
+    <div class="dm-scroll">
+        Discover Deus Magnus
     </div>
-    <!-- END EXPLORE MORE BUTTON -->
-
-
-</div><!-- end container -->
-
 
 </section>
 
-<br><br><br>
 
+<!-- ======================================================
+     STATISTICS
+     ====================================================== -->
 
-<section class="section db p110">
-    <div class="container"><br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tagline-message text-center">
-                <h3>"At Deus Magnus, we're not just building structures; we're crafting legacies. 
-                    Our commitment to excellence and innovation drives us to create spaces that inspire, impress, and endure." <br><br>
-                    - Mr. Kuteyi Rasaq, CEO</h3><br>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section --><br><br><br>
+<section class="dm-stats">
 
-    
-<!-- the first category of the home page after cate -->
-<section class="section gb">
-    <div class="container">
-        <div class="section-title text-center">
-            <h3 style="color: #98681e;">Upcoming Projects</h3>
-            <p>Designed to redefine excellence in construction and real estate.</p>
-        </div>
+    <div class="container-fluid">
 
         <div class="row">
-            {% for post in object_list %}
-            <div class="col-lg-4 col-md-12">
-                <div class="blog-box">
-                    <a href="{% url 'detail' post.pk %}">
-                        <div class="image-wrap entry">
-                            <video autoplay muted playsinline loop controls width="100%" height="auto"style="border-radius: 5px;">
-                                <source src="{{ post.deus_manus_video.url }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <!--<span  style="font-family:sarif;" class="badge rounded-pill bg-primary">{{  post.deus_magnus_status }}</span>-->
-                        </div>
-                    </a>
-                    <div class="blog-desc">
-                        <h4><a href="{% url 'detail' post.pk %}">{{ post.deus_magnus_title }}</a></h4>
-                        <p>{{ post.deus_magnus_description|truncatechars:77 }}</p>
-                    </div>
-                    <div class="post-meta">
-                        <div class="btn-wrapper">
-                            <a href="{% url 'detail' post.pk %}" class="btn btn-primary" style="border-radius: 5px; font-family: Georgia;">Read More</a>
-                        </div>
-                    </div>
+
+            <div class="col-sm-3 col-xs-6 dm-stat">
+                <div class="dm-stat-number">16+</div>
+                <div class="dm-stat-label">
+                    Combined Years of Experience
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-</section><br>
 
-
-<section class="parallax event-section" data-stellar-background-ratio="0.5" style="background-image:url({% static "images/device.png" %});">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-121">
-                <div class="tagline-message event-title text-center">
-                    <div class="btn-wrapper">
-                        <a href="{% url 'projects' %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">See More Projects</a>
-                    </div>
+            <div class="col-sm-3 col-xs-6 dm-stat">
+                <div class="dm-stat-number">11+</div>
+                <div class="dm-stat-label">
+                    Properties Sold
                 </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section --><br><br>
+            </div>
 
-<section class="section gb">
-    <div class="container"><br>
-        <div class="section-title text-center">
-            <h3 style="color: #98681e;">Recent News</h3>
-            <p>Read the latest news and update from Deusmagnus and the construction industry.</p>
-        </div><!-- end title -->
-        <div class="row"> 
-            {% for news_construction in news_constructions %}
-            <div class="col-lg-4 col-md-12">
-                <div class="blog-box">
-                    <div class="image-wrap entry">
-                        {% if news_construction.deus_magnus_event_img %}
-                        <a href="{% url 'events_article_detail' news_construction.pk %}">
-                            <img src="{{ news_construction.deus_magnus_event_img.url }}"height="230px"  class="custom-image"><br><br>
+            <div class="col-sm-3 col-xs-6 dm-stat">
+                <div class="dm-stat-number">7+</div>
+                <div class="dm-stat-label">
+                    Completed Projects
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-xs-6 dm-stat">
+                <div class="dm-stat-number">23+</div>
+                <div class="dm-stat-label">
+                    Ongoing Projects
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     ABOUT
+     ====================================================== -->
+
+<section class="dm-section">
+
+    <div class="dm-container">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="dm-about-image">
+
+                    {% for bash_p in bash_ps %}
+
+                    <img
+                        src="{{ bash_p.deus_magnus_bash_p.url }}"
+                        alt="Deus Magnus"
+                    >
+
+                    {% endfor %}
+
+                    <div class="dm-about-image-badge">
+                        <strong>16+</strong>
+                        <span>Years of Experience</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="dm-about-copy">
+
+                    <span class="dm-kicker">
+                        About Deus Magnus
+                    </span>
+
+                    <h3>
+                        Creating spaces that inspire,
+                        impress and endure.
+                    </h3>
+
+                    <p>
+                        At Deus Magnus, we redefine excellence in
+                        construction, real estate and facility
+                        management across Nigeria.
+                    </p>
+
+                    <p>
+                        Our integrated approach combines technical
+                        expertise, thoughtful design and disciplined
+                        project delivery to create exceptional spaces
+                        and lasting value.
+                    </p>
+
+                    <ul class="dm-list">
+
+                        <li>Premium Facility Management</li>
+                        <li>Real Estate Consultancy</li>
+                        <li>Investment Properties</li>
+                        <li>Bespoke Residential Development</li>
+                        <li>High-End Commercial Spaces</li>
+                        <li>Construction Services</li>
+
+                    </ul>
+
+                    <a
+                        href="{% url 'founder_message' %}"
+                        class="dm-btn dm-btn-gold"
+                    >
+                        Discover Our Story
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     EXPERTISE
+     ====================================================== -->
+
+<section class="dm-section dm-expertise">
+
+    <div class="dm-container">
+
+        <div class="dm-section-heading">
+
+            <span class="dm-kicker">
+                Our Expertise
+            </span>
+
+            <h2>
+                Where experience meets
+                exceptional execution.
+            </h2>
+
+            <p>
+                From concept to completion, we bring together
+                expertise across the built environment to deliver
+                projects with purpose and precision.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="dm-expertise-card">
+
+                    <span class="dm-expertise-number">01</span>
+
+                    <h3>
+                        Construction
+                    </h3>
+
+                    <p>
+                        Delivering residential and commercial
+                        developments with disciplined project
+                        management, quality craftsmanship and
+                        attention to detail.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dm-expertise-card">
+
+                    <span class="dm-expertise-number">02</span>
+
+                    <h3>
+                        Real Estate
+                    </h3>
+
+                    <p>
+                        Strategic real estate solutions designed
+                        around exceptional properties, investment
+                        opportunities and long-term value.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dm-expertise-card">
+
+                    <span class="dm-expertise-number">03</span>
+
+                    <h3>
+                        Facility Management
+                    </h3>
+
+                    <p>
+                        Professional facility management focused
+                        on reliability, efficiency, comfort and
+                        maintaining the value of every property.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     FEATURED PROJECTS
+     ====================================================== -->
+
+<section class="dm-section dm-section-light">
+
+    <div class="dm-container">
+
+        <div class="dm-section-heading center">
+
+            <span class="dm-kicker">
+                Our Projects
+            </span>
+
+            <h2>
+                Selected spaces.
+                Exceptional standards.
+            </h2>
+
+            <p>
+                Explore a collection of projects reflecting our
+                commitment to quality, comfort and contemporary
+                living.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            {% for second_construction in second_constructions %}
+
+            <div class="col-md-4">
+
+                <div class="dm-project-card">
+
+                    <div class="dm-project-image">
+
+                        {% if second_construction.second_deus_magnus_img %}
+
+                        <a
+                            href="{% url 'second_detail' second_construction.pk %}"
+                        >
+
+                            <img
+                                src="{{ second_construction.second_deus_magnus_img.url }}"
+                                alt="{{ second_construction.second_deus_magnus_title }}"
+                            >
+
                         </a>
-                        {% endif %}
-                    </div><!--end image-wrap -->
-                    <div class="blog-desc">
-                        <h4><a href="{% url 'events_article_detail' news_construction.pk %}">{{ news_construction.deus_magnus_event_title }}</a></h4>
-                        <p> {{ news_construction.deus_magnus_event_description |truncatechars:65}}</p>
-                    </div><!-- end blog-descriptional -->
-                    <div class="post-meta">
-                        <div class="btn-wrapper">
-                            <a href="{% url 'events_article_detail' news_construction.pk %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">Read More</a>
-                        </div>
-                    </div><!-- end post-meta -->
-                </div><!-- end blog -->
-                <br>
-            </div><!-- end col -->
-            {% endfor %}
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br><br>
 
-<section class="section bgcolor1">
-    <div class="container">
-        <a href="{% url 'contact' %}">
-        <div class="row callout">
-            <div class="col-md-4 text-center">
-                <h3 style="font-family: Georgia;"><sup>RN:</sup>1377130</h3>
-                <h4 style="font-family: Georgia;">Schedule a Free Consultation.</h4>
-            </div><!-- end col -->
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="dm-project-content">
+
+                        <div class="dm-project-label">
+                            Featured Project
+                        </div>
+
+                        <h3>
+
+                            <a
+                                href="{% url 'second_detail' second_construction.pk %}"
+                            >
+                                {{ second_construction.second_deus_magnus_title|truncatechars:40 }}
+                            </a>
+
+                        </h3>
+
+                        <p>
+                            {{ second_construction.second_deus_magnus_description|truncatechars:100 }}
+                        </p>
+
+                        <a
+                            href="{% url 'second_detail' second_construction.pk %}"
+                            class="dm-project-link"
+                        >
+                            View Project
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-md-12 text-center">
+
+                <p>
+                    Our featured projects will be available here soon.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="text-center" style="margin-top: 30px;">
+
+            <a
+                href="{% url 'featured_projects' %}"
+                class="dm-btn dm-btn-gold"
+            >
+                Explore All Projects
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     COMMITMENT
+     ====================================================== -->
+
+<section class="dm-section">
+
+    <div class="dm-container">
+
+        <div class="dm-section-heading center">
+
+            <span class="dm-kicker">
+                Our Commitment
+            </span>
+
+            <h2>
+                Standards that define
+                everything we do.
+            </h2>
+
+            <p>
+                Our success is measured not only by what we build,
+                but by the experience and value we create for our
+                clients.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="dm-commitment-card">
+
+                    <div class="dm-commitment-icon">
+                        <i class="fa fa-handshake-o"></i>
+                    </div>
+
+                    <h3>
+                        Customer Satisfaction
+                    </h3>
+
+                    <p>
+                        We listen, respond and continuously improve
+                        so that every client receives an experience
+                        worthy of the Deus Magnus standard.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dm-commitment-card">
+
+                    <div class="dm-commitment-icon">
+                        <i class="fa fa-star-o"></i>
+                    </div>
+
+                    <h3>
+                        Service Par Excellence
+                    </h3>
+
+                    <p>
+                        We commit to delivering professional
+                        services that meet high standards and
+                        exceed client expectations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dm-commitment-card">
+
+                    <div class="dm-commitment-icon">
+                        <i class="fa fa-check-circle-o"></i>
+                    </div>
+
+                    <h3>
+                        Quality Assurance
+                    </h3>
+
+                    <p>
+                        Through quality audits, professional
+                        standards and continuous development,
+                        we protect the quality of every project.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     BRAND STATEMENT
+     ====================================================== -->
+
+<section class="dm-statement">
+
+    <div class="dm-statement-content">
+
+        <span class="dm-kicker">
+            The Deus Magnus Standard
+        </span>
+
+        <h2>
+            We are not just building
+            structures. We are crafting
+            legacies.
+        </h2>
+
+        <p>
+            Our commitment to excellence and innovation drives us
+            to create spaces that inspire, impress and endure.
+        </p>
+
+        <a
+            href="{% url 'projects' %}"
+            class="dm-btn dm-btn-outline"
+        >
+            Explore Our Work
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     CEO MESSAGE
+     ====================================================== -->
+
+<section class="dm-section dm-ceo">
+
+    <div class="dm-container">
+
+        <div class="dm-ceo-quote">
+
+            <div class="dm-ceo-quote-mark">
+                “
+            </div>
+
+            <blockquote>
+                At Deus Magnus, we're not just building structures;
+                we're crafting legacies. Our commitment to excellence
+                and innovation drives us to create spaces that inspire,
+                impress, and endure.
+            </blockquote>
+
+            <div class="dm-ceo-name">
+                Mr. Kuteyi Rasaq — CEO
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     UPCOMING PROJECTS
+     ====================================================== -->
+
+<section class="dm-section">
+
+    <div class="dm-container">
+
+        <div class="dm-section-heading center">
+
+            <span class="dm-kicker">
+                Coming Soon
+            </span>
+
+            <h2>
+                Upcoming Projects
+            </h2>
+
+            <p>
+                Developments designed to redefine excellence in
+                construction and real estate.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            {% for post in object_list %}
+
+            <div class="col-md-4">
+
+                <div class="dm-project-card">
+
+                    <div class="dm-project-image">
+
+                        <a href="{% url 'detail' post.pk %}">
+
+                            <video
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="metadata"
+                            >
+                                <source
+                                    src="{{ post.deus_manus_video.url }}"
+                                    type="video/mp4"
+                                >
+
+                                Your browser does not support
+                                the video tag.
+
+                            </video>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="dm-project-content">
+
+                        <div class="dm-project-label">
+                            Upcoming Project
+                        </div>
+
+                        <h3>
+
+                            <a href="{% url 'detail' post.pk %}">
+                                {{ post.deus_magnus_title }}
+                            </a>
+
+                        </h3>
+
+                        <p>
+                            {{ post.deus_magnus_description|truncatechars:100 }}
+                        </p>
+
+                        <a
+                            href="{% url 'detail' post.pk %}"
+                            class="dm-project-link"
+                        >
+                            Discover Project
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-md-12 text-center">
+
+                <p>
+                    Upcoming projects will be announced soon.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     NEWS
+     ====================================================== -->
+
+<section class="dm-section dm-section-light">
+
+    <div class="dm-container">
+
+        <div class="dm-section-heading center">
+
+            <span class="dm-kicker">
+                News & Insights
+            </span>
+
+            <h2>
+                Stay informed.
+            </h2>
+
+            <p>
+                Read the latest updates from Deus Magnus and the
+                construction and real-estate industry.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            {% for news_construction in news_constructions %}
+
+            <div class="col-md-4">
+
+                <article class="dm-news-card">
+
+                    <div class="dm-news-image">
+
+                        {% if news_construction.deus_magnus_event_img %}
+
+                        <a
+                            href="{% url 'events_article_detail' news_construction.pk %}"
+                        >
+
+                            <img
+                                src="{{ news_construction.deus_magnus_event_img.url }}"
+                                alt="{{ news_construction.deus_magnus_event_title }}"
+                            >
+
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="dm-news-content">
+
+                        <div class="dm-project-label">
+                            Deus Magnus Insights
+                        </div>
+
+                        <h3>
+
+                            <a
+                                href="{% url 'events_article_detail' news_construction.pk %}"
+                            >
+                                {{ news_construction.deus_magnus_event_title }}
+                            </a>
+
+                        </h3>
+
+                        <p>
+                            {{ news_construction.deus_magnus_event_description|truncatechars:100 }}
+                        </p>
+
+                        <a
+                            href="{% url 'events_article_detail' news_construction.pk %}"
+                            class="dm-project-link"
+                        >
+                            Read More
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-md-12 text-center">
+
+                <p>
+                    Latest news and insights will appear here.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="text-center" style="margin-top: 20px;">
+
+            <a
+                href="{% url 'deus_magnus_event' %}"
+                class="dm-btn dm-btn-gold"
+            >
+                View All News
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     FINAL CTA
+     ====================================================== -->
+
+<section class="dm-final-cta">
+
+    <div class="dm-container">
+
+        <div class="row">
 
             <div class="col-md-8">
-                <p class="lead"style="font-family: Georgia;">Deus Magnus Limited: Architecting Luxury Real Estate Beyond Boundaries.</p>
+
+                <h2>
+                    Let's create something exceptional.
+                </h2>
+
+                <p>
+                    Talk to Deus Magnus about your next construction,
+                    real estate or facility management project.
+                </p>
+
             </div>
-        </div><!-- end row -->
-        </a>
-    </div><!-- end container -->  
-    
-    <a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-        <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
-    </a>
 
-</section><br><br><br>
 
-    {% endblock %}
+            <div class="col-md-4 text-right">
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="dm-btn"
+                    style="margin-top: 15px;"
+                >
+                    Schedule a Consultation
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><br><br>
+
+
+</div>
+
+{% endblock %}

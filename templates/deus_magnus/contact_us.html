@@ -1,101 +1,706 @@
+django
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Contact Us {% endblock %}
+
+{% block title %}Contact Us | Deus Magnus Limited{% endblock %}
+
 {% block content %}
 
-<section class="section db p120">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12"><br>
-                <div class="tagline-message page-title text-center">
-                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Contact Us</h1>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section -->
+<style>
+    .dm-contact {
+        background: #f7f6f3;
+    }
 
-<section class="section gb nopadtop" style="padding: 0; margin: 0;">
-    <div class="container" style="padding: 0;">
+    /* HERO */
+    .dm-contact-hero {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+        background: #04245c;
+    }
+
+    .dm-contact-hero video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .dm-contact-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 36, 92, 0.65);
+    }
+
+    .dm-contact-hero-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .dm-contact-hero-content-inner {
+        max-width: 700px;
+    }
+
+    .dm-contact-label {
+        color: #d5ad62;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 12px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .dm-contact-hero h1 {
+        color: #fff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 52px;
+        font-weight: 400;
+        margin: 0 0 18px;
+    }
+
+    .dm-contact-hero p {
+        color: rgba(255,255,255,.9);
+        font-size: 16px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .dm-gold-line {
+        height: 4px;
+        background: #98681e;
+    }
+
+
+    /* CONTACT BOXES */
+    .dm-contact-options {
+        padding: 55px 0 45px;
+    }
+
+    .dm-contact-box {
+        background: #fff;
+        border: 1px solid #e5e1da;
+        padding: 28px 22px;
+        text-align: center;
+        min-height: 190px;
+        transition: .3s ease;
+    }
+
+    .dm-contact-box:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(4,36,92,.08);
+    }
+
+    .dm-contact-icon {
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        margin: 0 auto 15px;
+        background: #f5f1e9;
+        color: #04245c;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+
+    .dm-contact-box h3 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0 0 10px;
+    }
+
+    .dm-contact-box p {
+        color: #777;
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 0 0 8px;
+    }
+
+    .dm-contact-box a {
+        color: #98681e;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    .dm-contact-box a:hover {
+        color: #04245c;
+    }
+
+
+    /* OFFICES */
+    .dm-offices {
+        padding: 50px 0;
+        background: #fff;
+    }
+
+    .dm-section-heading {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .dm-section-heading h2 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 32px;
+        font-weight: 400;
+        margin: 0 0 10px;
+    }
+
+    .dm-section-heading p {
+        color: #777;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .dm-office {
+        background: #f7f6f3;
+        padding: 25px 28px;
+        border-left: 3px solid #98681e;
+    }
+
+    .dm-office h3 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+        font-weight: 400;
+        margin: 0 0 10px;
+    }
+
+    .dm-office p {
+        color: #666;
+        font-size: 13px;
+        line-height: 1.7;
+        margin: 0 0 12px;
+    }
+
+    .dm-office a {
+        color: #98681e;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+
+
+    /* FORM */
+    .dm-form-section {
+        padding: 60px 0;
+        background: #f7f6f3;
+    }
+
+    .dm-form-box {
+        max-width: 760px;
+        margin: auto;
+        background: #fff;
+        padding: 38px 42px;
+        border-top: 3px solid #04245c;
+        box-shadow: 0 10px 30px rgba(4,36,92,.06);
+    }
+
+    .dm-form-heading {
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .dm-form-heading h2 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px;
+    }
+
+    .dm-form-heading p {
+        color: #777;
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .dm-form-group {
+        margin-bottom: 17px;
+    }
+
+    .dm-form-group label {
+        display: block;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .dm-form-control {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #ddd8cf;
+        background: #faf9f7;
+        padding: 10px 13px;
+        font-size: 13px;
+        outline: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    textarea.dm-form-control {
+        height: 110px;
+        resize: vertical;
+    }
+
+    .dm-form-control:focus {
+        border-color: #98681e;
+        background: #fff;
+    }
+
+    .dm-submit {
+        text-align: center;
+        margin-top: 22px;
+    }
+
+    .dm-submit button {
+        border: 0;
+        background: #04245c;
+        color: #fff;
+        padding: 13px 28px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: .3s ease;
+    }
+
+    .dm-submit button:hover {
+        background: #98681e;
+    }
+
+
+    /* WHATSAPP */
+    .dm-whatsapp {
+        position: fixed;
+        right: 20px;
+        bottom: 25px;
+        width: 55px;
+        height: 55px;
+        z-index: 9999;
+        transition: .3s ease;
+    }
+
+    .dm-whatsapp img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .dm-whatsapp:hover {
+        transform: scale(1.08);
+    }
+
+
+    /* MOBILE */
+    @media (max-width: 767px) {
+
+        .dm-contact-hero {
+            height: 430px;
+        }
+
+        .dm-contact-hero h1 {
+            font-size: 38px;
+        }
+
+        .dm-contact-hero p {
+            font-size: 14px;
+        }
+
+        .dm-contact-options {
+            padding: 40px 20px;
+        }
+
+        .dm-contact-box {
+            min-height: auto;
+            margin-bottom: 15px;
+            padding: 25px 20px;
+        }
+
+        .dm-offices {
+            padding: 45px 20px;
+        }
+
+        .dm-office {
+            margin-bottom: 15px;
+        }
+
+        .dm-form-section {
+            padding: 45px 20px;
+        }
+
+        .dm-form-box {
+            padding: 30px 22px;
+        }
+
+        .dm-form-heading h2 {
+            font-size: 27px;
+        }
+    }
+</style>
+
+
+<div class="dm-contact">
+
+    <!-- HERO -->
+    <section class="dm-contact-hero">
+
         {% for post in object_list %}
-        <video autoplay muted playsinline loop width="100%" height="auto" controls style="border-radius: 5px; display: block;">
-            <source src="{{ post.deus_magnus_contact_video.url }}" type="video/mp4">
-            <source src="{{ post.deus_magnus_contact_video.url }}" type="video/webm">
-            Your browser does not support the video tags.
-        </video>
+            {% if post.deus_magnus_contact_video %}
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                >
+                    <source
+                        src="{{ post.deus_magnus_contact_video.url }}"
+                        type="video/mp4"
+                    >
+                </video>
+            {% endif %}
         {% endfor %}
-    </div>
-</section>
 
-     
-        <div class="boxed boxedp4">
-            <div class="row contactv2 text-center">
-                <div class="col-md-4">
-                    <div class="small-box">
-                        <a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?"target="_blank">
-                        <i style="color: #04245c;"class="fa fa-whatsapp"></i></a>
-                        <h4 style="font-family: Georgia;">Book an Inspection </h4>
-                        <h5> <a style="font-weight:400;"href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?"target="_blank">+234 812 492 8163</a></h5>
-                    
-                    </div><!-- end small-box -->
-                </div><!-- end col -->
-            
-                <div class="col-md-4"id="bb">
-                    <div class="small-box">
-                        <a href="mailto:info@deusmagnus.com"target="_blank">
-                        <i style="color: #04245c;"class="fa fa-envelope-o"></i></a> 
-                        <h4 style="font-family: Georgia;">Send Us an Email</h4>
-                        <p><a style="font-weight:400;" href="mailto:info@deusmagnus.com"target="_blank">info@deusmagnus.com</a></p>
-     
-                    </div><!-- end small-box -->
-                </div><!-- end col -->
+        <div class="dm-contact-overlay"></div>
 
-                <div class="col-md-4"id="bc">
-                    <div class="small-box">
-                         <a href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"target="_blank">
-                        <i style="color: #04245c;"class="fa fa-flag-o"></i>      
-                        <h4 style="font-family: Georgia;">Visit Our Offices</h4>
-                        <a href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"target="_blank">
-                        <label>Head Office:</labe> <span style="font-weight:100;">19, Fatai Atere Way, Mushin, Lagos</span></a>
-                        <a href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"target="_blank">
-                            <label>Lekki Office:</labe> <span style="font-weight:100;">Block 58a, Plot 10a, Omorinre <br>Johnson Street, Lekki, Lagos</span></a>
-                        </a> 
-                        <a style="font-weight:100;"href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"target="_blank"><p >View on Google Map</p></a>  
-                    </div><!-- end small-box -->
-                </div><!-- end col -->   
+        <div class="dm-contact-hero-content">
 
-            </div><!-- end contactv2 -->
+            <div class="dm-contact-hero-content-inner">
+
+                <div class="dm-contact-label">
+                    Deus Magnus Limited
+                </div>
+
+                <h1>Contact Us</h1>
+
+                <p>
+                    Let’s discuss your property, construction or investment
+                    requirements with our team.
+                </p>
+
+            </div>
+
         </div>
 
-        
-        <div class="boxe">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="section-title text-center">
-                        <h3 style="font-family: Georgia;"id="bc">Contact Form</h3>
-                        <p>Ready to elevate your property portfolio in Lagos or beyond? 
-                            Our team of experts is prepared to bring your vision to life, 
-                            ensuring quality, efficiency, and long-term value for your real estate investments.</p>
-                    </div><!-- end title -->
-                    <form action="{% url 'contact' %}" method="post">
-                        {% csrf_token %}
-                        <input type="text" name="message-name" class="form-control" placeholder="Enter your name.."><br>
-                        <input type="email" name="message-email" class="form-control" placeholder="Enter email.."><br>
-                        <input type="email" name="message-subject" class="form-control" placeholder="Enter subject.."><br>
-                        <textarea name="message" class="form-control" placeholder="Message Senwin here.."></textarea><br>
-                        <center><button type="submit" class="btn btn-primary" style="border-radius: 5px; font-family: Georgia;">Submit</button></center>
-                    </form>
-                    
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div>
-</div>
-</section>
+    </section>
 
-<a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-    <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
+    <div class="dm-gold-line"></div>
+
+
+    <!-- CONTACT OPTIONS -->
+    <section class="dm-contact-options">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="dm-contact-box">
+
+                        <div class="dm-contact-icon">
+                            <i class="fa fa-whatsapp"></i>
+                        </div>
+
+                        <h3>Book an Inspection</h3>
+
+                        <p>
+                            Speak with our team and arrange a property
+                            inspection.
+                        </p>
+
+                        <a
+                            href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            +234 812 492 8163
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="dm-contact-box">
+
+                        <div class="dm-contact-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </div>
+
+                        <h3>Send Us an Email</h3>
+
+                        <p>
+                            For enquiries, partnerships and general
+                            information.
+                        </p>
+
+                        <a href="mailto:info@deusmagnus.com">
+                            info@deusmagnus.com
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="dm-contact-box">
+
+                        <div class="dm-contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+
+                        <h3>Visit Our Offices</h3>
+
+                        <p>
+                            Our Lagos offices are available for meetings
+                            and enquiries.
+                        </p>
+
+                        <a
+                            href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            View Locations →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- OFFICES -->
+    <section class="dm-offices">
+
+        <div class="container">
+
+            <div class="dm-section-heading">
+
+                <h2>Our Offices</h2>
+
+                <p>
+                    Visit us at one of our Lagos locations.
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="dm-office">
+
+                        <h3>Head Office</h3>
+
+                        <p>
+                            19, Fatai Atere Way,<br>
+                            Mushin, Lagos, Nigeria
+                        </p>
+
+                        <a
+                            href="https://maps.app.goo.gl/SLc89ZrSLBQxiMGG7"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Get Directions →
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="dm-office">
+
+                        <h3>Lekki Office</h3>
+
+                        <p>
+                            Block 58A, Plot 10A,<br>
+                            Omorinre Johnson Street,<br>
+                            Lekki, Lagos, Nigeria
+                        </p>
+
+                        <a
+                            href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Get Directions →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT FORM -->
+    <section class="dm-form-section">
+
+        <div class="container">
+
+            <div class="dm-form-box">
+
+                <div class="dm-form-heading">
+
+                    <h2>Send Us a Message</h2>
+
+                    <p>
+                        Tell us how we can assist you and our team will
+                        get back to you.
+                    </p>
+
+                </div>
+
+
+                <form
+                    action="{% url 'contact' %}"
+                    method="post"
+                >
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="dm-form-group">
+
+                                <label for="message-name">
+                                    Name
+                                </label>
+
+                                <input
+                                    id="message-name"
+                                    type="text"
+                                    name="message-name"
+                                    class="dm-form-control"
+                                    placeholder="Enter your name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="dm-form-group">
+
+                                <label for="message-email">
+                                    Email
+                                </label>
+
+                                <input
+                                    id="message-email"
+                                    type="email"
+                                    name="message-email"
+                                    class="dm-form-control"
+                                    placeholder="Enter your email"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dm-form-group">
+
+                        <label for="message-subject">
+                            Subject
+                        </label>
+
+                        <input
+                            id="message-subject"
+                            type="text"
+                            name="message-subject"
+                            class="dm-form-control"
+                            placeholder="Enter subject"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="dm-form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            class="dm-form-control"
+                            placeholder="Write your message..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="dm-submit">
+
+                        <button type="submit">
+                            Send Message
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- WHATSAPP -->
+<a
+    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+    target="_blank"
+    rel="noopener"
+    class="dm-whatsapp"
+    aria-label="Chat with Deus Magnus on WhatsApp"
+>
+    <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="WhatsApp"
+    >
 </a>
 
+{% endblock %}
 
-       {% endblock %}

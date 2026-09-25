@@ -1,296 +1,1355 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Services Page  {% endblock %}
+
+{% block title %}Our Services | Deus Magnus Limited{% endblock %}
+
 {% block content %}
 
-<section class="section db p120">
+<style>
+    /* =========================================================
+       DEUS MAGNUS — PREMIUM SERVICES PAGE
+       ========================================================= */
+
+    .dm-services-page {
+        background: #ffffff;
+        color: #222222;
+    }
+
+    .dm-services-page a {
+        text-decoration: none !important;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .dm-services-hero {
+        position: relative;
+        min-height: 470px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4, 36, 92, 0.97) 0%,
+                rgba(4, 36, 92, 0.88) 48%,
+                rgba(4, 36, 92, 0.60) 100%
+            ),
+            url("{% static 'images/m_v_s.jpg' %}") center center / cover no-repeat;
+    }
+
+    .dm-services-hero-inner {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 100px 0;
+    }
+
+    .dm-services-eyebrow {
+        margin-bottom: 18px;
+        color: #d5ad62;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .dm-services-hero h1 {
+        max-width: 850px;
+        margin: 0 0 22px;
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 56px;
+        font-weight: 500;
+        line-height: 1.15;
+    }
+
+    .dm-services-hero p {
+        max-width: 720px;
+        margin: 0;
+        color: rgba(255,255,255,0.88);
+        font-size: 17px;
+        line-height: 1.85;
+    }
+
+
+    /* =========================================================
+       INTRO
+       ========================================================= */
+
+    .dm-services-intro {
+        padding: 100px 0 65px;
+        text-align: center;
+    }
+
+    .dm-section-label {
+        margin-bottom: 15px;
+        color: #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+    }
+
+    .dm-services-intro h2 {
+        max-width: 850px;
+        margin: 0 auto 22px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 39px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .dm-services-intro p {
+        max-width: 800px;
+        margin: 0 auto;
+        color: #666666;
+        font-size: 16px;
+        line-height: 1.95;
+    }
+
+
+    /* =========================================================
+       CORE SERVICES
+       ========================================================= */
+
+    .dm-core-services {
+        padding: 30px 0 105px;
+        background: #f7f6f3;
+    }
+
+    .dm-service-heading {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .dm-service-heading h2 {
+        margin: 0;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 36px;
+        font-weight: 500;
+    }
+
+    .dm-service-card {
+        position: relative;
+        height: 100%;
+        margin-bottom: 30px;
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        transition: all 0.35s ease;
+    }
+
+    .dm-service-card:hover {
+        border-color: #d8c39c;
+        box-shadow: 0 18px 45px rgba(4, 36, 92, 0.11);
+        transform: translateY(-6px);
+    }
+
+    .dm-service-image {
+        position: relative;
+        height: 255px;
+        overflow: hidden;
+        background: #eeeeee;
+    }
+
+    .dm-service-image a {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dm-service-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .dm-service-card:hover .dm-service-image img {
+        transform: scale(1.05);
+    }
+
+    .dm-service-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        pointer-events: none;
+        background: linear-gradient(
+            to top,
+            rgba(4,36,92,0.68),
+            rgba(4,36,92,0)
+        );
+    }
+
+    .dm-service-number {
+        position: absolute;
+        top: 18px;
+        left: 20px;
+        width: 39px;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        background: #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+    }
+
+    .dm-service-content {
+        padding: 28px 27px 30px;
+    }
+
+    .dm-service-content h3 {
+        margin: 0 0 15px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 23px;
+        font-weight: 500;
+        line-height: 1.35;
+    }
+
+    .dm-service-content h3 a {
+        color: #04245c;
+        transition: color 0.3s ease;
+    }
+
+    .dm-service-content h3 a:hover {
+        color: #98681e;
+    }
+
+    .dm-service-content p {
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
+        line-height: 1.85;
+    }
+
+    .dm-service-link {
+        display: inline-block;
+        margin-top: 21px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .dm-service-link:hover {
+        color: #98681e;
+        letter-spacing: 2px;
+    }
+
+    .dm-service-link i {
+        margin-left: 7px;
+        font-size: 10px;
+    }
+
+
+    /* =========================================================
+       SPECIALIST SERVICES
+       ========================================================= */
+
+    .dm-specialist-section {
+        padding: 105px 0;
+        background: #ffffff;
+    }
+
+    .dm-specialist-intro {
+        margin-bottom: 55px;
+        text-align: center;
+    }
+
+    .dm-specialist-intro h2 {
+        margin: 0 auto 18px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 37px;
+        font-weight: 500;
+    }
+
+    .dm-specialist-intro p {
+        max-width: 760px;
+        margin: 0 auto;
+        color: #666666;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .dm-specialist-card {
+        height: 100%;
+        margin-bottom: 30px;
+        background: #ffffff;
+        border: 1px solid #e9e9e9;
+        transition: all 0.35s ease;
+    }
+
+    .dm-specialist-card:hover {
+        border-color: #d8c39c;
+        box-shadow: 0 15px 35px rgba(4,36,92,0.08);
+        transform: translateY(-5px);
+    }
+
+    .dm-specialist-image {
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .dm-specialist-image a {
+        display: block;
+        height: 100%;
+    }
+
+    .dm-specialist-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .dm-specialist-card:hover .dm-specialist-image img {
+        transform: scale(1.05);
+    }
+
+    .dm-specialist-content {
+        padding: 25px 25px 28px;
+    }
+
+    .dm-specialist-content h3 {
+        margin: 0 0 13px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+        font-weight: 500;
+    }
+
+    .dm-specialist-content h3 a {
+        color: #04245c;
+    }
+
+    .dm-specialist-content h3 a:hover {
+        color: #98681e;
+    }
+
+    .dm-specialist-content p {
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       DETAILED SERVICE AREAS
+       ========================================================= */
+
+    .dm-service-detail {
+        padding: 100px 0;
+        background: #f7f6f3;
+    }
+
+    .dm-detail-block {
+        margin-bottom: 45px;
+        padding: 42px;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+    }
+
+    .dm-detail-block:last-child {
+        margin-bottom: 0;
+    }
+
+    .dm-detail-block h3 {
+        margin: 0 0 25px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 29px;
+        font-weight: 500;
+    }
+
+    .dm-detail-block h3 span {
+        margin-right: 12px;
+        color: #98681e;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .dm-detail-block ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .dm-detail-block ul li {
+        position: relative;
+        margin-bottom: 13px;
+        padding-left: 23px;
+        color: #555555;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .dm-detail-block ul li:before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: #98681e;
+        font-weight: 600;
+    }
+
+
+    /* =========================================================
+       CLOSING STATEMENT
+       ========================================================= */
+
+    .dm-services-closing {
+        padding: 100px 20px;
+        text-align: center;
+        background: #ffffff;
+    }
+
+    .dm-services-closing h2 {
+        max-width: 800px;
+        margin: 0 auto 20px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 38px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .dm-services-closing p {
+        max-width: 730px;
+        margin: 0 auto;
+        color: #666666;
+        font-size: 16px;
+        line-height: 1.9;
+    }
+
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+
+    .dm-services-cta {
+        padding: 80px 20px;
+        text-align: center;
+        background: #04245c;
+    }
+
+    .dm-services-cta h2 {
+        margin: 0 0 16px;
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 35px;
+        font-weight: 500;
+    }
+
+    .dm-services-cta p {
+        max-width: 680px;
+        margin: 0 auto 30px;
+        color: rgba(255,255,255,0.78);
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .dm-services-cta-btn {
+        display: inline-block;
+        padding: 14px 32px;
+        color: #ffffff !important;
+        background: #98681e;
+        border: 1px solid #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .dm-services-cta-btn:hover {
+        color: #04245c !important;
+        background: #ffffff;
+        border-color: #ffffff;
+    }
+
+
+    /* =========================================================
+       WHATSAPP
+       ========================================================= */
+
+    .dm-whatsapp {
+        position: fixed;
+        right: 20px;
+        bottom: 30px;
+        z-index: 9999;
+    }
+
+    .dm-whatsapp img {
+        width: 58px;
+        height: 58px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .dm-whatsapp:hover img {
+        transform: scale(1.08);
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 991px) {
+
+        .dm-services-hero h1 {
+            font-size: 46px;
+        }
+
+        .dm-service-image {
+            height: 230px;
+        }
+
+        .dm-specialist-image {
+            height: 210px;
+        }
+    }
+
+    @media (max-width: 767px) {
+
+        .dm-services-hero {
+            min-height: 390px;
+        }
+
+        .dm-services-hero-inner {
+            padding: 75px 20px;
+        }
+
+        .dm-services-hero h1 {
+            font-size: 38px;
+        }
+
+        .dm-services-hero p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .dm-services-intro {
+            padding: 70px 20px 45px;
+        }
+
+        .dm-services-intro h2 {
+            font-size: 30px;
+        }
+
+        .dm-core-services {
+            padding: 60px 20px 70px;
+        }
+
+        .dm-service-heading h2,
+        .dm-specialist-intro h2 {
+            font-size: 30px;
+        }
+
+        .dm-service-image {
+            height: 245px;
+        }
+
+        .dm-specialist-section {
+            padding: 70px 20px;
+        }
+
+        .dm-service-detail {
+            padding: 70px 20px;
+        }
+
+        .dm-detail-block {
+            padding: 28px 24px;
+        }
+
+        .dm-detail-block h3 {
+            font-size: 25px;
+        }
+
+        .dm-services-closing {
+            padding: 70px 20px;
+        }
+
+        .dm-services-closing h2 {
+            font-size: 30px;
+        }
+
+        .dm-services-cta {
+            padding: 65px 20px;
+        }
+
+        .dm-services-cta h2 {
+            font-size: 29px;
+        }
+
+        .dm-whatsapp {
+            right: 15px;
+            bottom: 20px;
+        }
+
+        .dm-whatsapp img {
+            width: 54px;
+            height: 54px;
+        }
+    }
+</style>
+
+<div class="dm-services-page">
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="dm-services-hero">
+
     <div class="container">
+
+        <div class="dm-services-hero-inner">
+
+            <div class="dm-services-eyebrow">
+                DEUS MAGNUS LIMITED
+            </div>
+
+            <h1>
+                Integrated Services. Built Around Your Needs.
+            </h1>
+
+            <p>
+                From construction and real estate development to
+                facility management and specialist project support,
+                Deus Magnus Limited provides comprehensive solutions
+                designed around quality, efficiency and long-term value.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRODUCTION
+     ===================================================== -->
+
+<section class="dm-services-intro">
+
+    <div class="container">
+
+        <div class="dm-section-label">
+            OUR SERVICES
+        </div>
+
+        <h2>
+            Comprehensive &amp; Sustainable Building Solutions
+        </h2>
+
+        <p>
+            From addressing Nigeria's infrastructure and real estate
+            challenges to optimizing the long-term performance of
+            valuable assets, Deus Magnus Limited brings construction,
+            real estate and facility management expertise together
+            under one integrated approach.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CORE SERVICES
+     ===================================================== -->
+
+<section class="dm-core-services">
+
+    <div class="container">
+
+        <div class="dm-service-heading">
+
+            <div class="dm-section-label">
+                WHAT WE DO
+            </div>
+
+            <h2>
+                Our Core Services
+            </h2>
+
+        </div>
+
+
         <div class="row">
-            <div class="col-md-12"><br><br>
-                <div class="tagline-message page-title text-center">
-                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Our Services</h1> 
+
+            <!-- Construction -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-service-card">
+
+                    <div class="dm-service-image">
+
+                        {% for construction in constructions %}
+
+                        <a href="{% url 'construction_development' %}">
+
+                            <img
+                                src="{{ construction.deus_magnus_construction_p.url }}"
+                                alt="Construction Services"
+                            >
+
+                            <div class="dm-service-overlay"></div>
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                        <div class="dm-service-number">
+                            01
+                        </div>
+
+                    </div>
+
+                    <div class="dm-service-content">
+
+                        <h3>
+                            <a href="{% url 'construction_development' %}">
+                                Construction Services
+                            </a>
+                        </h3>
+
+                        <p>
+                            Building, civil engineering, renovation,
+                            residential, commercial and industrial
+                            construction solutions delivered with
+                            attention to quality and execution.
+                        </p>
+
+                        <a
+                            href="{% url 'construction_development' %}"
+                            class="dm-service-link"
+                        >
+                            Explore Service
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
                 </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section -->   
+
+            </div>
 
 
+            <!-- Real Estate -->
+            <div class="col-md-4 col-sm-6">
 
-<section class="section">
+                <div class="dm-service-card">
+
+                    <div class="dm-service-image">
+
+                        {% for real in reals %}
+
+                        <a href="{% url 'real_estate_services' %}">
+
+                            <img
+                                src="{{ real.deus_magnus_real_estate_p.url }}"
+                                alt="Real Estate Services"
+                            >
+
+                            <div class="dm-service-overlay"></div>
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                        <div class="dm-service-number">
+                            02
+                        </div>
+
+                    </div>
+
+                    <div class="dm-service-content">
+
+                        <h3>
+                            <a href="{% url 'real_estate_services' %}">
+                                Real Estate Services
+                            </a>
+                        </h3>
+
+                        <p>
+                            Property development, acquisition,
+                            management, advisory, planning and project
+                            management solutions across the real estate
+                            lifecycle.
+                        </p>
+
+                        <a
+                            href="{% url 'real_estate_services' %}"
+                            class="dm-service-link"
+                        >
+                            Explore Service
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Facility Management -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-service-card">
+
+                    <div class="dm-service-image">
+
+                        {% for facility in facilitys %}
+
+                        <a href="{% url 'facility_management' %}">
+
+                            <img
+                                src="{{ facility.deus_magnus_facility_p.url }}"
+                                alt="Facility Management"
+                            >
+
+                            <div class="dm-service-overlay"></div>
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                        <div class="dm-service-number">
+                            03
+                        </div>
+
+                    </div>
+
+                    <div class="dm-service-content">
+
+                        <h3>
+                            <a href="{% url 'facility_management' %}">
+                                Facility Management
+                            </a>
+                        </h3>
+
+                        <p>
+                            Comprehensive property maintenance,
+                            building systems, utilities, security,
+                            cleaning, waste management and grounds
+                            maintenance.
+                        </p>
+
+                        <a
+                            href="{% url 'facility_management' %}"
+                            class="dm-service-link"
+                        >
+                            Explore Service
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SPECIALIST SERVICES
+     ===================================================== -->
+
+<section class="dm-specialist-section">
+
     <div class="container">
+
+        <div class="dm-specialist-intro">
+
+            <div class="dm-section-label">
+                SPECIALIST SUPPORT
+            </div>
+
+            <h2>
+                Project Support &amp; Construction Resources
+            </h2>
+
+            <p>
+                Beyond our core services, Deus Magnus provides specialist
+                equipment, materials and technical support that help
+                projects move efficiently from planning through execution.
+            </p>
+
+        </div>
+
+
         <div class="row">
-            <div class="col-md-2">
-                {% for post in object_list %}
-                <div class="custom-module">
-                    <img style="border-radius: 5px; "src="{{ post.deus_magnus_services_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <h3 style="color: #98681e;font-family: Georgia;">Comprehensive/Sustainable Building Solutions for Nigeria's Real Estate Challenges</h3>
-                    <p>From tackling Nigeria's infrastructure deficit to optimizing long-term asset performance in prime locations like Victoria Island and Ikoyi, 
-                        we are your trusted partner in navigating the complexities of the African real estate landscape.
-                        Deus Magnus Limited offers end-to-end services in construction, real estate development, and facility management. Our expertise spans:
-                    </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+
+            <!-- Equipment Hire -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-specialist-card">
+
+                    <div class="dm-specialist-image">
+
+                        {% for equipment in equipments %}
+
+                        <a href="{% url 'equipmenthire' %}">
+
+                            <img
+                                src="{{ equipment.deus_magnus_equipment_p.url }}"
+                                alt="Equipment Hire"
+                            >
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="dm-specialist-content">
+
+                        <h3>
+                            <a href="{% url 'equipmenthire' %}">
+                                Equipment Hire
+                            </a>
+                        </h3>
+
+                        <p>
+                            Construction vehicles and equipment,
+                            including boom pumps, double drum rollers
+                            and other project support equipment.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
 
 
-<section class="section">
+            <!-- Boom Pump -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-specialist-card">
+
+                    <div class="dm-specialist-image">
+
+                        {% for boom in booms %}
+
+                        <a href="{% url 'boom' %}">
+
+                            <img
+                                src="{{ boom.deus_magnus_boom_p.url }}"
+                                alt="52M Boom Pump"
+                            >
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="dm-specialist-content">
+
+                        <h3>
+                            <a href="{% url 'boom' %}">
+                                52M Boom Pump
+                            </a>
+                        </h3>
+
+                        <p>
+                            High-reach concrete placement designed to
+                            provide precision, power and efficiency
+                            across demanding construction sites.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Concrete -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-specialist-card">
+
+                    <div class="dm-specialist-image">
+
+                        {% for concrete in concretes %}
+
+                        <a href="{% url 'concrete' %}">
+
+                            <img
+                                src="{{ concrete.deus_magnus_concrete_p.url }}"
+                                alt="Concrete Supply"
+                            >
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="dm-specialist-content">
+
+                        <h3>
+                            <a href="{% url 'concrete' %}">
+                                Concrete Supply
+                            </a>
+                        </h3>
+
+                        <p>
+                            Mixed concrete solutions tailored to project
+                            specifications with a focus on consistency,
+                            quality and dependable supply.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Materials -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-specialist-card">
+
+                    <div class="dm-specialist-image">
+
+                        {% for material in materials %}
+
+                        <a href="{% url 'material' %}">
+
+                            <img
+                                src="{{ material.deus_magnus_material_p.url }}"
+                                alt="Material Supply"
+                            >
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="dm-specialist-content">
+
+                        <h3>
+                            <a href="{% url 'material' %}">
+                                Material Supply
+                            </a>
+                        </h3>
+
+                        <p>
+                            Essential construction materials, including
+                            granite and sand, supplied directly to
+                            project sites.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Specialized Services -->
+            <div class="col-md-4 col-sm-6">
+
+                <div class="dm-specialist-card">
+
+                    <div class="dm-specialist-image">
+
+                        {% for specialized in specializeds %}
+
+                        <a href="{% url 'specialized' %}">
+
+                            <img
+                                src="{{ specialized.deus_magnus_specialized_p.url }}"
+                                alt="Specialized Services"
+                            >
+
+                        </a>
+
+                        {% empty %}
+
+                        <div style="
+                            width:100%;
+                            height:100%;
+                            background:#eeeeee;
+                        "></div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="dm-specialist-content">
+
+                        <h3>
+                            <a href="{% url 'specialized' %}">
+                                Specialized Services
+                            </a>
+                        </h3>
+
+                        <p>
+                            Project consultation, site supervision and
+                            logistical support designed to keep operations
+                            coordinated from start to finish.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONSTRUCTION SERVICE AREAS
+     ===================================================== -->
+
+<section class="dm-service-detail">
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for equipment in equipments %}
-                <div class="custom-module">
-                    <a href="{% url 'equipmenthire' %}">
-                    <img style="border-radius: 5px; "src="{{ equipment.deus_magnus_equipment_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                    </a>
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'equipmenthire' %}">
-                    <h3 style="color: #98681e;font-family: Georgia;">Equipment Hire</h3></a>
-                    <p>Offers construction vehicles and equipment such as boom pumps, double drum 
-                        rollers, and more to support efficient project execution.   
-                    </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+
+        <div class="dm-detail-block">
+
+            <h3>
+                <span>01</span>
+                Construction Services
+            </h3>
+
+            <ul>
+                <li>Building construction — residential, commercial and industrial</li>
+                <li>Civil engineering — roads, bridges and water supply</li>
+                <li>Renovation and upgrades — structural changes and major overhauls</li>
+                <li>Industrial warehouses</li>
+                <li>Service apartments</li>
+                <li>Luxury apartments and homes</li>
+                <li>Student housing</li>
+                <li>Office spaces</li>
+            </ul>
+
+        </div>
 
 
-<section class="section">
+        <div class="dm-detail-block">
+
+            <h3>
+                <span>02</span>
+                Real Estate Services
+            </h3>
+
+            <ul>
+                <li>Property development — residential, commercial and industrial</li>
+                <li>Property management — leasing, sales and marketing</li>
+                <li>Real estate advisory services</li>
+                <li>Land acquisition</li>
+                <li>Feasibility and viability studies</li>
+                <li>Architecture and planning</li>
+                <li>Structural design</li>
+                <li>Project management</li>
+                <li>Renovations</li>
+            </ul>
+
+        </div>
+
+
+        <div class="dm-detail-block">
+
+            <h3>
+                <span>03</span>
+                Facility Management
+            </h3>
+
+            <ul>
+                <li>Property maintenance and repairs</li>
+                <li>Utilities management — energy, water and waste</li>
+                <li>Facility operations</li>
+                <li>Building systems maintenance</li>
+                <li>Security services</li>
+                <li>Cleaning and janitorial services</li>
+                <li>Waste management</li>
+                <li>Landscaping and grounds maintenance</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CLOSING
+     ===================================================== -->
+
+<section class="dm-services-closing">
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for boom in booms %}
-                <div class="custom-module">
-                    <a href="{% url 'boom' %}">
-                    <img style="border-radius: 5px; "src="{{ boom.deus_magnus_boom_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                    </a>
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'boom' %}">
-                    <h3 style="color: #98681e;font-family: Georgia;">Boom Pump</h3></a>
-                    <p>Welcome Home to Power and Precision: The 52M Boom Pump
-                        Whether you’re taking on high-rise builds or expansive construction projects, our 52-meter boom pump brings reach, 
-                        power, and efficiency straight to your site. Capable of delivering concrete exactly 
-                        where it’s needed—no matter the height or depth—our pump is designed for the highest standards in modern construction.
-                        </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+
+        <div class="dm-section-label">
+            THE DEUS MAGNUS APPROACH
+        </div>
+
+        <h2>
+            One Partner. Multiple Capabilities. A Unified Standard.
+        </h2>
+
+        <p>
+            By bringing construction, real estate, facility management
+            and specialist project support together, we create a more
+            connected experience for clients and a stronger foundation
+            for successful projects.
+        </p>
+
+    </div>
+
+</section>
 
 
-<section class="section">
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+
+<section class="dm-services-cta">
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for concrete in concretes %}
-                <div class="custom-module">
-                    <a href="{% url 'concrete' %}">
-                    <img style="border-radius: 5px; "src="{{ concrete.deus_magnus_concrete_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                    </a>
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'concrete' %}">
-                    <h3 style="color: #98681e;font-family: Georgia;">Concrete Supply</h3></a>
-                    <p>Provides mixed concrete solutions tailored to project specifications, 
-                        ensuring consistency and quality.
-                    </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+
+        <h2>
+            Have a Project in Mind?
+        </h2>
+
+        <p>
+            Tell us what you are looking to build, develop, manage or
+            improve. Our team is ready to discuss the right solution
+            for your requirements.
+        </p>
+
+        <a
+            href="{% url 'contact' %}"
+            class="dm-services-cta-btn"
+        >
+            Start a Conversation
+        </a>
+
+    </div>
+
+</section>
 
 
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for material in materials %}
-                <div class="custom-module">
-                    <a href="{% url 'material' %}">
-                    <img style="border-radius: 5px; "src="{{ material.deus_magnus_material_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                    </a>
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'material' %}">
-                    <h3 style="color: #98681e;font-family: Georgia;">Material Supply</h3></a>
-                    <p>Supplies essential construction materials, including granite and sand, directly to project sites. 
-                    </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+</div><br><br>
+
+<!-- =========================================================
+     WHATSAPP
+     ========================================================= -->
+
+<a
+href="https://wa.me/+2348124928163?text=Hi%20Deus%20Magnus%20Limited%3F"
+target="_blank"
+rel="noopener noreferrer"
+class="dm-whatsapp"
+aria-label="Chat with Deus Magnus Limited on WhatsApp"
+
+>
 
 
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for specialized in specializeds %}
-                <div class="custom-module">
-                    <a href="{% url 'specialized' %}">
-                    <img style="border-radius: 5px; "src="{{ specialized.deus_magnus_specialized_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                    </a>
-                </div><!-- end module -->
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'specialized' %}">
-                    <h3 style="color: #98681e;font-family: Georgia;">Specialized Services</h3></a>
-                    <p>Includes project consultation, site supervision, and logistical support to 
-                        ensure seamless operations from start to finish.
-                    </p>               
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
-
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for construction in constructions %}
-                <a href="{% url 'construction_development' %}">
-                <div class="custom-module">
-                    <img style="border-radius: 5px;"src="{{ construction.deus_magnus_construction_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                </div><!-- end module -->
-                </a>
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'construction_development' %}"><h3 style="color: #98681e;font-family: Georgia;">Construction Services</h3></a>
-                    <div class="row">
-                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
-                            <ul class="check">
-                                <li>Building construction (residential, commercial, industrial)</li>
-                                <li>Civil engineering (roads, bridges, water supply)</li>
-                                <li>Renovation and Upgrades (Structural changes, major overhauls)</li>
-                                <li>Industrial warehouse</li>
-                                <li>Service apartments</li>
-                                <li>Luxury apartments and homes</li>
-                                <li>Student housing</li>
-                                <li>Office spaces</li>
-                            </ul><!-- end check -->
-                        </div><!-- end col-lg-4 -->       
-                    </div><!-- end row -->                  
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+<img
 
 
 
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for real in reals %}
-                <a href="{% url 'real_estate_services' %}">
-                <div class="custom-module">
-                    <img style="border-radius: 5px;"src="{{ real.deus_magnus_real_estate_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                </div><!-- end module -->
-                 </a>    
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                    <a href="{% url 'real_estate_services' %}"><h3 style="color: #98681e;font-family: Georgia;">Real Estate Services</h3></a>
-                    <div class="row">
-                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
-                            <ul class="check">
-                                <li>Property development (residential, commercial, industrial)</li>
-                                <li>Property management (leasing, sales, marketing)</li>
-                                <li>Real estate advisory sevices</li>
-                                <li>Land acquisition</li>
-                                <li>Feasibility and viability studies</li>
-                                <li>Architecture and planning</li>
-                                <li>Structural designing</li>
-                                <li>Project management</li>
-                                <li>Renovations</li>
-                            </ul><!-- end check -->
-                        </div><!-- end col-lg-4 -->       
-                    </div><!-- end row -->                  
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
+    src="{% static 'images/whatsapp.png' %}"
+    alt="Chat with us on WhatsApp"
+>
 
 
-
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                {% for facility in facilitys %}
-                <a href="{% url 'facility_management' %}">
-                <div class="custom-module">
-                    <img style="border-radius: 5px;"src="{{ facility.deus_magnus_facility_p.url }}" alt="" class="img-responsive wow slideInLeft">
-                </div><!-- end module -->
-            </a>
-                {% endfor %}
-            </div><!-- end col -->
-            <div class="col-md-7">  
-                <div class="custom-module p40l">
-                   
-                    <a href="{% url 'facility_management' %}"><h3 style="color: #98681e;font-family: Georgia;">Facility Management</h3></a>
-                    <div class="row">
-                        <div class="col-lg-10 col-md-4 col-sm-4 col-xs-12 first">
-                            <ul class="check">
-                                <li>Property maintenance and repairs</li>
-                                <li>Utilities management (energy, water, waste)</li>
-                                <li>Facility operations</li>
-                                <li>Building systems maintenance</li>
-                                <li>Security services</li>
-                                <li>Cleaning and janitorial services</li>
-                                <li>Waste management</li>
-                                <li>Landscaping and grounds maintenance</li>
-                            </ul><!-- end check -->
-                        </div><!-- end col-lg-4 -->       
-                    </div><!-- end row --> 
-                    <hr class="invis">
-                    <div class="btn-wrapper">
-                        <a href="{% url 'founder_message' %}" class="btn btn-primary" style="border-radius: 5px;font-family: Georgia;">About us</a>
-                    </div>                 
-                </div><!-- end module -->
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><br><br>
-
-<a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-    <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
 </a>
 
-
-                
- 
 {% endblock %}

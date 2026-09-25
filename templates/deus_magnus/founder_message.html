@@ -1,144 +1,1119 @@
+
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Founder Message{% endblock %}
-{% block content%}
 
-<section class="section db p120">
+{% block title %}Founder Message | Deus Magnus Limited{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     PAGE HERO
+========================================================= -->
+<section class="dm-page-hero">
+    <div class="dm-page-hero-overlay"></div>
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-12"><br><br>
-                <div class="tagline-message page-title text-center">
-                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Who We Are</h1>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section -->   
+        <div class="dm-page-hero-content">
+            <span class="dm-page-eyebrow">DEUS MAGNUS LIMITED</span>
 
-     <!--style.css-->
-     <link rel="stylesheet" href="{% static 'csss/stylee.css' %}"> 
-<br>
+            <h1>Who We Are</h1>
 
-		<!--about start -->
-		<div class="container">
-			<div class="shadow p-5 mb-5 bg-body rounded">
-		<section id="about" class="about">
-			<div class="container">
-				<div class="about-content">
-					<div class="row">
-						<div class="col-sm-5">
-							<div class="single-about-txt">
-								<h2 style="color: #98681e;font-family: Georgia;">
-									More Than Construction. An Integrated Approach to the Built Environment.
-								</h2>
-								<p style="color: #52565b;">At Deus Magnus, we are committed to redefining excellence in Nigeria's construction and real estate industry. 
-									Since our inception in 2018, we have rapidly established ourselves as the premium integrated solutions provider, 
-									Deus Magnus is an integrated construction, real estate and facility management company delivering solutions across Nigeria's built environment.
-                                    Our multidisciplinary team brings together professionals across engineering, architecture, estate surveying and valuation, structural design, project management, and related disciplines to transform ideas into functional, high-quality spaces.
-                                    From development and construction to property management and project support, we approach every engagement with one goal:
-                                    Delivering service par excellence.<br><br>
-									
-									Mr. Kuteyi Rasaq<br>
-									CEO, Deus Magnus Limited
-									</p>
-							</div>
-						</div>
-						<center>
-                            <div class="col-sm-offset-1 col-sm-4">
-                                {% for post in object_list %}
-                                <div class="single-about-img">
-                                    <img src="{{ post.deus_magnus_founder_p.url }}" alt="profile_image">
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        </center>
-					</div>
-				</div>
-				
-
-
-    <div class="shadow p-5 mb-5 bg-body rounded">
-    <div class="row">   
-        <div class="col-md-12">
-            <div class="shop-extra">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home" style="font-family: Georgia;">OUR VISION</a></li>
-                    <li><a data-toggle="tab" href="#menu2" style="font-family: Georgia;">OUR MISSION</a></li>
-                    <li><a data-toggle="tab" href="#menu3" style="font-family: Georgia;">OUR APPROACH</a></li>
-                    <li><a data-toggle="tab" href="#menu4" style="font-family: Georgia;">OUR CORE VALUES</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                        <h3 style="color: #98681e;font-family: Georgia;">Vision</h3>
-                        <p>To be a leading integrated construction, real estate, and facility management company 
-                            in Nigeria, delivering innovative, sustainable, and high-quality solutions 
-                            that enhance the built environment and quality of life. To emerge as the leading construction and real estate service provider in Africa 
-                            and globally, accomplished through the delivery of internationally acclaimed structures.</p>
-                    </div>
-                    <div id="menu2" class="tab-pane fade">
-                        <h3 style="color: #98681e;font-family: Georgia;">Mission</h3>
-                        <p>To provide exceptional services, exceeding client expectations, 
-                            while fostering a culture of safety, integrity, and community engagement. 
-                            To revolutionize the Nigerian real estate landscape by delivering unparalleled quality through cutting-edge 
-                            innovation, superior quality, and unwavering commitment to sustainability.</p>
-                    </div>
-                    <div id="menu4" class="tab-pane fade">
-                        <h3 style="color: #98681e;font-family: Georgia;">Core Values</h3> 
-                            <div class="row">
-                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-12 first">
-                                    <ul class="check">
-                                        <li><B>Integrity:</B></li>
-                                        <P>We act with honesty and transparency, earning trust through ethical and responsible conduct.</P>
-                                        <li><B>Excellence:</B></li>
-                                        <P>Quality is non-negotiable for us. From design to delivery, we focus on every detail and consistently meet required standards.</P>
-                                        <li><B>Safety First:</B></li>
-                                        <P>People matter most to us. We create safe working environments and strictly follow safety practices to protect our team members, clients and the wider community.</P>
-                                        <li><B>Innovation:</B></li>
-                                        <P>We constantly explore new ideas and approaches, using modern technologies and creative solutions to achieve better outcomes.</P>
-                                        <li><B>Sustainability:</B></li>
-                                        <P>We build with the future in mind by using resources responsibly and delivering projects that create long-term value for people and the environment.</P>
-                                        <li><B>Professionalism:</B></li>
-                                        <P>We uphold high standards of competence, respect, and reliability.</P>
-                                    </ul><!-- end check -->
-                                </div><!-- end col-lg-4 -->   
-                            </div><!-- end row --> 
-                    </div>
-                    <div id="menu3" class="tab-pane fade">
-                        <h3 style="color: #98681e;font-family: Georgia;">Approach</h3>
-                        <p>At Deus Magnus, we address complex challenges facing high-net-worth property developers, 
-                            investors, and owners. Our innovative approach significantly reduces risks, delays, and 
-                            premature deterioration by focusing on five key areas:</p>
-                            <div class="row">
-                                <div class="col-lg-8 col-md-6 col-sm-4 col-xs-12 first">
-                                    <ul class="check">
-                                        <li>Integrated Solutions Model</li>
-                                        <li>Lifecycle Cost Optimization</li>
-                                        <li>Technology Integration</li>
-                                        <li>Sustainability Focus</li>
-                                        <li>Quality Assurance and Project Management</li>
-                                    </ul><!-- end check -->
-                                </div><!-- end col-lg-4 -->    
-                            </div><!-- end row -->  
-                            
-                            </div><!-- end row -->
-                        </div><!-- end container -->
-                    </div>
-                </div>
-                </div><!-- end shop-extra -->
-            </div><!-- end col --><br>
-            <div class="btn-wrapper">
-                <a href=""onclick="history.back(); return false;" class="btn btn-primary"style="border-radius: 10px;font-family: Georgia;"> Back </a>
-            </div>
-            </div><!-- end row -->
+            <p>
+                Building excellence across Nigeria's built environment.
+            </p>
         </div>
-    </div> 
-    
+    </div>
 </section>
 
-<a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-    <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
-</a>      
 
+<!-- =========================================================
+     FOUNDER / COMPANY INTRODUCTION
+========================================================= -->
+<section class="dm-founder-section">
+    <div class="container">
+
+        <div class="row dm-founder-row">
+
+            <!-- TEXT -->
+            <div class="col-md-6 col-sm-12">
+                <div class="dm-founder-content">
+
+                    <span class="dm-section-eyebrow">
+                        OUR STORY
+                    </span>
+
+                    <h2>
+                        More Than Construction.
+                        <span>An Integrated Approach to the Built Environment.</span>
+                    </h2>
+
+                    <div class="dm-gold-line"></div>
+
+                    <p>
+                        At Deus Magnus, we are committed to redefining excellence
+                        in Nigeria's construction and real estate industry.
+                        Since our inception in 2018, we have established ourselves
+                        as an integrated solutions provider across the built
+                        environment.
+                    </p>
+
+                    <p>
+                        Deus Magnus is an integrated construction, real estate and
+                        facility management company delivering solutions across
+                        Nigeria's built environment.
+                    </p>
+
+                    <p>
+                        Our multidisciplinary team brings together professionals
+                        across engineering, architecture, estate surveying and
+                        valuation, structural design, project management, and
+                        related disciplines to transform ideas into functional,
+                        high-quality spaces.
+                    </p>
+
+                    <p>
+                        From development and construction to property management
+                        and project support, we approach every engagement with
+                        one goal:
+                    </p>
+
+                    <blockquote class="dm-founder-quote">
+                        Delivering service par excellence.
+                    </blockquote>
+
+                    <div class="dm-founder-signature">
+                        <strong>Mr. Kuteyi Rasaq</strong>
+                        <span>CEO, Deus Magnus Limited</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- FOUNDER IMAGE -->
+            <div class="col-md-5 col-md-offset-1 col-sm-12">
+                <div class="dm-founder-image-wrap">
+
+                    <div class="dm-founder-image-frame"></div>
+
+                    {% for post in object_list %}
+                        {% if post.deus_magnus_founder_p %}
+                            <img
+                                src="{{ post.deus_magnus_founder_p.url }}"
+                                alt="Mr. Kuteyi Rasaq, CEO of Deus Magnus Limited"
+                                class="dm-founder-image"
+                            >
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="dm-founder-badge">
+                        <span>DEUS</span>
+                        <strong>MAGNUS</strong>
+                        <small>LIMITED</small>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================================================
+     VISION / MISSION / APPROACH / VALUES
+========================================================= -->
+<section class="dm-philosophy-section">
+    <div class="container">
+
+        <div class="dm-philosophy-header text-center">
+
+            <span class="dm-section-eyebrow">
+                WHAT DRIVES US
+            </span>
+
+            <h2>
+                Our Vision, Mission &amp; Values
+            </h2>
+
+            <p>
+                The principles that guide how we design, build, manage
+                and deliver value to our clients.
+            </p>
+
+        </div>
+
+
+        <div class="dm-philosophy-card">
+
+            <!-- TABS -->
+            <ul class="nav nav-tabs dm-philosophy-tabs">
+
+                <li class="active">
+                    <a data-toggle="tab" href="#dm-vision">
+                        OUR VISION
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#dm-mission">
+                        OUR MISSION
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#dm-approach">
+                        OUR APPROACH
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#dm-values">
+                        OUR CORE VALUES
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <!-- TAB CONTENT -->
+            <div class="tab-content dm-philosophy-content">
+
+
+                <!-- VISION -->
+                <div id="dm-vision" class="tab-pane fade in active">
+
+                    <span class="dm-tab-number">01</span>
+
+                    <h3>Vision</h3>
+
+                    <div class="dm-gold-line"></div>
+
+                    <p>
+                        To be a leading integrated construction, real estate,
+                        and facility management company in Nigeria, delivering
+                        innovative, sustainable, and high-quality solutions
+                        that enhance the built environment and quality of life.
+                    </p>
+
+                    <p>
+                        We aspire to emerge as a leading construction and real
+                        estate service provider in Africa and globally through
+                        the delivery of internationally acclaimed structures
+                        and exceptional client experiences.
+                    </p>
+
+                </div>
+
+
+                <!-- MISSION -->
+                <div id="dm-mission" class="tab-pane fade">
+
+                    <span class="dm-tab-number">02</span>
+
+                    <h3>Mission</h3>
+
+                    <div class="dm-gold-line"></div>
+
+                    <p>
+                        To provide exceptional services that exceed client
+                        expectations while fostering a culture of safety,
+                        integrity, professionalism and community engagement.
+                    </p>
+
+                    <p>
+                        We seek to contribute to the transformation of the
+                        Nigerian real estate landscape through innovation,
+                        superior quality and an unwavering commitment to
+                        sustainability.
+                    </p>
+
+                </div>
+
+
+                <!-- APPROACH -->
+                <div id="dm-approach" class="tab-pane fade">
+
+                    <span class="dm-tab-number">03</span>
+
+                    <h3>Our Approach</h3>
+
+                    <div class="dm-gold-line"></div>
+
+                    <p>
+                        At Deus Magnus, we address complex challenges facing
+                        property developers, investors and property owners.
+                        Our integrated approach is designed to reduce risks,
+                        minimise delays and prevent premature deterioration
+                        while delivering long-term value.
+                    </p>
+
+                    <div class="row dm-approach-list">
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>01</span>
+                                <div>
+                                    <h4>Integrated Solutions Model</h4>
+                                    <p>
+                                        Connecting construction, real estate
+                                        and facility management expertise.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>02</span>
+                                <div>
+                                    <h4>Lifecycle Cost Optimization</h4>
+                                    <p>
+                                        Creating solutions designed for
+                                        long-term performance and value.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>03</span>
+                                <div>
+                                    <h4>Technology Integration</h4>
+                                    <p>
+                                        Applying modern technologies and
+                                        innovative methods to improve outcomes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>04</span>
+                                <div>
+                                    <h4>Sustainability Focus</h4>
+                                    <p>
+                                        Building with environmental and
+                                        long-term social value in mind.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>05</span>
+                                <div>
+                                    <h4>Quality Assurance</h4>
+                                    <p>
+                                        Maintaining rigorous standards across
+                                        design, construction and delivery.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-feature-item">
+                                <span>06</span>
+                                <div>
+                                    <h4>Project Management</h4>
+                                    <p>
+                                        Coordinating people, resources and
+                                        timelines to deliver efficiently.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CORE VALUES -->
+                <div id="dm-values" class="tab-pane fade">
+
+                    <span class="dm-tab-number">04</span>
+
+                    <h3>Our Core Values</h3>
+
+                    <div class="dm-gold-line"></div>
+
+                    <div class="row dm-values-grid">
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">01</span>
+
+                                <div>
+                                    <h4>Integrity</h4>
+
+                                    <p>
+                                        We act with honesty and transparency,
+                                        earning trust through ethical and
+                                        responsible conduct.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">02</span>
+
+                                <div>
+                                    <h4>Excellence</h4>
+
+                                    <p>
+                                        Quality is non-negotiable for us.
+                                        From design to delivery, we focus on
+                                        every detail and consistently meet
+                                        required standards.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">03</span>
+
+                                <div>
+                                    <h4>Safety First</h4>
+
+                                    <p>
+                                        People matter most to us. We create
+                                        safe working environments and follow
+                                        safety practices that protect our
+                                        team, clients and community.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">04</span>
+
+                                <div>
+                                    <h4>Innovation</h4>
+
+                                    <p>
+                                        We explore new ideas, technologies
+                                        and creative approaches to achieve
+                                        better outcomes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">05</span>
+
+                                <div>
+                                    <h4>Sustainability</h4>
+
+                                    <p>
+                                        We build with the future in mind by
+                                        using resources responsibly and
+                                        creating long-term value.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="dm-value-item">
+                                <span class="dm-value-number">06</span>
+
+                                <div>
+                                    <h4>Professionalism</h4>
+
+                                    <p>
+                                        We uphold high standards of competence,
+                                        respect, accountability and reliability
+                                        in everything we do.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================================================
+     CLOSING STATEMENT
+========================================================= -->
+<section class="dm-founder-closing">
+
+    <div class="dm-founder-closing-overlay"></div>
+
+    <div class="container">
+        <div class="dm-founder-closing-content text-center">
+
+            <span class="dm-section-eyebrow">
+                OUR COMMITMENT
+            </span>
+
+            <h2>
+                Creating Spaces.
+                <span>Delivering Lasting Value.</span>
+            </h2>
+
+            <p>
+                From the first idea to the finished development and beyond,
+                Deus Magnus remains committed to quality, professionalism
+                and service par excellence.
+            </p>
+
+            <a href="{% url 'contact' %}" class="dm-gold-button">
+                WORK WITH US
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BACK BUTTON
+========================================================= -->
+<div class="dm-back-wrapper">
+    <div class="container">
+
+        <a href="javascript:history.back()" class="dm-back-button">
+            <span>&larr;</span>
+            Back
+        </a>
+
+    </div>
+</div>
+
+
+<!-- =========================================================
+     WHATSAPP
+========================================================= -->
+<a
+    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="dm-whatsapp"
+    aria-label="Chat with Deus Magnus Limited on WhatsApp"
+>
+    <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="WhatsApp"
+    >
+</a>
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC STYLES
+========================================================= -->
+<style>
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    .dm-page-hero,
+    .dm-founder-section,
+    .dm-philosophy-section,
+    .dm-founder-closing,
+    .dm-back-wrapper {
+        font-family: "Nunito", Arial, sans-serif;
+    }
+
+
+    /* =====================================================
+       PAGE HERO
+    ===================================================== */
+
+    .dm-page-hero {
+        position: relative;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4, 36, 92, 0.94),
+                rgba(4, 36, 92, 0.72)
+            ),
+            url("{% static 'images/device.png' %}") center center / cover no-repeat;
+        overflow: hidden;
+    }
+
+    .dm-page-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg,
+            rgba(4, 36, 92, 0.94),
+            rgba(4, 36, 92, 0.55)
+        );
+    }
+
+    .dm-page-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 80px 0;
+        max-width: 850px;
+    }
+
+    .dm-page-eyebrow,
+    .dm-section-eyebrow {
+        display: block;
+        color: #98681e;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .dm-page-hero h1 {
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 64px;
+        line-height: 1.1;
+        font-weight: 400;
+        margin: 0 0 18px;
+    }
+
+    .dm-page-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 18px;
+        margin: 0;
+        max-width: 650px;
+    }
+
+
+    /* =====================================================
+       FOUNDER SECTION
+    ===================================================== */
+
+    .dm-founder-section {
+        padding: 110px 0;
+        background: #ffffff;
+    }
+
+    .dm-founder-row {
+        display: flex;
+        align-items: center;
+    }
+
+    .dm-founder-content {
+        padding-right: 30px;
+    }
+
+    .dm-founder-content h2 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 42px;
+        line-height: 1.2;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .dm-founder-content h2 span {
+        color: #98681e;
+        display: block;
+    }
+
+    .dm-gold-line {
+        width: 55px;
+        height: 2px;
+        background: #98681e;
+        margin: 25px 0;
+    }
+
+    .dm-founder-content p {
+        color: #52565b;
+        font-size: 16px;
+        line-height: 1.9;
+        margin-bottom: 18px;
+    }
+
+    .dm-founder-quote {
+        border-left: 3px solid #98681e;
+        margin: 28px 0;
+        padding: 12px 0 12px 25px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 25px;
+        font-style: italic;
+    }
+
+    .dm-founder-signature {
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .dm-founder-signature strong {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .dm-founder-signature span {
+        color: #98681e;
+        font-size: 13px;
+        letter-spacing: 1px;
+        margin-top: 5px;
+    }
+
+
+    /* =====================================================
+       FOUNDER IMAGE
+    ===================================================== */
+
+    .dm-founder-image-wrap {
+        position: relative;
+        padding: 20px;
+    }
+
+    .dm-founder-image-frame {
+        position: absolute;
+        width: 82%;
+        height: 88%;
+        right: 0;
+        bottom: 0;
+        border: 1px solid #98681e;
+        z-index: 0;
+    }
+
+    .dm-founder-image {
+        position: relative;
+        z-index: 2;
+        display: block;
+        width: 100%;
+        max-height: 620px;
+        object-fit: cover;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .dm-founder-badge {
+        position: absolute;
+        z-index: 3;
+        bottom: 0;
+        left: 0;
+        width: 125px;
+        height: 125px;
+        background: #04245c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .dm-founder-badge span {
+        color: #d5ad62;
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+    .dm-founder-badge strong {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .dm-founder-badge small {
+        color: #ffffff;
+        font-size: 8px;
+        letter-spacing: 2px;
+        margin-top: 4px;
+    }
+
+
+    /* =====================================================
+       PHILOSOPHY SECTION
+    ===================================================== */
+
+    .dm-philosophy-section {
+        padding: 110px 0;
+        background: #f7f6f3;
+    }
+
+    .dm-philosophy-header {
+        max-width: 750px;
+        margin: 0 auto 55px;
+    }
+
+    .dm-philosophy-header h2 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 44px;
+        font-weight: 400;
+        margin: 0 0 18px;
+    }
+
+    .dm-philosophy-header p {
+        color: #666666;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .dm-philosophy-card {
+        background: #ffffff;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.07);
+    }
+
+    .dm-philosophy-tabs {
+        border-bottom: 1px solid #e8e4dc;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .dm-philosophy-tabs > li {
+        margin-bottom: 0;
+    }
+
+    .dm-philosophy-tabs > li > a {
+        border: 0 !important;
+        border-radius: 0 !important;
+        color: #04245c !important;
+        background: transparent !important;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 22px 28px;
+        margin: 0;
+    }
+
+    .dm-philosophy-tabs > li.active > a,
+    .dm-philosophy-tabs > li > a:hover {
+        color: #98681e !important;
+        border-bottom: 2px solid #98681e !important;
+    }
+
+    .dm-philosophy-content {
+        padding: 55px;
+    }
+
+    .dm-tab-number {
+        color: #98681e;
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+
+    .dm-philosophy-content h3 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        font-weight: 400;
+        margin: 10px 0 0;
+    }
+
+    .dm-philosophy-content p {
+        color: #52565b;
+        font-size: 16px;
+        line-height: 1.9;
+        max-width: 950px;
+    }
+
+
+    /* =====================================================
+       APPROACH / VALUE ITEMS
+    ===================================================== */
+
+    .dm-approach-list,
+    .dm-values-grid {
+        margin-top: 30px;
+    }
+
+    .dm-feature-item,
+    .dm-value-item {
+        display: flex;
+        gap: 20px;
+        padding: 25px 15px 25px 0;
+        border-bottom: 1px solid #ece9e3;
+        margin-bottom: 10px;
+    }
+
+    .dm-feature-item > span,
+    .dm-value-number {
+        flex: 0 0 38px;
+        color: #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .dm-feature-item h4,
+    .dm-value-item h4 {
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 19px;
+        margin: 0 0 8px;
+    }
+
+    .dm-feature-item p,
+    .dm-value-item p {
+        font-size: 14px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+       CLOSING SECTION
+    ===================================================== */
+
+    .dm-founder-closing {
+        position: relative;
+        padding: 120px 0;
+        background:
+            linear-gradient(
+                rgba(4, 36, 92, 0.92),
+                rgba(4, 36, 92, 0.92)
+            ),
+            url("{% static 'images/device.png' %}") center / cover no-repeat;
+    }
+
+    .dm-founder-closing-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .dm-founder-closing h2 {
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 48px;
+        line-height: 1.2;
+        font-weight: 400;
+        margin: 0 0 20px;
+    }
+
+    .dm-founder-closing h2 span {
+        color: #d5ad62;
+        display: block;
+    }
+
+    .dm-founder-closing p {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 16px;
+        line-height: 1.9;
+        max-width: 650px;
+        margin: 0 auto 35px;
+    }
+
+    .dm-gold-button {
+        display: inline-block;
+        padding: 15px 32px;
+        color: #ffffff !important;
+        background: #98681e;
+        border: 1px solid #98681e;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .dm-gold-button:hover {
+        color: #04245c !important;
+        background: #ffffff;
+        border-color: #ffffff;
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .dm-back-wrapper {
+        padding: 35px 0;
+        background: #ffffff;
+    }
+
+    .dm-back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #04245c !important;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 14px;
+        border-bottom: 1px solid #98681e;
+        padding-bottom: 5px;
+    }
+
+    .dm-back-button:hover {
+        color: #98681e !important;
+    }
+
+    .dm-back-button span {
+        font-size: 18px;
+    }
+
+
+    /* =====================================================
+       WHATSAPP
+    ===================================================== */
+
+    .dm-whatsapp {
+        position: fixed;
+        bottom: 30px;
+        right: 20px;
+        z-index: 9999;
+        display: block;
+    }
+
+    .dm-whatsapp img {
+        width: 60px;
+        height: 60px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .dm-whatsapp:hover img {
+        transform: scale(1.08);
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 991px) {
+
+        .dm-page-hero {
+            min-height: 360px;
+        }
+
+        .dm-page-hero h1 {
+            font-size: 50px;
+        }
+
+        .dm-founder-row {
+            display: block;
+        }
+
+        .dm-founder-content {
+            padding-right: 0;
+            margin-bottom: 60px;
+        }
+
+        .dm-founder-image-wrap {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .dm-philosophy-tabs > li > a {
+            padding: 18px 15px;
+        }
+
+        .dm-philosophy-content {
+            padding: 40px 30px;
+        }
+    }
+
+
+    @media (max-width: 767px) {
+
+        .dm-page-hero-content {
+            padding: 65px 20px;
+        }
+
+        .dm-page-hero h1 {
+            font-size: 42px;
+        }
+
+        .dm-page-hero p {
+            font-size: 16px;
+        }
+
+        .dm-founder-section,
+        .dm-philosophy-section {
+            padding: 70px 0;
+        }
+
+        .dm-founder-content h2 {
+            font-size: 34px;
+        }
+
+        .dm-philosophy-header h2 {
+            font-size: 34px;
+        }
+
+        .dm-philosophy-tabs {
+            display: block;
+        }
+
+        .dm-philosophy-tabs > li {
+            display: block;
+            width: 100%;
+        }
+
+        .dm-philosophy-tabs > li > a {
+            display: block;
+            border-bottom: 1px solid #eeeeee !important;
+        }
+
+        .dm-philosophy-content {
+            padding: 35px 22px;
+        }
+
+        .dm-founder-closing {
+            padding: 80px 20px;
+        }
+
+        .dm-founder-closing h2 {
+            font-size: 36px;
+        }
+
+        .dm-founder-badge {
+            width: 100px;
+            height: 100px;
+        }
+
+        .dm-founder-badge strong {
+            font-size: 17px;
+        }
+
+        .dm-whatsapp {
+            right: 15px;
+            bottom: 20px;
+        }
+
+        .dm-whatsapp img {
+            width: 55px;
+            height: 55px;
+        }
+    }
+
+</style>
 
 {% endblock %}
+

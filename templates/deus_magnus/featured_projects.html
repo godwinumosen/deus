@@ -1,127 +1,653 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Featured Projects{% endblock %}
+{% block title %}Featured Projects | Deus Magnus Limited{% endblock %}
 
 {% block content %}
 
-<section class="section db p120">
+<style>
+    /* =========================================================
+       DEUS MAGNUS — FEATURED PROJECTS
+       ========================================================= */
+
+    .dm-projects-page {
+        background: #ffffff;
+        color: #222222;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .dm-projects-hero {
+        position: relative;
+        min-height: 470px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(4, 36, 92, 0.97) 0%,
+                rgba(4, 36, 92, 0.88) 48%,
+                rgba(4, 36, 92, 0.58) 100%
+            ),
+            url("{% static 'images/m_v_s.jpg' %}") center center / cover no-repeat;
+    }
+
+    .dm-projects-hero-inner {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 100px 0;
+    }
+
+    .dm-projects-eyebrow {
+        margin-bottom: 18px;
+        color: #d5ad62;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .dm-projects-hero h1 {
+        margin: 0 0 22px;
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 56px;
+        font-weight: 500;
+        line-height: 1.15;
+    }
+
+    .dm-projects-hero p {
+        max-width: 700px;
+        margin: 0;
+        color: rgba(255,255,255,0.88);
+        font-size: 17px;
+        line-height: 1.85;
+    }
+
+
+    /* =========================================================
+       INTRO
+       ========================================================= */
+
+    .dm-projects-intro {
+        padding: 100px 0 60px;
+        text-align: center;
+    }
+
+    .dm-section-label {
+        margin-bottom: 15px;
+        color: #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+    }
+
+    .dm-projects-intro h2 {
+        max-width: 850px;
+        margin: 0 auto 22px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .dm-projects-intro p {
+        max-width: 800px;
+        margin: 0 auto;
+        color: #666666;
+        font-size: 16px;
+        line-height: 1.95;
+    }
+
+
+    /* =========================================================
+       PROJECT GRID
+       ========================================================= */
+
+    .dm-projects-section {
+        padding: 35px 0 105px;
+        background: #f7f6f3;
+    }
+
+    .dm-project-card {
+        height: 100%;
+        margin-bottom: 35px;
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid #e8e8e8;
+        transition: all 0.4s ease;
+    }
+
+    .dm-project-card:hover {
+        border-color: #d8c39c;
+        box-shadow: 0 20px 50px rgba(4,36,92,0.12);
+        transform: translateY(-7px);
+    }
+
+    .dm-project-image {
+        position: relative;
+        height: 310px;
+        overflow: hidden;
+        background: #eeeeee;
+    }
+
+    .dm-project-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .dm-project-card:hover .dm-project-image img {
+        transform: scale(1.05);
+    }
+
+    .dm-project-number {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        background: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    .dm-project-image-label {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 65px 25px 20px;
+        background: linear-gradient(
+            to top,
+            rgba(4,36,92,0.72),
+            rgba(4,36,92,0)
+        );
+    }
+
+    .dm-project-image-label span {
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .dm-project-content {
+        padding: 30px 28px 32px;
+    }
+
+    .dm-project-content h3 {
+        margin: 0 0 15px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.35;
+    }
+
+    .dm-project-line {
+        width: 42px;
+        height: 2px;
+        margin-bottom: 18px;
+        background: #98681e;
+    }
+
+    .dm-project-content p {
+        min-height: 80px;
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
+        line-height: 1.85;
+    }
+
+    .dm-project-link {
+        display: inline-block;
+        margin-top: 22px;
+        color: #04245c !important;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .dm-project-link:hover {
+        color: #98681e !important;
+        letter-spacing: 2px;
+    }
+
+    .dm-project-link i {
+        margin-left: 7px;
+        font-size: 10px;
+    }
+
+
+    /* =========================================================
+       STATEMENT
+       ========================================================= */
+
+    .dm-projects-statement {
+        padding: 105px 20px;
+        text-align: center;
+        background: #ffffff;
+    }
+
+    .dm-projects-statement h2 {
+        max-width: 850px;
+        margin: 0 auto 20px;
+        color: #04245c;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 38px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .dm-projects-statement p {
+        max-width: 730px;
+        margin: 0 auto;
+        color: #666666;
+        font-size: 16px;
+        line-height: 1.9;
+    }
+
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+
+    .dm-projects-cta {
+        padding: 80px 20px;
+        text-align: center;
+        background: #04245c;
+    }
+
+    .dm-projects-cta h2 {
+        margin: 0 0 16px;
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 35px;
+        font-weight: 500;
+    }
+
+    .dm-projects-cta p {
+        max-width: 680px;
+        margin: 0 auto 30px;
+        color: rgba(255,255,255,0.78);
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .dm-projects-cta-btn {
+        display: inline-block;
+        padding: 14px 32px;
+        color: #ffffff !important;
+        background: #98681e;
+        border: 1px solid #98681e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .dm-projects-cta-btn:hover {
+        color: #04245c !important;
+        background: #ffffff;
+        border-color: #ffffff;
+    }
+
+
+    /* =========================================================
+       WHATSAPP
+       ========================================================= */
+
+    .dm-whatsapp {
+        position: fixed;
+        right: 20px;
+        bottom: 30px;
+        z-index: 9999;
+    }
+
+    .dm-whatsapp img {
+        width: 58px;
+        height: 58px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .dm-whatsapp:hover img {
+        transform: scale(1.08);
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 991px) {
+
+        .dm-projects-hero h1 {
+            font-size: 46px;
+        }
+
+        .dm-project-image {
+            height: 280px;
+        }
+    }
+
+    @media (max-width: 767px) {
+
+        .dm-projects-hero {
+            min-height: 390px;
+        }
+
+        .dm-projects-hero-inner {
+            padding: 75px 20px;
+        }
+
+        .dm-projects-hero h1 {
+            font-size: 38px;
+        }
+
+        .dm-projects-hero p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .dm-projects-intro {
+            padding: 70px 20px 45px;
+        }
+
+        .dm-projects-intro h2 {
+            font-size: 30px;
+        }
+
+        .dm-projects-section {
+            padding: 60px 20px 70px;
+        }
+
+        .dm-project-image {
+            height: 250px;
+        }
+
+        .dm-project-content {
+            padding: 25px 23px 28px;
+        }
+
+        .dm-project-content h3 {
+            font-size: 22px;
+        }
+
+        .dm-projects-statement {
+            padding: 70px 20px;
+        }
+
+        .dm-projects-statement h2 {
+            font-size: 30px;
+        }
+
+        .dm-projects-cta {
+            padding: 65px 20px;
+        }
+
+        .dm-projects-cta h2 {
+            font-size: 29px;
+        }
+
+        .dm-whatsapp {
+            right: 15px;
+            bottom: 20px;
+        }
+
+        .dm-whatsapp img {
+            width: 54px;
+            height: 54px;
+        }
+    }
+</style>
+
+<div class="dm-projects-page">
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="dm-projects-hero">
+
     <div class="container">
-        <div class="row">
 
+        <div class="dm-projects-hero-inner">
 
-        <div class="col-md-12">
-            <br><br>
-
-            <div class="tagline-message page-title text-center">
-                <h1 style="color:#fff;font-family:Georgia;font-size:50px;">
-                    FEATURED PROJECTS
-                </h1>
+            <div class="dm-projects-eyebrow">
+                DEUS MAGNUS LIMITED
             </div>
 
-        </div>
-
-    </div>
-</div>
-
-
-</section>
-
-<section class="section">
-
-
-<div class="container">
-
-    <div class="section-title text-center">
-
-        <h3>Spaces That Speak for Themselves</h3>
-
-        <p>
-            Every project tells a story of vision, planning, execution
-            and attention to detail. Explore selected Deus Magnus
-            projects and discover what goes into creating spaces built
-            to perform and endure.
-        </p>
-
-    </div>
-
-
-    <!-- PROJECTS -->
-
-    <div class="row">
-
-        {% for project in projects %}
-
-        <div class="col-md-4 col-sm-6">
-
-            <div class="teammembers">
-
-                <div class="entry">
-
-                    <img
-                        src="{{ project.project_img.url }}"
-                        alt="{{ project.project_title }}"
-                        class="img-responsive"
-                    >
-
-                    <div class="magnifier">
-
-                        <div class="visible-buttons1 teambuttons">
-
-                            <p>
-                                {{ project.project_description|truncatewords:25 }}
-                            </p>
-
-                            <div class="social-links">
-
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-
-                                <a href="#">
-                                    <i class="fa fa-dribbble"></i>
-                                </a>
-
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-
-                                <a href="#">
-                                    <i class="fa fa-skype"></i>
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="teamdesc">
-
-                    <h4>
-                        {{ project.project_title }}
-                    </h4>
-                </div>
-
-            </div>
-
-        </div>
-
-        {% empty %}
-
-        <div class="col-md-12 text-center">
+            <h1>
+                Featured Projects
+            </h1>
 
             <p>
-                No featured projects available yet.
+                A selection of projects that reflect our approach to
+                construction, development, quality and long-term value.
             </p>
 
         </div>
 
-        {% endfor %}
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRODUCTION
+     ===================================================== -->
+
+<section class="dm-projects-intro">
+
+    <div class="container">
+
+        <div class="dm-section-label">
+            OUR PORTFOLIO
+        </div>
+
+        <h2>
+            Spaces That Speak for Themselves
+        </h2>
+
+        <p>
+            Every project tells a story of vision, planning, execution
+            and attention to detail. Explore selected Deus Magnus
+            projects and discover the thinking, expertise and
+            craftsmanship behind the spaces we create.
+        </p>
 
     </div>
-</div>
-</section><br><br>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECTS
+     ===================================================== -->
+
+<section class="dm-projects-section">
+
+    <div class="container">
+
+        <div class="row">
+
+            {% for project in projects %}
+
+            <div class="col-md-4 col-sm-6">
+
+                <article class="dm-project-card">
+
+                    <!-- Project image -->
+
+                    <div class="dm-project-image">
+
+                        <img
+                            src="{{ project.project_img.url }}"
+                            alt="{{ project.project_title }}"
+                        >
+
+                        <div class="dm-project-number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </div>
+
+                        <div class="dm-project-image-label">
+                            <span>
+                                Deus Magnus Project
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Project information -->
+
+                    <div class="dm-project-content">
+
+                        <h3>
+                            {{ project.project_title }}
+                        </h3>
+
+                        <div class="dm-project-line"></div>                      
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-md-12 text-center">
+
+                <p style="
+                    padding:70px 0;
+                    color:#777777;
+                    font-family:Georgia, 'Times New Roman', serif;
+                    font-size:17px;
+                ">
+                    No featured projects are available at the moment.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATEMENT
+     ===================================================== -->
+
+<section class="dm-projects-statement">
+
+    <div class="container">
+
+        <div class="dm-section-label">
+            OUR COMMITMENT
+        </div>
+
+        <h2>
+            Built With Purpose. Designed for Lasting Value.
+        </h2>
+
+        <p>
+            We approach every project with a focus on quality,
+            functionality and thoughtful execution — creating spaces
+            that serve their purpose today while remaining valuable
+            for years to come.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+
+<section class="dm-projects-cta">
+
+    <div class="container">
+
+        <h2>
+            Have a Project in Mind?
+        </h2>
+
+        <p>
+            Whether you are planning a development, looking for a
+            construction partner or exploring a real estate opportunity,
+            our team is ready to discuss your requirements.
+        </p>
+
+        <a
+            href="{% url 'contact' %}"
+            class="dm-projects-cta-btn"
+        >
+            Start a Conversation
+        </a>
+
+    </div>
+
+</section>
+
+
+</div><br><br>
+
+<!-- =========================================================
+     WHATSAPP
+     ========================================================= -->
+
+<a
+href="https://wa.me/+2348124928163?text=Hi%20Deus%20Magnus%20Limited%3F"
+target="_blank"
+rel="noopener noreferrer"
+class="dm-whatsapp"
+aria-label="Chat with Deus Magnus Limited on WhatsApp"
+
+>
+
+
+<img
+
+
+
+    src="{% static 'images/whatsapp.png' %}"
+    alt="Chat with us on WhatsApp"
+>
+
+
+</a>
 
 {% endblock %}

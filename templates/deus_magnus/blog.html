@@ -1,48 +1,822 @@
+django
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Blog {% endblock %}
+
+{% block title %}Blog | Deus Magnus Limited{% endblock %}
+
 {% block content %}
-<section class="section db p120">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12"><br><br>
-                <div class="tagline-message page-title text-center">
-                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Blog</h1>
+
+<style>
+
+/* =========================================================
+   DEUS MAGNUS — PREMIUM BLOG
+   ========================================================= */
+
+.dm-blog-page {
+    background: #f7f6f3;
+    color: #222;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.dm-blog-hero {
+    position: relative;
+    min-height: 500px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4, 36, 92, 0.96) 0%,
+            rgba(4, 36, 92, 0.86) 48%,
+            rgba(4, 36, 92, 0.60) 100%
+        ),
+        url("{% static 'images/m_v_s.jpg' %}") center center / cover no-repeat;
+
+    overflow: hidden;
+}
+
+
+/* Gold line */
+
+.dm-blog-hero::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: #98681e;
+}
+
+
+.dm-blog-hero-content {
+    max-width: 850px;
+    padding: 90px 0;
+}
+
+
+.dm-blog-eyebrow {
+    color: #d5ad62;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+}
+
+
+.dm-blog-hero h1 {
+    margin: 0 0 25px;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 62px;
+    font-weight: 400;
+
+    line-height: 1.08;
+}
+
+
+.dm-blog-hero p {
+    max-width: 720px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.88);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.dm-blog-intro {
+    padding: 90px 20px 55px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+
+.dm-blog-intro-inner {
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+.dm-blog-label {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+
+.dm-blog-intro h2 {
+    margin: 0 0 22px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 42px;
+    font-weight: 400;
+
+    line-height: 1.2;
+}
+
+
+.dm-blog-intro p {
+    margin: 0 auto;
+
+    max-width: 760px;
+
+    color: #666;
+
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   BLOG SECTION
+   ========================================================= */
+
+.dm-blog-section {
+    padding: 45px 20px 100px;
+
+    background: #f7f6f3;
+}
+
+
+.dm-blog-section-heading {
+    margin-bottom: 40px;
+}
+
+
+.dm-blog-section-heading .small-title {
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+}
+
+
+.dm-blog-section-heading h2 {
+    margin: 0;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 38px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   BLOG CARD
+   ========================================================= */
+
+.dm-blog-card {
+    height: 100%;
+
+    margin-bottom: 35px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9e6df;
+
+    box-shadow: 0 12px 35px rgba(4, 36, 92, 0.06);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.dm-blog-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow: 0 22px 50px rgba(4, 36, 92, 0.12);
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.dm-blog-image-wrap {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.dm-blog-image {
+    width: 100%;
+
+    height: 260px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.55s ease;
+}
+
+
+.dm-blog-card:hover .dm-blog-image {
+    transform: scale(1.045);
+}
+
+
+.dm-blog-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(4, 36, 92, 0.42),
+            rgba(4, 36, 92, 0)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.dm-blog-card-content {
+    padding: 30px 30px 32px;
+}
+
+
+.dm-blog-category {
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+.dm-blog-card h3 {
+    margin: 0 0 17px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 24px;
+    font-weight: 400;
+
+    line-height: 1.35;
+}
+
+
+.dm-blog-card-description {
+    min-height: 78px;
+
+    margin: 0 0 25px;
+
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   READ ARTICLE
+   ========================================================= */
+
+.dm-blog-readmore {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 12px;
+
+    color: #04245c !important;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    text-decoration: none !important;
+
+    transition: all 0.3s ease;
+}
+
+
+.dm-blog-readmore span {
+    color: #98681e;
+
+    font-size: 18px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.dm-blog-readmore:hover {
+    color: #98681e !important;
+}
+
+
+.dm-blog-readmore:hover span {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.dm-blog-empty {
+    padding: 70px 30px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e9e6df;
+}
+
+
+.dm-blog-empty h3 {
+    margin: 0 0 12px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 28px;
+    font-weight: 400;
+}
+
+
+.dm-blog-empty p {
+    margin: 0;
+
+    color: #777;
+}
+
+
+/* =========================================================
+   CLOSING CTA
+   ========================================================= */
+
+.dm-blog-closing {
+    padding: 85px 20px;
+
+    text-align: center;
+
+    background: #04245c;
+}
+
+
+.dm-blog-closing .closing-label {
+    color: #d5ad62;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    margin-bottom: 16px;
+}
+
+
+.dm-blog-closing h2 {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 40px;
+    font-weight: 400;
+}
+
+
+.dm-blog-closing p {
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   WHATSAPP
+   ========================================================= */
+
+.dm-blog-whatsapp {
+    position: fixed;
+
+    right: 22px;
+    bottom: 28px;
+
+    z-index: 9999;
+
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+
+    transition: transform 0.3s ease;
+}
+
+
+.dm-blog-whatsapp:hover {
+    transform: translateY(-4px);
+}
+
+
+.dm-blog-whatsapp img {
+    width: 60px;
+    height: 60px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .dm-blog-hero {
+        min-height: 440px;
+    }
+
+    .dm-blog-hero h1 {
+        font-size: 50px;
+    }
+
+    .dm-blog-intro h2 {
+        font-size: 36px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .dm-blog-hero {
+        min-height: 420px;
+    }
+
+    .dm-blog-hero-content {
+        padding: 70px 20px;
+    }
+
+    .dm-blog-hero h1 {
+        font-size: 42px;
+    }
+
+    .dm-blog-hero p {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .dm-blog-intro {
+        padding: 65px 20px 40px;
+    }
+
+    .dm-blog-intro h2 {
+        font-size: 31px;
+    }
+
+    .dm-blog-section {
+        padding: 35px 15px 70px;
+    }
+
+    .dm-blog-section-heading h2 {
+        font-size: 31px;
+    }
+
+    .dm-blog-image {
+        height: 230px;
+    }
+
+    .dm-blog-card-content {
+        padding: 25px 22px 28px;
+    }
+
+    .dm-blog-card h3 {
+        font-size: 22px;
+    }
+
+    .dm-blog-closing {
+        padding: 65px 20px;
+    }
+
+    .dm-blog-closing h2 {
+        font-size: 32px;
+    }
+
+}
+
+</style>
+
+
+<div class="dm-blog-page">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="dm-blog-hero">
+
+        <div class="container">
+
+            <div class="dm-blog-hero-content">
+
+                <div class="dm-blog-eyebrow">
+                    Deus Magnus Limited
                 </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section -->      
 
-<section class="section gb nopadtop">
-    <div class="container">
-        <div class="boxed">
+                <h1>
+                    The Deus Magnus Blog
+                </h1>
+
+                <p>
+                    Discover perspectives, stories, project insights and
+                    ideas from Deus Magnus Limited and the world of
+                    construction, real estate and development.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         INTRO
+         ===================================================== -->
+
+    <section class="dm-blog-intro">
+
+        <div class="dm-blog-intro-inner">
+
+            <span class="dm-blog-label">
+                Deus Magnus Journal
+            </span>
+
+            <h2>
+                Perspectives That Shape
+                the Built Environment
+            </h2>
+
+            <p>
+                Explore our latest articles, ideas and insights covering
+                construction, real estate, property development,
+                investment, design and the evolving built environment.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BLOG ARTICLES
+         ===================================================== -->
+
+    <section class="dm-blog-section">
+
+        <div class="container">
+
+            <div class="dm-blog-section-heading">
+
+                <div class="small-title">
+                    Latest Articles
+                </div>
+
+                <h2>
+                    From the Deus Magnus Blog
+                </h2>
+
+            </div>
+
+
+            {% if object_list %}
+
             <div class="row">
-        {% for blog in object_list %}
-                <div class="col-md-4">
-                    <div class="content blog-list">
-                        <div class="blog-wrapper clearfix">
-                            
-                            <div class="blog-media">
-                                <a href="{% url 'blog_detail' blog.pk %}" ><img src="{{ blog.blog_deus_magnus_img.url }}" alt="" class="img-responsive img-rounded"></a>
-                            </div><!-- end media -->
-                            <div class="blog-desc-big">
-                                <p class="lead" style="color: #98681e;font-family: Georgia;">{{ blog.blog_deus_magnus_title }}</p>
-                                <p>{{ blog.blog_deus_magnus_description|truncatechars:200 }}</p>
-                                <a href="{% url 'blog_detail' blog.pk %}" class="btn btn-primary"style="border-radius: 5px;font-family: Georgia;"> Read More </a>
-                                
-                            </div><!-- end desc -->
-                        </div><!-- end blog -->
-                    </div><!-- end content -->  
-                </div><!-- end sidebar -->
-                {% endfor %}
-            </div><!-- end row -->
-        </div><!-- end boxed -->
-    </div><!-- end container -->
-</section><br><br>
 
-<a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-    <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
+                {% for blog in object_list %}
+
+                <div class="col-md-4 col-sm-6">
+
+                    <article class="dm-blog-card">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="dm-blog-image-wrap">
+
+                            <a href="{% url 'blog_detail' blog.pk %}">
+
+                                <img
+                                    src="{{ blog.blog_deus_magnus_img.url }}"
+                                    alt="{{ blog.blog_deus_magnus_title }}"
+                                    class="dm-blog-image"
+                                >
+
+                            </a>
+
+                            <div class="dm-blog-image-overlay"></div>
+
+                        </div>
+
+
+                        <!-- CONTENT -->
+
+                        <div class="dm-blog-card-content">
+
+                            <div class="dm-blog-category">
+                                Deus Magnus Journal
+                            </div>
+
+
+                            <h3>
+                                {{ blog.blog_deus_magnus_title }}
+                            </h3>
+
+
+                            <p class="dm-blog-card-description">
+                                {{ blog.blog_deus_magnus_description|truncatechars:200 }}
+                            </p>
+
+
+                            <a
+                                href="{% url 'blog_detail' blog.pk %}"
+                                class="dm-blog-readmore"
+                            >
+                                Read Article
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="dm-blog-empty">
+
+                <h3>
+                    No Articles Available
+                </h3>
+
+                <p>
+                    New articles and insights from Deus Magnus Limited
+                    will appear here.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CLOSING CTA
+         ===================================================== -->
+
+    <section class="dm-blog-closing">
+
+        <div class="container">
+
+            <div class="closing-label">
+                Stay Connected
+            </div>
+
+            <h2>
+                Building Ideas.
+                Shaping the Future.
+            </h2>
+
+            <p>
+                Follow the Deus Magnus journey through our latest
+                stories, developments and insights from the world
+                of construction and real estate.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</div><br><br>
+
+
+<!-- =========================================================
+     WHATSAPP
+     ========================================================= -->
+
+<a
+    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="dm-blog-whatsapp"
+    aria-label="Chat with Deus Magnus Limited on WhatsApp"
+>
+    <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="Chat with us on WhatsApp"
+    >
 </a>
 
+
 {% endblock %}
+

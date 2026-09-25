@@ -1,783 +1,1456 @@
+
 {% load static %}
 
-{% for message in messages %}
-<div id='lower-side'>
-  <p id='message'>{{ message }}</p>
-  {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+
     <!-- Basic -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <!-- Mobile Meta -->
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Site Meta -->
     <title>{% block title %}Deus Magnus Limited{% endblock %}</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <!-- Site Icons -->
-    <link rel="shortcut icon"href="{% static 'images/logo.png' %}"height="67px" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">	<!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Playfair Display' rel='stylesheet'> 
+    <link
+        rel="shortcut icon"
+        href="{% static 'images/logo.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="{% static 'images/logo.png' %}"
+    >
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Playfair+Display"
+        rel="stylesheet"
+    >
+
     <!-- Libraries Stylesheet -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link
+        href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+        rel="stylesheet"
+    >
+
     <!-- Custom & Default Styles -->
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/bootstrap.min.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/font-awesome.min.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/carousel.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/animate.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTLZ9THMRC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-RTLZ9THMRC"
+    ></script>
 
-    gtag('config', 'G-RTLZ9THMRC');
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-RTLZ9THMRC');
     </script>
 
 </head>
-<body>  
+
+
+<body>
+
+
+    <!-- Django Messages -->
+    {% for message in messages %}
+
+        <div id="lower-side">
+            <p id="message">{{ message }}</p>
+        </div>
+
+    {% endfor %}
+
 
     <div id="wrapper">
+
+
         <!-- BEGIN # MODAL LOGIN -->
-        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div
+            class="modal fade"
+            id="login-modal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            style="display: none;"
+        >
+
             <div class="modal-dialog">
+
                 <div class="modal-content">
+
                     <!-- Begin # DIV Form -->
                     <div id="div-forms">
+
                         <form id="login-form">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span class="flaticon-add" aria-hidden="true"></span>
+
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span
+                                    class="flaticon-add"
+                                    aria-hidden="true"
+                                ></span>
                             </button>
+
                             <div class="modal-body">
-                                <input class="form-control" type="text" placeholder="What you are looking for?" required>
+
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="What you are looking for?"
+                                    required
+                                >
+
                             </div>
-                        </form><!-- End # Login Form -->
-                    </div><!-- End # DIV Form -->
-                </div>
-            </div>
-        </div>
-<!-- END # MODAL LOGIN -->
-<header class="header">    
-    <div class="container">
-        <nav class="navbar navbar-default yamm">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                    <div class="logo-normal">
-                        <a class="navbar-brand" href="{% url 'home' %}"style="margin-bottom:2px;"><img src="{% static 'images/logo.png'%}"width="86" height="57" alt=""></a>
+
+                        </form>
+                        <!-- End # Login Form -->
+
                     </div>
+                    <!-- End # DIV Form -->
+
+                </div>
+
             </div>
-            
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li class="dropdown hassubmenu">
-                        <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">About Us <span class="fa fa-angle-down"></span></a>
-                        <ul class="dropdown-menu" role="menu"> 
-                            <li><a href="{% url 'founder_message' %}">Who We Are</a></li>
-                            <li><a href="{% url 'why_deus_magnus' %}">Why Deus Magnus</a></li>
-                            <li><a href="{% url 'about' %}">   </a></li> 
-                            <li><a href="{% url 'mission_vision_strategy' %}"> </a></li>
-                            <li><a href="{% url 'our_management_team' %}">Our Management Team </a></li> 
+
+        </div>
+        <!-- END # MODAL LOGIN -->
+
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="container">
+
+                <nav class="navbar navbar-default yamm">
+
+                    <div class="navbar-header">
+
+                        <button
+                            type="button"
+                            class="navbar-toggle collapsed"
+                            data-toggle="collapse"
+                            data-target="#navbar"
+                            aria-expanded="false"
+                            aria-controls="navbar"
+                        >
+
+                            <span class="sr-only">
+                                Toggle navigation
+                            </span>
+
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+
+                        </button>
+
+
+                        <div class="logo-normal">
+
+                            <a
+                                class="navbar-brand"
+                                href="{% url 'home' %}"
+                                style="margin-bottom:2px;"
+                            >
+
+                                <img
+                                    src="{% static 'images/logo.png' %}"
+                                    width="86"
+                                    height="57"
+                                    alt="Deus Magnus Limited"
+                                >
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="navbar"
+                        class="navbar-collapse collapse"
+                    >
+
+                        <ul class="nav navbar-nav navbar-right">
+
+
+                            <li>
+                                <a href="{% url 'home' %}">
+                                    Home
+                                </a>
+                            </li>
+
+
+                            <!-- ABOUT US -->
                             <li class="dropdown hassubmenu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Member Companies <span class="fa fa-angle-down"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="https://www.josepdam.com/"target="_blank"style="color: #fff;">JosepDam Real Estate </a></li>
-                                    <li><a href="https://www.jps.ng/"target="_blank"style="color: #fff;">JosepDam Port Service </a></li>
+
+                                <a
+                                    href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-expanded="false"
+                                >
+                                    About Us
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+
+
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+
+                                    <li>
+                                        <a href="{% url 'founder_message' %}">
+                                            Who We Are
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'why_deus_magnus' %}">
+                                            Why Deus Magnus
+                                        </a>
+                                    </li>
+
+
+
+                                    <li>
+                                        <a href="{% url 'mission_vision_strategy' %}">
+                                            Mission Vision
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'our_management_team' %}">
+                                            Our Management Team
+                                        </a>
+                                    </li>
+
+
+                                    <!-- MEMBER COMPANIES -->
+                                    <li class="dropdown hassubmenu">
+
+                                        <a
+                                            href="#"
+                                            class="dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            role="button"
+                                            aria-expanded="false"
+                                        >
+                                            Member Companies
+                                            <span class="fa fa-angle-down"></span>
+                                        </a>
+
+
+                                        <ul
+                                            class="dropdown-menu"
+                                            role="menu"
+                                        >
+
+                                            <li>
+
+                                                <a
+                                                    href="https://www.josepdam.com/"
+                                                    target="_blank"
+                                                    style="color:#fff;"
+                                                >
+                                                    JosepDam Real Estate
+                                                </a>
+
+                                            </li>
+
+
+                                            <li>
+
+                                                <a
+                                                    href="https://www.jps.ng/"
+                                                    target="_blank"
+                                                    style="color:#fff;"
+                                                >
+                                                    JosepDam Port Service
+                                                </a>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
+
                                 </ul>
-                            </li> 
-                        </ul>
-                    </li> 
-
-                   
-                    <li class="dropdown hassubmenu">
-                        <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">Our Services <span class="fa fa-angle-down"></span></a>
-                        <ul class="dropdown-menu" role="menu"> 
-                            <li><a href="{% url 'services' %}">What We Do </a></li>
-                            <li><a href="{% url 'featured_projects' %}">Featured Projects </a></li>
-                        </ul>
-                    </li> 
-                    <li><a href="{% url 'projects'%}">Projects</a></li> 
-                    <li class="dropdown hassubmenu">
-                        <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">Media <span class="fa fa-angle-down"></span></a>
-                        <ul class="dropdown-menu" role="menu"> 
-                            <li><a href="{% url 'deus_magnus_event' %}">News and Events </a></li>
-                            <li><a href="{% url 'blog' %}">Blog </a></li>
-                            <li><a href="{% url 'guides_1' %}">Guides</a></li>
-                            <li><a href="{% url 'client_reviews' %}">Client Review </a></li>
-                        </ul>
-                    </li> 
-                    <li class="dropdown hassubmenu"> 
-                        <a href="#" class="dropdown-oggle" data-toggle="dropdown" role="button"aria-expanded="false">Virtual Tours <span class="fa fa-angle-down"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="https://720.3vjia.com/S116502130?lang=zh-CN" target="_blank">Goshen C8 </a></li>
-                            <li><a href="https://720.3vjia.com/S124101606?lang=zh-CN" target="_blank">The Magnate’s Manor I — 5-Bedroom Duplex </a></li>
-                            <li><a href="https://720.3vjia.com/S123980228?lang=zh-CN" target="_blank">The Magnate’s Manor II — 6-Bedroom Duplex </a></li>
-                            <li><a href="{% url 'faqs_items'%}"> </a></li>
-                            <li><a href="{% url 'glossary_items' %}"> </a></li>
-                        </ul>
-                    </li>       
-                    <a href="{% url 'contact' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"style="margin-top:1px; border-radius: 5px; font-family:Georgia">Contact </i></a>
-                </ul>
-            </div>  
-        </nav><!-- end navbar -->
-    </div><!-- end container -->
-</header>
-
-
-
-        {% block content %}
-
-
-        {% endblock  %}
-
-
-<!-- Newsletter Popup -->
-<div
-    id="newsletterPopup"
-    style="
-        display: none;
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.68);
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        box-sizing: border-box;
-    "
->
-
-    <div
-        style="
-            position: relative;
-            width: 100%;
-            max-width: 540px;
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 45px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.30);
-            box-sizing: border-box;
-        "
-    >
-
-        <!-- Close Button -->
-        <button
-            type="button"
-            id="newsletterClose"
-            aria-label="Close newsletter popup"
-            style="
-                position: absolute;
-                top: 14px;
-                right: 18px;
-                width: 35px;
-                height: 35px;
-                border: none;
-                background: transparent;
-                color: #777;
-                font-size: 28px;
-                line-height: 30px;
-                cursor: pointer;
-                padding: 0;
-            "
-        >
-            &times;
-        </button>
-
-
-        <!-- Eyebrow -->
-        <p
-            style="
-                color: #98681e;
-                font-size: 13px;
-                font-weight: bold;
-                letter-spacing: 2px;
-                margin: 0 0 12px 0;
-            "
-        >
-            STAY AHEAD OF WHAT'S NEXT
-        </p>
-
-
-        <!-- Heading -->
-        <h3
-            style="
-                font-family: Georgia, serif;
-                color: #222;
-                font-size: 32px;
-                line-height: 1.35;
-                margin: 0 0 18px 0;
-            "
-        >
-            New projects. Important updates.
-        </h3>
-
-
-        <!-- Copy -->
-        <p
-            style="
-                color: #555;
-                font-size: 16px;
-                line-height: 1.7;
-                margin: 0 0 28px 0;
-            "
-        >
-            Get occasional updates from Deus Magnus delivered straight
-            to your inbox.
-        </p>
-
-
-        <!-- Newsletter Form -->
-        <form id="newsletterForm">
-
-            {% csrf_token %}
-
-            <!-- Name -->
-            <div style="margin-bottom: 18px;">
-
-                <label
-                    for="newsletterName"
-                    style="
-                        display: block;
-                        color: #333;
-                        font-weight: 600;
-                        margin-bottom: 7px;
-                    "
-                >
-                    Name
-                </label>
-
-                <input
-                    type="text"
-                    id="newsletterName"
-                    name="name"
-                    placeholder="Your name"
-                    autocomplete="name"
-                    required
-                    style="
-                        display: block;
-                        width: 100%;
-                        height: 48px;
-                        border: 1px solid #ddd;
-                        border-radius: 4px;
-                        padding: 0 14px;
-                        font-size: 15px;
-                        color: #333;
-                        background: #fff;
-                        box-sizing: border-box;
-                    "
-                >
-
-            </div>
-
-
-            <!-- Email -->
-            <div style="margin-bottom: 20px;">
-
-                <label
-                    for="newsletterEmail"
-                    style="
-                        display: block;
-                        color: #333;
-                        font-weight: 600;
-                        margin-bottom: 7px;
-                    "
-                >
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="newsletterEmail"
-                    name="email"
-                    placeholder="you@example.com"
-                    autocomplete="email"
-                    required
-                    style="
-                        display: block;
-                        width: 100%;
-                        height: 48px;
-                        border: 1px solid #ddd;
-                        border-radius: 4px;
-                        padding: 0 14px;
-                        font-size: 15px;
-                        color: #333;
-                        background: #fff;
-                        box-sizing: border-box;
-                    "
-                >
-
-            </div>
-
-
-            <!-- Message -->
-            <div
-                id="newsletterMessage"
-                style="
-                    display: none;
-                    margin-bottom: 18px;
-                    padding: 12px 15px;
-                    border-radius: 4px;
-                    font-size: 14px;
-                    line-height: 1.5;
-                "
-            ></div>
-
-
-            <!-- Submit Button -->
-            <button
-                type="submit"
-                id="newsletterSubmit"
-                class="btn btn-primary"
-                style="
-                    width: 100%;
-                    border-radius: 5px;
-                    padding: 13px 20px;
-                    font-family: Georgia, serif;
-                    font-size: 16px;
-                    border: none;
-                "
-            >
-                Keep Me Updated
-            </button>
-
-
-            <!-- Consent -->
-            <p
-                style="
-                    color: #777;
-                    font-size: 12px;
-                    line-height: 1.6;
-                    margin: 16px 0 0 0;
-                    text-align: center;
-                "
-            >
-                By subscribing, you agree to receive marketing
-                communications from Deus Magnus. You can unsubscribe
-                at any time.
-            </p>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<footer class="section footer noover">
-    <div class="container">
-
-
-    <div class="row">
-
-        <!-- BRAND STATEMENT -->
-        <div class="col-lg-3 col-md-6">
-            <div class="widget clearfix">
-
-                <h3 class="widget-title" style="font-family: Georgia;">
-                    Deus Magnus Limited
-                </h3>
-
-                <h4 style="
-                    color: #98681e;
-                    font-family: Georgia;
-                    font-weight: bold;
-                    line-height: 1.5;
-                ">
-                    We Don't Just Build.<br>
-                    We Define Excellence.
-                </h4>
-
-                <p style="
-                    font-family: Georgia;
-                    line-height: 1.7;
-                    margin-top: 10px;
-                ">
-                    Construction. Real Estate. Facility Management.
-                    Integrated Project Solutions.
-                </p>
-
-            </div>
-        </div>
-        <!-- END BRAND STATEMENT -->
-
-
-        <!-- SOCIAL MEDIA -->
-        <div class="col-lg-2 col-md-6">
-            <div class="widget clearfix">
-
-                <h3 class="widget-title" style="font-family: Georgia;">
-                    Popular Tags
-                </h3>
-
-                <div class="authorbox-social">
-
-                    <ul class="list-inline">
-
-                        <li>
-                            <a href="https://www.instagram.com/deusmagnusltd/" target="_blank">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="https://web.facebook.com/deusmagnusltd" target="_blank">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="https://ng.linkedin.com/company/deusmagnus" target="_blank">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="mailto:info@deusmagnus.com" target="_blank">
-                                <i class="fa fa-envelope-o"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- END SOCIAL MEDIA -->
-
-
-        
-
-
-        <!-- ABOUT US -->
-        <div class="col-lg-2 col-md-6">
-            <div class="widget clearfix">
-
-                <h3 class="widget-title" style="font-family: Georgia;">
-                    Company
-                </h3>
-
-                <div class="list-widget">
-
-                    <ul>
-
-                        <li>
-                            <a href="{% url 'founder_message' %}">
-                                Message from Founder
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'projects' %}">
-                                Projects
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'services' %}">
-                                Services
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'blog' %}">
-                                Blog
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'deus_magnus_event' %}">
-                                News and Events
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'faqs_items' %}">
-                                FAQ
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- END ABOUT US -->
-
-
-        <!-- SUPPORT LINKS -->
-        <div class="col-lg-2 col-md-6">
-            <div class="widget clearfix">
-
-                <h3 class="widget-title" style="font-family: Georgia;">
-                    Support Link
-                </h3>
-
-                <div class="list-widget">
-
-                    <ul>
-
-                        <li>
-                            <a href="{% url 'home' %}">
-                                Home
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'about' %}">
-                                About Deus Magnus
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'contact' %}">
+
+                            </li>
+                            <!-- END ABOUT US -->
+
+
+                            <!-- SERVICES -->
+                            <li class="dropdown hassubmenu">
+
+                                <a
+                                    href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-expanded="false"
+                                >
+                                    Our Services
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+
+
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+
+                                    <li>
+                                        <a href="{% url 'services' %}">
+                                            What We Do
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'featured_projects' %}">
+                                            Featured Projects
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <!-- END SERVICES -->
+
+
+                            <li>
+                                <a href="{% url 'projects' %}">
+                                    Projects
+                                </a>
+                            </li>
+
+
+                            <!-- MEDIA -->
+                            <li class="dropdown hassubmenu">
+
+                                <a
+                                    href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-expanded="false"
+                                >
+                                    Media
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+
+
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+
+                                    <li>
+                                        <a href="{% url 'deus_magnus_event' %}">
+                                            News and Events
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'blog' %}">
+                                            Blog
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'guides_1' %}">
+                                            Guides
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'client_reviews' %}">
+                                            Client Review
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <!-- END MEDIA -->
+
+
+                            <!-- VIRTUAL TOURS -->
+                            <li class="dropdown hassubmenu">
+
+                                <a
+                                    href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-expanded="false"
+                                >
+                                    Virtual Tours
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+
+
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+
+                                    <li>
+
+                                        <a
+                                            href="https://720.3vjia.com/S116502130?lang=zh-CN"
+                                            target="_blank"
+                                        >
+                                            Goshen C8
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://720.3vjia.com/S124101606?lang=zh-CN"
+                                            target="_blank"
+                                        >
+                                            The Magnate’s Manor I — 5-Bedroom Duplex
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://720.3vjia.com/S123980228?lang=zh-CN"
+                                            target="_blank"
+                                        >
+                                            The Magnate’s Manor II — 6-Bedroom Duplex
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+                                        <a href="{% url 'faqs_items' %}">
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'glossary_items' %}">
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <!-- END VIRTUAL TOURS -->
+
+
+                            <!-- CONTACT -->
+                            <li>
+
+                               
+                            <a
+                                href="{% url 'contact' %}"
+                                class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                                style="
+                                    margin-top:1px;
+                                    border-radius:5px;
+                                    font-family:Georgia;
+                                    color:#fff !important;
+                                "
+                            >
                                 Contact
                             </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'glossary_items' %}">
-                                Glossary
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- END SUPPORT LINKS -->
 
 
-        <!-- CONTACT US -->
-        <div class="col-lg-3 col-md-6">
-            <div class="widget clearfix">
 
-                <h3 class="widget-title" style="font-family: Georgia;">
-                    Contact Us
-                </h3>
+                            </li>
 
-                <div class="list-widget">
 
-                    <ul>
+                        </ul>
 
-                        <li>
-                            <a href="https://maps.app.goo.gl/uNNsbrMFuA9V3HN36" target="_blank">
-                                <label>Head Office:</label>
-                                <span style="font-weight:100;">
-                                    19, Fatai Atere Way, Mushin, Lagos
-                                </span>
-                            </a>
-                        </li>
+                    </div>
 
-                        <li>
-                            <a href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6" target="_blank">
-                                <label>Lekki Office:</label>
-                                <span style="font-weight:100;">
-                                    Block 58a, Plot 10a, Omorinre
-                                    <br>
-                                    Johnson Street, Lekki, Lagos
-                                </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank">
-                                Get a quote
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
+                </nav>
+                <!-- end navbar -->
 
             </div>
-        </div>
-        <!-- END CONTACT US -->
+            <!-- end container -->
 
-    </div>
-    <!-- end row -->
+        </header>
+        <!-- END HEADER -->
 
 
-    <!-- WHATSAPP BUTTON -->
-    <a
-        href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?"
-        target="_blank"
-        style="
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            z-index: 9999;
-        "
-    >
-        <img
-            src="{% static 'images/whatsapp.png' %}"
-            alt="Chat with us on WhatsApp"
+        <!-- PAGE CONTENT -->
+        {% block content %}
+
+        {% endblock %}
+        <!-- END PAGE CONTENT -->
+
+
+        <!-- ===================================================== -->
+        <!-- NEWSLETTER POPUP -->
+        <!-- ===================================================== -->
+
+        <div
+            id="newsletterPopup"
             style="
-                width: 60px;
-                height: 60px;
+                display:none;
+                position:fixed;
+                z-index:99999;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+                background:rgba(0,0,0,0.68);
+                align-items:center;
+                justify-content:center;
+                padding:20px;
+                box-sizing:border-box;
             "
         >
-    </a>
-    <!-- END WHATSAPP BUTTON -->
 
 
-</div>
-<!-- end container -->
+            <div
+                style="
+                    position:relative;
+                    width:100%;
+                    max-width:540px;
+                    background:#ffffff;
+                    border-radius:8px;
+                    padding:45px 40px;
+                    box-shadow:0 20px 60px rgba(0,0,0,0.30);
+                    box-sizing:border-box;
+                "
+            >
 
 
-</footer>
-<!-- end footer -->
+                <!-- CLOSE BUTTON -->
+                <button
+                    type="button"
+                    id="newsletterClose"
+                    aria-label="Close newsletter popup"
+                    style="
+                        position:absolute;
+                        top:14px;
+                        right:18px;
+                        width:35px;
+                        height:35px;
+                        border:none;
+                        background:transparent;
+                        color:#777;
+                        font-size:28px;
+                        line-height:30px;
+                        cursor:pointer;
+                        padding:0;
+                    "
+                >
+                    &times;
+                </button>
 
-<div class="copyrights">
-    <div class="container">
-        <div class="clearfix">
-            <div class="pull-right">
-                <div class="footer-links">
-                    <ul class="list-inline">
-                        <li>
-                                Copyright ©  2026 Deus Magnus Ltd. All Rights Reserved - <a href="https://senwin.pythonanywhere.com/"style="color: #aaa;"target="_blank">Developed By Senwin.</a>
-                        </li>
-                    </ul>
-                </div>
+
+                <!-- EYEBROW -->
+                <p
+                    style="
+                        color:#98681e;
+                        font-size:13px;
+                        font-weight:bold;
+                        letter-spacing:2px;
+                        margin:0 0 12px 0;
+                    "
+                >
+                    STAY AHEAD OF WHAT'S NEXT
+                </p>
+
+
+                <!-- HEADING -->
+                <h3
+                    style="
+                        font-family:Georgia,serif;
+                        color:#222;
+                        font-size:32px;
+                        line-height:1.35;
+                        margin:0 0 18px 0;
+                    "
+                >
+                    New projects. Important updates.
+                </h3>
+
+
+                <!-- DESCRIPTION -->
+                <p
+                    style="
+                        color:#555;
+                        font-size:16px;
+                        line-height:1.7;
+                        margin:0 0 28px 0;
+                    "
+                >
+                    Get occasional updates from Deus Magnus delivered
+                    straight to your inbox.
+                </p>
+
+
+                <!-- NEWSLETTER FORM -->
+                <form id="newsletterForm">
+
+                    {% csrf_token %}
+
+
+                    <!-- NAME -->
+                    <div style="margin-bottom:18px;">
+
+                        <label
+                            for="newsletterName"
+                            style="
+                                display:block;
+                                color:#333;
+                                font-weight:600;
+                                margin-bottom:7px;
+                            "
+                        >
+                            Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="newsletterName"
+                            name="name"
+                            placeholder="Your name"
+                            autocomplete="name"
+                            required
+                            style="
+                                display:block;
+                                width:100%;
+                                height:48px;
+                                border:1px solid #ddd;
+                                border-radius:4px;
+                                padding:0 14px;
+                                font-size:15px;
+                                color:#333;
+                                background:#fff;
+                                box-sizing:border-box;
+                            "
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div style="margin-bottom:20px;">
+
+                        <label
+                            for="newsletterEmail"
+                            style="
+                                display:block;
+                                color:#333;
+                                font-weight:600;
+                                margin-bottom:7px;
+                            "
+                        >
+                            Email
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="newsletterEmail"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                            style="
+                                display:block;
+                                width:100%;
+                                height:48px;
+                                border:1px solid #ddd;
+                                border-radius:4px;
+                                padding:0 14px;
+                                font-size:15px;
+                                color:#333;
+                                background:#fff;
+                                box-sizing:border-box;
+                            "
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+                    <div
+                        id="newsletterMessage"
+                        style="
+                            display:none;
+                            margin-bottom:18px;
+                            padding:12px 15px;
+                            border-radius:4px;
+                            font-size:14px;
+                            line-height:1.5;
+                        "
+                    ></div>
+
+
+                    <!-- SUBMIT -->
+                    <button
+                        type="submit"
+                        id="newsletterSubmit"
+                        class="btn btn-primary"
+                        style="
+                            width:100%;
+                            border-radius:5px;
+                            padding:13px 20px;
+                            font-family:Georgia,serif;
+                            font-size:16px;
+                            border:none;
+                        "
+                    >
+                        Keep Me Updated
+                    </button>
+
+
+                    <!-- CONSENT -->
+                    <p
+                        style="
+                            color:#777;
+                            font-size:12px;
+                            line-height:1.6;
+                            margin:16px 0 0 0;
+                            text-align:center;
+                        "
+                    >
+                        By subscribing, you agree to receive marketing
+                        communications from Deus Magnus. You can unsubscribe
+                        at any time.
+                    </p>
+
+                </form>
+
             </div>
+
         </div>
-    </div><!-- end container -->
-</div><!-- end copy -->
-</div><!-- end wrapper -->
+
+        <!-- ===================================================== -->
+        <!-- END NEWSLETTER POPUP -->
+        <!-- ===================================================== -->
 
 
-<!-- jQuery Files -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/carousel.js' %}"></script>
-<script src="{% static 'js/animate.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- VIDEO BG PLUGINS -->
-<script src="{% static 'js/videobg.js' %}"></script>
+        <!-- FOOTER -->
+        <footer class="section footer noover">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div class="container">
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const popup = document.getElementById("newsletterPopup");
-    const closeButton = document.getElementById("newsletterClose");
-    const form = document.getElementById("newsletterForm");
-    const messageBox = document.getElementById("newsletterMessage");
-    const submitButton = document.getElementById("newsletterSubmit");
-
-    // Show popup only once per browser
-    if (!localStorage.getItem("newsletterPopupSeen")) {
-
-        setTimeout(function () {
-            popup.style.display = "flex";
-            localStorage.setItem("newsletterPopupSeen", "true");
-        }, 3000);
-    }
+                <div class="row">
 
 
-    // CLOSE BUTTON
-    closeButton.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
+                    <!-- BRAND STATEMENT -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="widget clearfix">
+
+                            <h3
+                                class="widget-title"
+                                style="font-family:Georgia;"
+                            >
+                                Deus Magnus Limited
+                            </h3>
 
 
-    // CLICK OUTSIDE
-    popup.addEventListener("click", function (event) {
-        if (event.target === popup) {
-            popup.style.display = "none";
-        }
-    });
+                            <h4
+                                style="
+                                    color:#98681e;
+                                    font-family:Georgia;
+                                    font-weight:bold;
+                                    line-height:1.5;
+                                "
+                            >
+                                We Don't Just Build.<br>
+                                We Define Excellence.
+                            </h4>
 
 
-    // SUBMIT FORM
-    form.addEventListener("submit", function (event) {
+                            <p
+                                style="
+                                    font-family:Georgia;
+                                    line-height:1.7;
+                                    margin-top:10px;
+                                "
+                            >
+                                Construction. Real Estate. Facility Management.
+                                Integrated Project Solutions.
+                            </p>
 
-        event.preventDefault();
+                        </div>
 
-        submitButton.disabled = true;
-        submitButton.innerText = "Subscribing...";
+                    </div>
+                    <!-- END BRAND STATEMENT -->
 
-        fetch("{% url 'newsletter_subscribe' %}", {
-            method: "POST",
-            body: new FormData(form),
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
+
+                    <!-- SOCIAL MEDIA -->
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="widget clearfix">
+
+                            <h3
+                                class="widget-title"
+                                style="font-family:Georgia;"
+                            >
+                                Popular Tags
+                            </h3>
+
+
+                            <div class="authorbox-social">
+
+                                <ul class="list-inline">
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://www.instagram.com/deusmagnusltd/"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://web.facebook.com/deusmagnusltd"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://ng.linkedin.com/company/deusmagnus"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="mailto:info@deusmagnus.com">
+
+                                            <i class="fa fa-envelope-o"></i>
+
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="#">
+
+                                            <i class="fa fa-twitter"></i>
+
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- END SOCIAL MEDIA -->
+
+
+                    <!-- COMPANY -->
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="widget clearfix">
+
+                            <h3
+                                class="widget-title"
+                                style="font-family:Georgia;"
+                            >
+                                Company
+                            </h3>
+
+
+                            <div class="list-widget">
+
+                                <ul>
+
+
+                                    <li>
+
+                                        <a href="{% url 'founder_message' %}">
+                                            Message from Founder
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'projects' %}">
+                                            Projects
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'services' %}">
+                                            Services
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'blog' %}">
+                                            Blog
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'deus_magnus_event' %}">
+                                            News and Events
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'faqs_items' %}">
+                                            FAQ
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- END COMPANY -->
+
+
+                    <!-- SUPPORT LINKS -->
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="widget clearfix">
+
+                            <h3
+                                class="widget-title"
+                                style="font-family:Georgia;"
+                            >
+                                Support Link
+                            </h3>
+
+
+                            <div class="list-widget">
+
+                                <ul>
+
+
+                                    <li>
+
+                                        <a href="{% url 'home' %}">
+                                            Home
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'about' %}">
+                                            About Deus Magnus
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'contact' %}">
+                                            Contact
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a href="{% url 'glossary_items' %}">
+                                            Glossary
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- END SUPPORT LINKS -->
+
+
+                    <!-- CONTACT US -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="widget clearfix">
+
+                            <h3
+                                class="widget-title"
+                                style="font-family:Georgia;"
+                            >
+                                Contact Us
+                            </h3>
+
+
+                            <div class="list-widget">
+
+                                <ul>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://maps.app.goo.gl/uNNsbrMFuA9V3HN36"
+                                            target="_blank"
+                                        >
+
+                                            <label>
+                                                Head Office:
+                                            </label>
+
+                                            <span style="font-weight:100;">
+                                                19, Fatai Atere Way, Mushin, Lagos
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://maps.app.goo.gl/XrDA6gAnCSKkDuGN6"
+                                            target="_blank"
+                                        >
+
+                                            <label>
+                                                Lekki Office:
+                                            </label>
+
+                                            <span style="font-weight:100;">
+                                                Block 58a, Plot 10a, Omorinre
+                                                <br>
+                                                Johnson Street, Lekki, Lagos
+                                            </span>
+
+                                        </a>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="https://wa.me/+2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+                                            target="_blank"
+                                        >
+                                            Get a quote
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- END CONTACT US -->
+
+
+                </div>
+                <!-- end row -->
+
+
+                <!-- WHATSAPP BUTTON -->
+                <a
+                    href="https://wa.me/+2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+                    target="_blank"
+                    style="
+                        position:fixed;
+                        bottom:30px;
+                        right:20px;
+                        z-index:9999;
+                    "
+                >
+
+                    <img
+                        src="{% static 'images/whatsapp.png' %}"
+                        alt="Chat with us on WhatsApp"
+                        style="
+                            width:60px;
+                            height:60px;
+                        "
+                    >
+
+                </a>
+                <!-- END WHATSAPP BUTTON -->
+
+
+            </div>
+            <!-- end container -->
+
+        </footer>
+        <!-- END FOOTER -->
+
+
+        <!-- COPYRIGHT -->
+        <div class="copyrights">
+
+            <div class="container">
+
+                <div class="clearfix">
+
+                    <div class="pull-right">
+
+                        <div class="footer-links">
+
+                            <ul class="list-inline">
+
+                                <li>
+
+                                    Copyright © 2026 Deus Magnus Ltd.
+                                    All Rights Reserved -
+
+                                    <a
+                                        href="https://senwin.pythonanywhere.com/"
+                                        style="color:#aaa;"
+                                        target="_blank"
+                                    >
+                                        Developed By Senwin.
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- end container -->
+
+        </div>
+        <!-- end copyright -->
+
+
+    </div>
+    <!-- end wrapper -->
+
+
+    <!-- ===================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ===================================================== -->
+
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Carousel -->
+    <script src="{% static 'js/carousel.js' %}"></script>
+
+    <!-- Animate -->
+    <script src="{% static 'js/animate.js' %}"></script>
+
+    <!-- Custom -->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <!-- Video Background -->
+    <script src="{% static 'js/videobg.js' %}"></script>
+
+
+    <!-- ===================================================== -->
+    <!-- NEWSLETTER POPUP SCRIPT -->
+    <!-- ===================================================== -->
+
+  
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            console.log("Deus Magnus newsletter script loaded.");
+
+            const popup = document.getElementById("newsletterPopup");
+            const closeButton = document.getElementById("newsletterClose");
+            const form = document.getElementById("newsletterForm");
+            const messageBox = document.getElementById("newsletterMessage");
+            const submitButton = document.getElementById("newsletterSubmit");
+
+
+            /*
+            * SAFETY CHECK
+            */
+
+            if (!popup || !closeButton || !form) {
+                console.error("Newsletter popup elements not found.");
+                return;
             }
-        })
 
-        .then(response => response.json())
 
-        .then(data => {
+            /*
+            * =====================================================
+            * NEWSLETTER POPUP ENABLE / DISABLE
+            * =====================================================
+            *
+            * false = popup WILL NOT automatically appear
+            * true  = popup WILL automatically appear after 3 seconds
+            */
 
-            messageBox.style.display = "block";
-            messageBox.innerText = data.message;
+            const newsletterPopupEnabled = false;
 
-            if (data.success) {
 
-                messageBox.style.background = "#e8f5e9";
-                messageBox.style.color = "#2e7d32";
-
-                submitButton.innerText = "Subscribed!";
-
-                form.reset();
+            if (newsletterPopupEnabled) {
 
                 setTimeout(function () {
-                    popup.style.display = "none";
-                }, 2000);
 
-            } else {
+                    console.log("Showing Deus Magnus newsletter popup.");
 
-                messageBox.style.background = "#ffebee";
-                messageBox.style.color = "#c62828";
+                    popup.style.display = "flex";
 
-                submitButton.disabled = false;
-                submitButton.innerText = "Keep Me Updated";
+                }, 3000);
+
             }
 
-        })
 
-        .catch(function (error) {
+            /*
+            * =====================================================
+            * CLOSE BUTTON
+            * =====================================================
+            */
 
-            console.error(error);
+            closeButton.addEventListener("click", function () {
 
-            messageBox.style.display = "block";
-            messageBox.style.background = "#ffebee";
-            messageBox.style.color = "#c62828";
-            messageBox.innerText = "Something went wrong.";
+                popup.style.display = "none";
 
-            submitButton.disabled = false;
-            submitButton.innerText = "Keep Me Updated";
+            });
+
+
+            /*
+            * =====================================================
+            * CLICK OUTSIDE POPUP
+            * =====================================================
+            */
+
+            popup.addEventListener("click", function (event) {
+
+                if (event.target === popup) {
+
+                    popup.style.display = "none";
+
+                }
+
+            });
+
+
+            /*
+            * =====================================================
+            * NEWSLETTER FORM
+            * =====================================================
+            */
+
+            form.addEventListener("submit", function (event) {
+
+                event.preventDefault();
+
+                submitButton.disabled = true;
+                submitButton.innerText = "Subscribing...";
+
+
+                fetch(
+                    "{% url 'newsletter_subscribe' %}",
+                    {
+                        method: "POST",
+
+                        body: new FormData(form),
+
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest"
+                        }
+                    }
+                )
+
+                .then(function (response) {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Server returned HTTP " + response.status
+                        );
+
+                    }
+
+                    return response.json();
+
+                })
+
+
+                .then(function (data) {
+
+                    messageBox.style.display = "block";
+                    messageBox.innerText = data.message;
+
+
+                    if (data.success) {
+
+                        messageBox.style.background = "#e8f5e9";
+                        messageBox.style.color = "#2e7d32";
+
+                        submitButton.innerText = "Subscribed!";
+
+                        form.reset();
+
+
+                        setTimeout(function () {
+
+                            popup.style.display = "none";
+
+                        }, 2000);
+
+
+                    } else {
+
+                        messageBox.style.background = "#ffebee";
+                        messageBox.style.color = "#c62828";
+
+                        submitButton.disabled = false;
+                        submitButton.innerText = "Keep Me Updated";
+
+                    }
+
+                })
+
+
+                .catch(function (error) {
+
+                    console.error("Newsletter error:", error);
+
+                    messageBox.style.display = "block";
+                    messageBox.style.background = "#ffebee";
+                    messageBox.style.color = "#c62828";
+
+                    messageBox.innerText =
+                        "Something went wrong. Please try again.";
+
+                    submitButton.disabled = false;
+                    submitButton.innerText = "Keep Me Updated";
+
+                });
+
+            });
+
         });
 
-    });
+    </script>
 
-});
-</script>
+
+
 
 </body>
-</html> 
+
+</html>
+

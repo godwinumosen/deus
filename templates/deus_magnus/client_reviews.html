@@ -1,340 +1,1089 @@
+django
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}Client Reviews | Deus Magnus Limited{% endblock %}
 
 {% block content %}
 
-<section style="background:#f8f8f8; padding:90px 0 100px;">
+<style>
 
-```
-<div class="container">
+/* =========================================================
+   DEUS MAGNUS — CLIENT REVIEWS
+   ========================================================= */
 
-    <!-- Page Header -->
-    <div class="text-center" style="margin-bottom:65px;">
-
-        <p style="
-            color:#98681e;
-            font-size:13px;
-            font-weight:bold;
-            letter-spacing:3px;
-            text-transform:uppercase;
-            margin-bottom:12px;
-        ">
-            Client Testimonials
-        </p>
-
-        <h2 style="
-            color:#04245c;
-            font-family:Georgia, serif;
-            font-size:38px;
-            margin:0 0 18px;
-        ">
-            What Our Clients Say
-        </h2>
-
-        <div style="
-            width:55px;
-            height:2px;
-            background:#98681e;
-            margin:0 auto 20px;
-        "></div>
-
-        <p style="
-            max-width:650px;
-            margin:auto;
-            color:#777;
-            font-size:15px;
-            line-height:1.8;
-        ">
-            Our clients are at the heart of everything we do.
-            Discover what they have to say about their experience
-            with Deus Magnus Limited.
-        </p>
-
-    </div>
+.dm-reviews-page {
+    background: #f7f6f3;
+    color: #222;
+}
 
 
-    <!-- CLIENT REVIEWS CAROUSEL -->
-    {% if reviews %}
+/* =========================================================
+   HERO
+   ========================================================= */
 
-    <div id="reviewsCarousel" style="
-        position:relative;
-        width:100%;
-        overflow:hidden;
-    ">
+.dm-reviews-hero {
+    position: relative;
 
-        <div id="reviewsTrack" style="
-            display:flex;
-            transition:transform 0.5s ease;
-            width:100%;
-        ">
+    min-height: 500px;
 
-            {% for review in reviews %}
+    display: flex;
+    align-items: center;
 
-            <div class="review-slide" style="
-                flex:0 0 33.333333%;
-                width:33.333333%;
-                padding:0 15px;
-                box-sizing:border-box;
-            ">
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4, 36, 92, 0.96) 0%,
+            rgba(4, 36, 92, 0.86) 48%,
+            rgba(4, 36, 92, 0.58) 100%
+        ),
+        url("{% static 'images/m_v_s.jpg' %}") center center / cover no-repeat;
 
-                <!-- Equal Height Card -->
-                <div style="
-                    background:#ffffff;
-                    padding:40px 35px 35px;
-                    height:420px;
-                    min-height:420px;
-                    position:relative;
-                    border:1px solid #eeeeee;
-                    box-sizing:border-box;
-                    display:flex;
-                    flex-direction:column;
-                ">
-
-                    <!-- Quote -->
-                    <div style="
-                        color:#98681e;
-                        font-family:Georgia, serif;
-                        font-size:55px;
-                        line-height:40px;
-                        margin-bottom:15px;
-                        flex-shrink:0;
-                    ">
-                        “
-                    </div>
+    overflow: hidden;
+}
 
 
-                    <!-- Equal Review Area -->
-                    <div style="
-                        height:185px;
-                        min-height:185px;
-                        overflow:hidden;
-                        margin-bottom:25px;
-                    ">
+/* Gold bottom line */
 
-                        <p style="
-                            color:#555;
-                            font-size:15px;
-                            line-height:1.9;
-                            font-style:italic;
-                            margin:0;
-                        ">
-                            {{ review.review|truncatewords:26 }}
-                        </p>
+.dm-reviews-hero::after {
+    content: "";
 
-                    </div>
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: #98681e;
+}
 
 
-                    <!-- Client Information -->
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        border-top:1px solid #eeeeee;
-                        padding-top:22px;
-                        margin-top:auto;
-                    ">
+.dm-reviews-hero-content {
+    max-width: 850px;
 
-                        {% if review.client_photo %}
-
-                        <img
-                            src="{{ review.client_photo.url }}"
-                            alt="{{ review.client_name }}"
-                            style="
-                                width:65px;
-                                height:65px;
-                                min-width:65px;
-                                border-radius:50%;
-                                object-fit:cover;
-                                margin-right:15px;
-                            "
-                        >
-
-                        {% else %}
-
-                        <div style="
-                            width:65px;
-                            height:65px;
-                            min-width:65px;
-                            border-radius:50%;
-                            background:#04245c;
-                            color:#ffffff;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            font-family:Georgia, serif;
-                            font-size:24px;
-                            margin-right:15px;
-                        ">
-                            {{ review.client_name|first|upper }}
-                        </div>
-
-                        {% endif %}
+    padding: 90px 0;
+}
 
 
-                        <div>
+.dm-reviews-eyebrow {
+    margin-bottom: 20px;
 
-                            <!-- Client Name -->
-                            <h4 style="
-                                color:#04245c;
-                                font-family:Georgia, serif;
-                                font-size:17px;
-                                margin:0 0 5px;
-                            ">
-                                {{ review.client_name }}
-                            </h4>
+    color: #d5ad62;
 
+    font-family: Georgia, "Times New Roman", serif;
 
-                            <!-- Company -->
-                            {% if review.client_company %}
+    font-size: 13px;
+    font-weight: 600;
 
-                            <p style="
-                                color:#999;
-                                font-size:13px;
-                                margin:0 0 7px;
-                            ">
-                                {{ review.client_company }}
-                            </p>
+    letter-spacing: 3px;
 
-                            {% endif %}
+    text-transform: uppercase;
+}
 
 
-                            <!-- Rating -->
-                            <div style="
-                                color:#98681e;
-                                font-size:15px;
-                                letter-spacing:1px;
-                            ">
+.dm-reviews-hero h1 {
+    margin: 0 0 25px;
 
-                                {% for i in "12345" %}
+    color: #ffffff;
 
-                                    {% if forloop.counter <= review.rating %}
-                                        ★
-                                    {% else %}
-                                        ☆
-                                    {% endif %}
+    font-family: Georgia, "Times New Roman", serif;
 
-                                {% endfor %}
+    font-size: 60px;
+    font-weight: 400;
 
-                            </div>
+    line-height: 1.08;
+}
 
-                        </div>
 
-                    </div>
+.dm-reviews-hero p {
+    max-width: 720px;
 
+    margin: 0;
+
+    color: rgba(255,255,255,0.88);
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.dm-reviews-intro {
+    padding: 90px 20px 65px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+
+.dm-reviews-intro-inner {
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+.dm-reviews-label {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+
+.dm-reviews-intro h2 {
+    margin: 0 0 22px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 42px;
+    font-weight: 400;
+
+    line-height: 1.2;
+}
+
+
+.dm-reviews-intro p {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    color: #666;
+
+    font-size: 16px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   REVIEWS SECTION
+   ========================================================= */
+
+.dm-reviews-section {
+    padding: 50px 20px 100px;
+
+    background: #f7f6f3;
+}
+
+
+.dm-reviews-heading {
+    margin-bottom: 40px;
+}
+
+
+.dm-reviews-heading .small-title {
+    margin-bottom: 10px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.dm-reviews-heading h2 {
+    margin: 0;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 38px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   CAROUSEL
+   ========================================================= */
+
+.dm-reviews-carousel {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    padding: 0 35px;
+}
+
+
+.dm-reviews-track {
+    display: flex;
+
+    width: 100%;
+
+    transition: transform 0.55s ease;
+}
+
+
+.dm-review-slide {
+    flex: 0 0 33.333333%;
+
+    width: 33.333333%;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   REVIEW CARD
+   ========================================================= */
+
+.dm-review-card {
+    position: relative;
+
+    height: 420px;
+    min-height: 420px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 38px 32px 32px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9e6df;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 12px 35px rgba(4, 36, 92, 0.06);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.dm-review-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 22px 50px rgba(4, 36, 92, 0.11);
+}
+
+
+/* =========================================================
+   QUOTE MARK
+   ========================================================= */
+
+.dm-review-quote {
+    margin-bottom: 12px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 58px;
+
+    line-height: 42px;
+}
+
+
+/* =========================================================
+   REVIEW TEXT
+   ========================================================= */
+
+.dm-review-text {
+    height: 185px;
+    min-height: 185px;
+
+    overflow: hidden;
+
+    margin: 0 0 20px;
+
+    color: #555;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   CLIENT AREA
+   ========================================================= */
+
+.dm-review-client {
+    display: flex;
+
+    align-items: center;
+
+    margin-top: auto;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eeeeee;
+}
+
+
+.dm-review-photo,
+.dm-review-initial {
+    width: 65px;
+    height: 65px;
+
+    min-width: 65px;
+
+    margin-right: 16px;
+
+    border-radius: 50%;
+}
+
+
+.dm-review-photo {
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.dm-review-initial {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #04245c;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 24px;
+}
+
+
+.dm-review-client-info {
+    min-width: 0;
+}
+
+
+.dm-review-client-name {
+    margin: 0 0 5px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+.dm-review-company {
+    margin: 0 0 7px;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RATING
+   ========================================================= */
+
+.dm-review-rating {
+    color: #98681e;
+
+    font-size: 15px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+   ========================================================= */
+
+.dm-review-nav {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 46px;
+    height: 46px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #04245c;
+
+    color: #ffffff;
+
+    font-size: 23px;
+
+    line-height: 46px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.dm-review-nav:hover {
+    background: #98681e;
+
+    transform: translateY(-50%) scale(1.06);
+}
+
+
+.dm-review-prev {
+    left: 0;
+}
+
+
+.dm-review-next {
+    right: 0;
+}
+
+
+/* =========================================================
+   DOTS
+   ========================================================= */
+
+.dm-review-dots {
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+
+.dm-review-dot {
+    width: 10px;
+    height: 10px;
+
+    padding: 0;
+
+    margin: 0 5px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #cccccc;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+
+.dm-review-dot.active {
+    background: #98681e;
+
+    transform: scale(1.15);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.dm-reviews-empty {
+    padding: 70px 30px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e9e6df;
+}
+
+
+.dm-reviews-empty h3 {
+    margin: 0 0 12px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 28px;
+
+    font-weight: 400;
+}
+
+
+.dm-reviews-empty p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CLOSING SECTION
+   ========================================================= */
+
+.dm-reviews-closing {
+    padding: 85px 20px;
+
+    text-align: center;
+
+    background: #04245c;
+}
+
+
+.dm-reviews-closing-label {
+    margin-bottom: 16px;
+
+    color: #d5ad62;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+.dm-reviews-closing h2 {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 40px;
+    font-weight: 400;
+}
+
+
+.dm-reviews-closing p {
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   WHATSAPP
+   ========================================================= */
+
+.dm-reviews-whatsapp {
+    position: fixed;
+
+    right: 22px;
+    bottom: 28px;
+
+    z-index: 9999;
+
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+
+    transition: transform 0.3s ease;
+}
+
+
+.dm-reviews-whatsapp:hover {
+    transform: translateY(-4px);
+}
+
+
+.dm-reviews-whatsapp img {
+    width: 60px;
+    height: 60px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .dm-reviews-hero {
+        min-height: 440px;
+    }
+
+    .dm-reviews-hero h1 {
+        font-size: 50px;
+    }
+
+    .dm-reviews-intro h2 {
+        font-size: 36px;
+    }
+
+    .dm-review-slide {
+        flex: 0 0 50%;
+
+        width: 50%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .dm-reviews-hero {
+        min-height: 420px;
+    }
+
+    .dm-reviews-hero-content {
+        padding: 70px 20px;
+    }
+
+    .dm-reviews-hero h1 {
+        font-size: 42px;
+    }
+
+    .dm-reviews-hero p {
+        font-size: 15px;
+
+        line-height: 1.75;
+    }
+
+    .dm-reviews-intro {
+        padding: 65px 20px 45px;
+    }
+
+    .dm-reviews-intro h2 {
+        font-size: 31px;
+    }
+
+    .dm-reviews-section {
+        padding: 35px 10px 70px;
+    }
+
+    .dm-reviews-heading h2 {
+        font-size: 31px;
+    }
+
+    .dm-reviews-carousel {
+        padding: 0 30px;
+    }
+
+    .dm-review-slide {
+        flex: 0 0 100%;
+
+        width: 100%;
+
+        padding: 0 5px;
+    }
+
+    .dm-review-card {
+        height: 420px;
+        min-height: 420px;
+
+        padding: 32px 25px 28px;
+    }
+
+    .dm-review-nav {
+        width: 40px;
+        height: 40px;
+
+        line-height: 40px;
+
+        font-size: 20px;
+    }
+
+    .dm-review-prev {
+        left: 0;
+    }
+
+    .dm-review-next {
+        right: 0;
+    }
+
+    .dm-reviews-closing {
+        padding: 65px 20px;
+    }
+
+    .dm-reviews-closing h2 {
+        font-size: 32px;
+    }
+
+}
+
+</style>
+
+
+<div class="dm-reviews-page">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="dm-reviews-hero">
+
+        <div class="container">
+
+            <div class="dm-reviews-hero-content">
+
+                <div class="dm-reviews-eyebrow">
+                    Deus Magnus Limited
                 </div>
+
+                <h1>
+                    Client Reviews
+                </h1>
+
+                <p>
+                    Hear directly from clients who have experienced
+                    the service, professionalism and commitment of
+                    Deus Magnus Limited.
+                </p>
 
             </div>
 
-            {% endfor %}
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         INTRO
+         ===================================================== -->
+
+    <section class="dm-reviews-intro">
+
+        <div class="dm-reviews-intro-inner">
+
+            <span class="dm-reviews-label">
+                Client Testimonials
+            </span>
+
+            <h2>
+                What Our Clients Say
+            </h2>
+
+            <p>
+                Our clients are at the heart of everything we do.
+                Explore their experiences and perspectives on working
+                with Deus Magnus Limited across construction,
+                real estate and development.
+            </p>
 
         </div>
 
-
-        <!-- Previous Button -->
-        <button
-            type="button"
-            id="reviewsPrev"
-            style="
-                position:absolute;
-                left:0;
-                top:50%;
-                transform:translateY(-50%);
-                width:45px;
-                height:45px;
-                border:0;
-                border-radius:50%;
-                background:#04245c;
-                color:#ffffff;
-                font-size:25px;
-                line-height:45px;
-                cursor:pointer;
-                z-index:10;
-                padding:0;
-            "
-        >
-            &#10094;
-        </button>
+    </section>
 
 
-        <!-- Next Button -->
-        <button
-            type="button"
-            id="reviewsNext"
-            style="
-                position:absolute;
-                right:0;
-                top:50%;
-                transform:translateY(-50%);
-                width:45px;
-                height:45px;
-                border:0;
-                border-radius:50%;
-                background:#04245c;
-                color:#ffffff;
-                font-size:25px;
-                line-height:45px;
-                cursor:pointer;
-                z-index:10;
-                padding:0;
-            "
-        >
-            &#10095;
-        </button>
+    <!-- =====================================================
+         REVIEWS
+         ===================================================== -->
 
-    </div>
+    <section class="dm-reviews-section">
+
+        <div class="container">
+
+            <div class="dm-reviews-heading">
+
+                <div class="small-title">
+                    Client Experiences
+                </div>
+
+                <h2>
+                    Voices From Our Clients
+                </h2>
+
+            </div>
 
 
-    <!-- Dots -->
-    <div
-        id="reviewsDots"
-        style="
-            text-align:center;
-            margin-top:30px;
-        "
-    ></div>
+            {% if reviews %}
+
+            <div class="dm-reviews-carousel">
+
+                <div
+                    id="reviewsTrack"
+                    class="dm-reviews-track"
+                >
+
+                    {% for review in reviews %}
+
+                    <div class="dm-review-slide">
+
+                        <article class="dm-review-card">
 
 
-    {% else %}
+                            <!-- QUOTE -->
 
-    <div class="text-center">
+                            <div class="dm-review-quote">
+                                “
+                            </div>
 
-        <p style="
-            color:#777;
-            font-size:16px;
-        ">
-            No client reviews available yet.
-        </p>
 
-    </div>
+                            <!-- REVIEW -->
 
-    {% endif %}
+                            <div class="dm-review-text">
 
-</div>
-```
+                                <p>
+                                    {{ review.review|truncatewords:26 }}
+                                </p>
 
-</section>
+                            </div>
+
+
+                            <!-- CLIENT -->
+
+                            <div class="dm-review-client">
+
+                                {% if review.client_photo %}
+
+                                <img
+                                    src="{{ review.client_photo.url }}"
+                                    alt="{{ review.client_name }}"
+                                    class="dm-review-photo"
+                                >
+
+                                {% else %}
+
+                                <div class="dm-review-initial">
+
+                                    {{ review.client_name|first|upper }}
+
+                                </div>
+
+                                {% endif %}
+
+
+                                <div class="dm-review-client-info">
+
+                                    <h4 class="dm-review-client-name">
+                                        {{ review.client_name }}
+                                    </h4>
+
+
+                                    {% if review.client_company %}
+
+                                    <p class="dm-review-company">
+                                        {{ review.client_company }}
+                                    </p>
+
+                                    {% endif %}
+
+
+                                    <div class="dm-review-rating">
+
+                                        {% if review.rating >= 5 %}
+                                            ★★★★★
+                                        {% elif review.rating == 4 %}
+                                            ★★★★☆
+                                        {% elif review.rating == 3 %}
+                                            ★★★☆☆
+                                        {% elif review.rating == 2 %}
+                                            ★★☆☆☆
+                                        {% elif review.rating == 1 %}
+                                            ★☆☆☆☆
+                                        {% else %}
+                                            ☆☆☆☆☆
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- PREVIOUS -->
+
+                <button
+                    type="button"
+                    id="reviewsPrev"
+                    class="dm-review-nav dm-review-prev"
+                    aria-label="Previous reviews"
+                >
+                    &#10094;
+                </button>
+
+
+                <!-- NEXT -->
+
+                <button
+                    type="button"
+                    id="reviewsNext"
+                    class="dm-review-nav dm-review-next"
+                    aria-label="Next reviews"
+                >
+                    &#10095;
+                </button>
+
+            </div>
+
+
+            <!-- DOTS -->
+
+            <div
+                id="reviewsDots"
+                class="dm-review-dots"
+            ></div>
+
+
+            {% else %}
+
+            <div class="dm-reviews-empty">
+
+                <h3>
+                    No Client Reviews Yet
+                </h3>
+
+                <p>
+                    Client testimonials will appear here as they
+                    become available.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CLOSING
+         ===================================================== -->
+
+    <section class="dm-reviews-closing">
+
+        <div class="container">
+
+            <div class="dm-reviews-closing-label">
+                Built On Trust
+            </div>
+
+            <h2>
+                Every Project Begins
+                With a Relationship
+            </h2>
+
+            <p>
+                At Deus Magnus Limited, we believe lasting results
+                are built through trust, communication, attention
+                to detail and a commitment to delivering value.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</div><br><br>
+
+
+<!-- =========================================================
+     WHATSAPP
+     ========================================================= -->
+
+<a
+    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="dm-reviews-whatsapp"
+    aria-label="Chat with Deus Magnus Limited on WhatsApp"
+>
+    <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="Chat with us on WhatsApp"
+    >
+</a>
+
+
+<!-- =========================================================
+     REVIEWS CAROUSEL JAVASCRIPT
+     ========================================================= -->
 
 {% if reviews %}
 
 <script>
+
 (function () {
 
     var track = document.getElementById("reviewsTrack");
-    var slides = document.querySelectorAll(".review-slide");
+    var slides = document.querySelectorAll(".dm-review-slide");
+
     var nextButton = document.getElementById("reviewsNext");
     var prevButton = document.getElementById("reviewsPrev");
+
     var dotsContainer = document.getElementById("reviewsDots");
+
 
     if (!track || !slides.length) {
         return;
     }
 
+
     var currentPage = 0;
     var totalReviews = slides.length;
-    var visibleSlides = 3;
-    var totalPages = Math.ceil(totalReviews / visibleSlides);
 
 
     function getVisibleSlides() {
@@ -351,15 +1100,26 @@
     }
 
 
+    function getTotalPages() {
+
+        return Math.ceil(
+            totalReviews / getVisibleSlides()
+        );
+
+    }
+
+
     function updateCarousel() {
 
-        visibleSlides = getVisibleSlides();
+        var visibleSlides = getVisibleSlides();
 
-        totalPages = Math.ceil(totalReviews / visibleSlides);
+        var totalPages = getTotalPages();
+
 
         if (currentPage >= totalPages) {
             currentPage = totalPages - 1;
         }
+
 
         if (currentPage < 0) {
             currentPage = 0;
@@ -368,16 +1128,27 @@
 
         var slideWidth = 100 / visibleSlides;
 
+
         for (var i = 0; i < slides.length; i++) {
 
-            slides[i].style.flex = "0 0 " + slideWidth + "%";
-            slides[i].style.width = slideWidth + "%";
+            slides[i].style.flex =
+                "0 0 " + slideWidth + "%";
+
+            slides[i].style.width =
+                slideWidth + "%";
 
         }
 
 
+        /*
+         * Because the track contains all cards,
+         * moving by one page means moving by 100%.
+         */
+
         track.style.transform =
-            "translateX(-" + (currentPage * 100) + "%)";
+            "translateX(-" +
+            (currentPage * 100) +
+            "%)";
 
 
         createDots();
@@ -389,8 +1160,14 @@
 
         dotsContainer.innerHTML = "";
 
+
+        var totalPages = getTotalPages();
+
+
         if (totalPages <= 1) {
+
             return;
+
         }
 
 
@@ -400,27 +1177,28 @@
 
             dot.type = "button";
 
-            dot.style.width = "10px";
-            dot.style.height = "10px";
-            dot.style.padding = "0";
-            dot.style.margin = "0 5px";
-            dot.style.borderRadius = "50%";
-            dot.style.border = "0";
-            dot.style.cursor = "pointer";
+            dot.className = "dm-review-dot";
 
-            dot.style.background =
-                i === currentPage ? "#98681e" : "#cccccc";
+
+            if (i === currentPage) {
+
+                dot.classList.add("active");
+
+            }
 
 
             (function (page) {
 
-                dot.addEventListener("click", function () {
+                dot.addEventListener(
+                    "click",
+                    function () {
 
-                    currentPage = page;
+                        currentPage = page;
 
-                    updateCarousel();
+                        updateCarousel();
 
-                });
+                    }
+                );
 
             })(i);
 
@@ -432,55 +1210,12 @@
     }
 
 
-    nextButton.addEventListener("click", function () {
+    nextButton.addEventListener(
+        "click",
+        function () {
 
-        if (currentPage < totalPages - 1) {
+            var totalPages = getTotalPages();
 
-            currentPage++;
-
-        } else {
-
-            currentPage = 0;
-
-        }
-
-        updateCarousel();
-
-    });
-
-
-    prevButton.addEventListener("click", function () {
-
-        if (currentPage > 0) {
-
-            currentPage--;
-
-        } else {
-
-            currentPage = totalPages - 1;
-
-        }
-
-        updateCarousel();
-
-    });
-
-
-    window.addEventListener("resize", function () {
-
-        updateCarousel();
-
-    });
-
-
-    updateCarousel();
-
-
-    /* Automatic sliding */
-
-    setInterval(function () {
-
-        if (totalPages > 1) {
 
             if (currentPage < totalPages - 1) {
 
@@ -492,16 +1227,93 @@
 
             }
 
+
             updateCarousel();
 
         }
+    );
 
-    }, 5000);
+
+    prevButton.addEventListener(
+        "click",
+        function () {
+
+            var totalPages = getTotalPages();
+
+
+            if (currentPage > 0) {
+
+                currentPage--;
+
+            } else {
+
+                currentPage = totalPages - 1;
+
+            }
+
+
+            updateCarousel();
+
+        }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            updateCarousel();
+
+        }
+    );
+
+
+    /*
+     * Initialisation
+     */
+
+    updateCarousel();
+
+
+    /*
+     * Automatic rotation
+     */
+
+    setInterval(
+        function () {
+
+            var totalPages = getTotalPages();
+
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+
+            if (currentPage < totalPages - 1) {
+
+                currentPage++;
+
+            } else {
+
+                currentPage = 0;
+
+            }
+
+
+            updateCarousel();
+
+        },
+        5000
+    );
 
 
 })();
+
 </script>
 
 {% endif %}
 
+
 {% endblock %}
+
