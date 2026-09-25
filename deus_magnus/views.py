@@ -310,14 +310,14 @@ class FeaturedProjectsView(ListView):
     context_object_name = 'projects'
 
     
-#The blog article of the blog project of Deus Magnus
-"""class FeaturedProjectsArticleDetail(DetailView):
+#The featured article of the blog project of Deus Magnus
+class FeaturedProjectsArticleDetail(DetailView):
     model = FeaturedProjects
-    template_name = 'deus_magnus/blog_article_detail.html'
+    template_name = 'deus_magnus/featured_article_detail.html'
 
-    def BlogArticleDetail(request, pk):  
-        object = get_object_or_404(BlogDeusMagnus, pk=pk)
-        return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})"""
+    def FeaturedProjectsArticleDetail(request, pk):  
+        object = get_object_or_404(FeaturedProjects, pk=pk)
+        return render(request, 'deus_magnus/featured_article_detail.html', {'blog_detail': object})
 
 
 class WhyDeusMagnusView(TemplateView): 
