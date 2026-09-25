@@ -103,13 +103,6 @@ class SubPictureDetailView(DetailView):
         return render(request, 'deus_magnus/sub_picture_detail.html', {'sub_detail': object})
 
 
-# About page of  the deus magnus blog app
-class AboutView(ListView): 
-    model = Aboutvideo
-    template_name = 'deus_magnus/about_us.html'
-    def AboutView (request):
-        return render(request, 'deus_magnus/about_us.html', {})
-
 # Services page of the deus magnus webapp
 class ServicesPage(ListView):
     model = ServicesPagePicture

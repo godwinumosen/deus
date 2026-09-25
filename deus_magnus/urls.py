@@ -3,10 +3,10 @@ from django.urls import path
 from . import views
 from .views import ClientReviewsView, FeaturedProjectsView, HomeView, ArticleDetailView, SecondConstructionDetailViewArticleDetailView,VideoImageDetailView, WhyDeusMagnusView, what_we_do
 from .views import SubPictureDetailView,SubVideoDetailView
-from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView,AboutView
+from .views import BlogArticleDetail,EventBlog,OurTeam,ManagementTeamArticleOfDuesMagnusDetail,ContactView
 from .views import DeusMagnusEventBlogArticleDetailView,BlogView,FAQs_item,GLOSSARY_item,GuidesView,GuidesDetailView
 from .views import FounderMessageView,ServicesPage,RealEstateServices,FacilityManagement,ConstructionDevelopment,Project
-from .views import Equipment,Boom,Concrete,Material,Specialized #,ProjectVideo
+from .views import Equipment,Boom,Concrete,Material,Specialized 
 
 urlpatterns = [
     path('index/', views.index, name='index'),
@@ -14,7 +14,6 @@ urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('article/<int:pk>/', ArticleDetailView.as_view(), name="detail"),
     path('article2/<int:pk>/', SecondConstructionDetailViewArticleDetailView.as_view(), name="second_detail"),
-    path('about/', AboutView.as_view(), name='about'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('message/', views.message, name='message'),
     path('sub_picture/<int:pk>/', SubPictureDetailView.as_view(), name="sub_detail"),

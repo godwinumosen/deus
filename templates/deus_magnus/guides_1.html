@@ -1,57 +1,983 @@
+
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Deus Magnus Guides {% endblock %}
-{% block content%}
 
-<section class="section db p120">
+{% block title %}Guides & Resources | Deus Magnus{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   DEUS MAGNUS — GUIDES & RESOURCES
+   ========================================================= */
+
+.dm-guides-page {
+    background: #ffffff;
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.dm-guides-hero {
+    position: relative;
+
+    min-height: 500px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #04245c;
+}
+
+
+/* Background */
+
+.dm-guides-hero-bg {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    z-index: 0;
+}
+
+
+/* Overlay */
+
+.dm-guides-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4, 36, 92, 0.94) 0%,
+            rgba(4, 36, 92, 0.80) 50%,
+            rgba(4, 36, 92, 0.60) 100%
+        );
+
+    z-index: 1;
+}
+
+
+/* Gold bottom line */
+
+.dm-guides-hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: #98681e;
+
+    z-index: 4;
+}
+
+
+/* Hero container */
+
+.dm-guides-hero .container {
+    position: relative;
+
+    width: 100%;
+
+    z-index: 3;
+}
+
+
+/* Hero content */
+
+.dm-guides-hero-content {
+    max-width: 850px;
+
+    padding: 100px 20px;
+}
+
+
+/* Eyebrow */
+
+.dm-guides-eyebrow {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+    color: #d6b16b;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+.dm-guides-eyebrow::before {
+    content: "";
+
+    width: 45px;
+    height: 1px;
+
+    background: #98681e;
+}
+
+
+/* Hero heading */
+
+.dm-guides-hero h1 {
+    max-width: 800px;
+
+    margin: 0 0 25px;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 64px;
+    font-weight: 400;
+
+    line-height: 1.1;
+}
+
+
+/* Hero paragraph */
+
+.dm-guides-hero p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.86);
+
+    font-size: 16px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.dm-guides-intro {
+    padding: 85px 20px 65px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+.dm-guides-intro-label {
+    margin-bottom: 14px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.dm-guides-intro h2 {
+    max-width: 850px;
+
+    margin: 0 auto 20px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 40px;
+    font-weight: 400;
+
+    line-height: 1.3;
+}
+
+.dm-guides-gold-line {
+    width: 65px;
+    height: 2px;
+
+    margin: 25px auto;
+
+    background: #98681e;
+}
+
+.dm-guides-intro p {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    color: #707070;
+
+    font-size: 15px;
+
+    line-height: 1.95;
+}
+
+
+/* =========================================================
+   GUIDES SECTION
+   ========================================================= */
+
+.dm-guides-section {
+    padding: 80px 20px 110px;
+
+    background: #f7f6f3;
+}
+
+
+/* Section heading */
+
+.dm-guides-heading {
+    margin-bottom: 45px;
+}
+
+.dm-guides-heading span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.dm-guides-heading h2 {
+    margin: 0;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 37px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   GUIDE CARD
+   ========================================================= */
+
+.dm-guide-card {
+    position: relative;
+
+    margin-bottom: 40px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 35px rgba(4, 36, 92, 0.07);
+
+    transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease;
+}
+
+.dm-guide-card:hover {
+    transform: translateY(-9px);
+
+    box-shadow:
+        0 22px 50px rgba(4, 36, 92, 0.15);
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.dm-guide-image {
+    position: relative;
+
+    height: 270px;
+
+    overflow: hidden;
+
+    background: #dddddd;
+}
+
+.dm-guide-image a {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+}
+
+.dm-guide-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.5s ease;
+}
+
+.dm-guide-card:hover .dm-guide-image img {
+    transform: scale(1.07);
+
+    filter: brightness(0.84);
+}
+
+
+/* Image overlay */
+
+.dm-guide-image::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(4, 36, 92, 0.75),
+            rgba(4, 36, 92, 0.02) 65%
+        );
+
+    pointer-events: none;
+}
+
+
+/* Category */
+
+.dm-guide-category {
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    z-index: 3;
+
+    padding: 8px 13px;
+
+    color: #ffffff;
+
+    background: #04245c;
+
+    border-left: 2px solid #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+/* Bottom caption */
+
+.dm-guide-image-caption {
+    position: absolute;
+
+    left: 22px;
+    bottom: 20px;
+
+    z-index: 3;
+
+    color: #d7b16a;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.dm-guide-body {
+    padding: 28px 28px 30px;
+}
+
+.dm-guide-body h3 {
+    min-height: 62px;
+
+    margin: 0 0 15px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    line-height: 1.4;
+}
+
+.dm-guide-body h3 a {
+    color: #04245c;
+
+    text-decoration: none !important;
+
+    transition: color 0.3s ease;
+}
+
+.dm-guide-body h3 a:hover {
+    color: #98681e;
+}
+
+
+/* Divider */
+
+.dm-guide-divider {
+    width: 40px;
+    height: 2px;
+
+    margin-bottom: 17px;
+
+    background: #98681e;
+}
+
+
+/* Description */
+
+.dm-guide-body p {
+    min-height: 54px;
+
+    margin: 0 0 22px;
+
+    color: #777777;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   READ MORE
+   ========================================================= */
+
+.dm-guide-readmore {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    color: #04245c !important;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+
+    text-decoration: none !important;
+
+    transition: all 0.3s ease;
+}
+
+.dm-guide-readmore::after {
+    content: "→";
+
+    color: #98681e;
+
+    font-size: 17px;
+
+    transition: transform 0.3s ease;
+}
+
+.dm-guide-readmore:hover {
+    color: #98681e !important;
+}
+
+.dm-guide-readmore:hover::after {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.dm-guides-empty {
+    padding: 90px 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #e6e2db;
+
+    text-align: center;
+}
+
+.dm-guides-empty-mark {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #98681e;
+
+    color: #98681e;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 20px;
+}
+
+.dm-guides-empty h3 {
+    margin: 0 0 12px;
+
+    color: #04245c;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.dm-guides-empty p {
+    margin: 0;
+
+    color: #777777;
+}
+
+
+/* =========================================================
+   CLOSING
+   ========================================================= */
+
+.dm-guides-closing {
+    position: relative;
+
+    padding: 100px 20px;
+
+    background: #04245c;
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.dm-guides-closing::before {
+    content: "";
+
+    position: absolute;
+
+    top: -190px;
+    left: 50%;
+
+    width: 550px;
+    height: 550px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 50%;
+
+    transform: translateX(-50%);
+}
+
+.dm-guides-closing-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.dm-guides-closing-label {
+    margin-bottom: 16px;
+
+    color: #d6b16b;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.dm-guides-closing h2 {
+    max-width: 800px;
+
+    margin: 0 auto 22px;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 40px;
+    font-weight: 400;
+
+    line-height: 1.3;
+}
+
+.dm-guides-closing p {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   WHATSAPP
+   ========================================================= */
+
+.dm-guides-whatsapp {
+    position: fixed;
+
+    right: 20px;
+    bottom: 30px;
+
+    z-index: 9999;
+}
+
+.dm-guides-whatsapp img {
+    width: 60px;
+    height: 60px;
+
+    display: block;
+
+    transition: transform 0.3s ease;
+}
+
+.dm-guides-whatsapp:hover img {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .dm-guides-hero {
+        min-height: 440px;
+    }
+
+    .dm-guides-hero h1 {
+        font-size: 53px;
+    }
+
+    .dm-guide-image {
+        height: 250px;
+    }
+
+    .dm-guides-closing h2 {
+        font-size: 35px;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    .dm-guides-hero {
+        min-height: 390px;
+    }
+
+    .dm-guides-hero-content {
+        padding: 70px 20px;
+    }
+
+    .dm-guides-hero h1 {
+        font-size: 42px;
+    }
+
+    .dm-guides-hero p {
+        font-size: 14px;
+
+        line-height: 1.8;
+    }
+
+    .dm-guides-intro {
+        padding: 65px 20px 50px;
+    }
+
+    .dm-guides-intro h2 {
+        font-size: 30px;
+    }
+
+    .dm-guides-section {
+        padding: 65px 15px 75px;
+    }
+
+    .dm-guides-heading h2 {
+        font-size: 30px;
+    }
+
+    .dm-guide-image {
+        height: 240px;
+    }
+
+    .dm-guide-body {
+        padding: 25px 22px 28px;
+    }
+
+    .dm-guide-body h3 {
+        min-height: auto;
+    }
+
+    .dm-guide-body p {
+        min-height: auto;
+    }
+
+    .dm-guides-closing {
+        padding: 75px 20px;
+    }
+
+    .dm-guides-closing h2 {
+        font-size: 30px;
+    }
+
+    .dm-guides-closing p {
+        font-size: 14px;
+    }
+
+    .dm-guides-whatsapp {
+        right: 15px;
+        bottom: 20px;
+    }
+
+    .dm-guides-whatsapp img {
+        width: 55px;
+        height: 55px;
+    }
+
+}
+
+</style>
+
+
+<div class="dm-guides-page">
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="dm-guides-hero">
+
+    <img
+        class="dm-guides-hero-bg"
+        src="{% static 'images/m_v_s.jpg' %}"
+        alt=""
+    >
+
+    <div class="dm-guides-hero-overlay"></div>
+
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-12"><br><br>
-                <div class="tagline-message page-title text-center">
-                    <h1 style="color:fff;font-family: Georgia;font-size:50px;">Guides | Resource</h1>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end section -->
 
+        <div class="dm-guides-hero-content">
 
-<section class="section">
-    <div class="container">
-        <div class="section-title text-center">
-            <h3 style="color: #98681e;font-family: Georgia;">Discover Expert Insights for Smarter Decisions.</h3>
-        </div><!-- end title -->
+            <h1>
+                Guides &amp; Resources
+            </h1>
 
-        <div class="row text-center">
-            {% for post in object_list %}
-            <div class="col-md-4 col-sm-6">
-                <div class="teammembers">
-                    <div class="entry">
-                        <a href="{% url 'guides_article' post.pk %}">
-                            <img src="{{ post.guides_img.url }}"height="240px"style="border-radius: 5px; alt="" >
-                        </a>
-                    </div><!-- end box -->
-                    <div class="teamdesc">
-                        <a href="{% url 'guides_article' post.pk %}">
-                        <h4 style="color: #98681e;font-family: Georgia;">{{ post.guides_title}}</h4>
-                        </a>
-                        <hr>
-                        <h5>{{ post.guides_description|truncatechars:60 }}</h5>
-                        <div class="btn-wrapper">
-                            <a href="{% url 'guides_article' post.pk %}"class="btn btn-primary"style="border-radius: 5px;font-family: "Georgia;">Read More </a>
-                        </div>
-                    </div><!-- end teamdesc --><br>
-                </div><!-- end teammembers -->
-            </div><!-- end col -->
-            {% endfor %}
-        </div><!-- end row -->
-    </div><!-- end container -->
+            <p>
+                Practical insights, expert guidance and useful resources
+                to help you make informed decisions across construction,
+                real estate and the built environment.
+            </p>
+
+        </div>
+
+    </div>
+
 </section>
 
-<a href="https://wa.me/+2348124928163?text=Hi Deus Magnus Limited?" target="_blank" style="position: fixed; bottom: 30px; right: 20px; z-index: 9999;">
-    <img src="{% static 'images/whatsapp.png' %}" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px;">
+
+<!-- =====================================================
+     GUIDES
+     ===================================================== -->
+
+<section class="dm-guides-section">
+
+    <div class="container">
+
+        <div class="row">
+
+
+            {% for post in object_list %}
+
+
+            <div class="col-md-4 col-sm-6">
+
+
+                <article class="dm-guide-card">
+
+
+                    <!-- IMAGE -->
+
+                    <div class="dm-guide-image">
+
+                        <a href="{% url 'guides_article' post.pk %}">
+
+                            <img
+                                src="{{ post.guides_img.url }}"
+                                alt="{{ post.guides_title }}"
+                                loading="lazy"
+                            >
+
+                        </a>
+
+
+                        <div class="dm-guide-category">
+                            Guides &amp; Resources
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="dm-guide-body">
+
+                        <h3>
+
+                            <a href="{% url 'guides_article' post.pk %}">
+                                {{ post.guides_title }}
+                            </a>
+
+                        </h3>
+
+
+                        <div class="dm-guide-divider"></div>
+
+
+                        <p>
+                            {{ post.guides_description|truncatechars:200 }}
+                        </p>
+
+
+                        <a
+                            href="{% url 'guides_article' post.pk %}"
+                            class="dm-guide-readmore"
+                        >
+                            Read Guide
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div class="col-md-12">
+
+                <div class="dm-guides-empty">
+
+                    <div class="dm-guides-empty-mark">
+                        DM
+                    </div>
+
+                    <h3>
+                        No Resources Available
+                    </h3>
+
+                    <p>
+                        Our guides and resources will appear here.
+                        Please check back soon.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+</div>
+
+
+<!-- =========================================================
+     WHATSAPP
+     ========================================================= -->
+
+<a
+    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="dm-guides-whatsapp"
+    aria-label="Chat with Deus Magnus Limited on WhatsApp"
+>
+
+    <img
+        src="{% static 'images/whatsapp.png' %}"
+        alt="Chat with us on WhatsApp"
+    >
+
 </a>
 
 
-
 {% endblock %}
+
