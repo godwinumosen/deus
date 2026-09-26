@@ -30,31 +30,22 @@
     .dm-hero {
         position: relative;
         min-height: 78vh;
-        height: 760px;
+        height: 560px;
         max-height: 900px;
         overflow: hidden;
         background: #111;
     }
 
     .dm-hero-video {
-        position: absolute;
+        
         inset: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center center;
     }
 
-    .dm-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background:
-            linear-gradient(
-                90deg,
-                rgba(0, 0, 0, 0.78) 0%,
-                rgba(0, 0, 0, 0.48) 45%,
-                rgba(0, 0, 0, 0.20) 100%
-            );
-    }
+ 
 
     .dm-hero-content {
         position: relative;
@@ -669,9 +660,7 @@
     /* RESPONSIVE */
     @media (max-width: 991px) {
 
-        .dm-hero {
-            height: 700px;
-        }
+        
 
         .dm-about-copy {
             padding: 45px 0 0;
@@ -692,71 +681,109 @@
         }
     }
 
-    @media (max-width: 767px) {
+   
 
-        .dm-hero {
-            min-height: 650px;
-            height: 650px;
-        }
+      @media (max-width: 767px) {
 
-        .dm-hero-content {
-            padding: 0 22px;
-        }
-
-        .dm-hero h1 {
-            font-size: 48px;
-            letter-spacing: -1px;
-        }
-
-        .dm-hero-text {
-            font-size: 15px;
-        }
-
-        .dm-scroll {
-            left: 22px;
-        }
-
-        .dm-section {
-            padding: 75px 0;
-        }
-
-        .dm-container {
-            padding: 0 22px;
-        }
-
-        .dm-stat {
-            min-height: 125px;
-            padding: 28px 10px;
-        }
-
-        .dm-stat-number {
-            font-size: 35px;
-        }
-
-        .dm-stat-label {
-            font-size: 10px;
-        }
-
-        .dm-about-image,
-        .dm-about-image img {
-            min-height: 350px;
-            height: 350px;
-        }
-
-        .dm-project-image {
-            height: 260px;
-        }
-
-        .dm-hero-buttons {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .dm-btn {
-            width: auto;
-            min-width: 190px;
-        }
+    .dm-hero {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        overflow: visible;
+        background: transparent;
     }
+
+    .dm-hero-video {
+        position: relative;
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: auto;
+
+        display: block;
+        width: 100%;
+        height: 60%;
+        min-height: 300px;
+
+        margin: 0;
+        padding: 0;
+
+        object-fit: contain;
+        object-position: center center;
+
+        transform: none;
+    }
+
+    .dm-hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: rgba(0, 0, 0, .10);
+    }
+
+    .dm-hero-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        padding: 0 22px;
+    }
+
+    .dm-hero h1 {
+        font-size: 48px;
+        letter-spacing: -1px;
+    }
+
+    .dm-hero-text {
+        font-size: 15px;
+    }
+
+    .dm-scroll {
+        left: 22px;
+    }
+
+    .dm-hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dm-btn {
+        width: auto;
+        min-width: 190px;
+    }
+
+
+    /* =====================================================
+       MOBILE STATISTICS
+       ===================================================== */
+
+    .dm-stats {
+    position: relative;
+    z-index: 10;
+    margin-top: -28px;
+    width: 100%;
+    background: var(--dm-navy);
+}
+
+    .dm-stat {
+        min-height: 120px;
+        padding: 25px 10px;
+    }
+
+    .dm-stat-number {
+        font-size: 35px;
+    }
+
+    .dm-stat-label {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+
+}
+
+    
 </style>
 
 <div class="dm-home">
@@ -789,15 +816,7 @@
     {% endfor %}
 
     <div class="dm-hero-overlay"></div>
-
-    
-
-    <div class="dm-scroll">
-        Discover Deus Magnus
-    </div>
-
 </section>
-
 
 <!-- ======================================================
      STATISTICS
@@ -1424,9 +1443,7 @@
 
                         {% if news_construction.deus_magnus_event_img %}
 
-                        <a
-                            href="{% url 'events_article_detail' news_construction.pk %}"
-                        >
+                        <a href="{% url 'events_article_detail' news_construction.pk %}">
 
                             <img
                                 src="{{ news_construction.deus_magnus_event_img.url }}"
