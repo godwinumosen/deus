@@ -21,7 +21,3 @@ if __name__ == '__main__':
     main()
 
 
-'''from deus_magnus.models import Mainvideo
-for video in Mainvideo.objects.all():
-    print(video.deus_magnus_first_video.url)'''
-
