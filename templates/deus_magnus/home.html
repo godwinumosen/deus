@@ -27,8 +27,8 @@
     }
 
     .dm-home img {
-    border-radius: 6px;
-}
+        border-radius: 6px;
+    }
 
     /* HERO */
     .dm-hero {
@@ -41,15 +41,12 @@
     }
 
     .dm-hero-video {
-        
         inset: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center center;
     }
-
- 
 
     .dm-hero-content {
         position: relative;
@@ -82,7 +79,7 @@
         margin: 0;
         color: #fff;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(48px, 6vw, 86px);
+        font-size: clamp(40px, 5vw, 68px);
         font-weight: 500;
         line-height: 1.03;
         letter-spacing: -2px;
@@ -193,7 +190,7 @@
         margin: 0 0 8px;
         color: #d5ad62;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 43px;
+        font-size: 38px;
         line-height: 1;
         font-weight: 500;
     }
@@ -250,7 +247,7 @@
         margin: 0;
         color: var(--dm-navy);
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(34px, 4vw, 55px);
+        font-size: clamp(28px, 3vw, 42px);
         line-height: 1.15;
         font-weight: 500;
     }
@@ -311,7 +308,7 @@
         margin: 0 0 22px;
         color: var(--dm-navy);
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 35px;
+        font-size: 30px;
         line-height: 1.25;
         font-weight: 500;
     }
@@ -387,7 +384,7 @@
         margin: 35px 0 18px;
         color: #fff;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 28px;
+        font-size: 23px;
         font-weight: 500;
     }
 
@@ -444,7 +441,7 @@
         margin: 0 0 12px;
         color: var(--dm-navy);
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 26px;
+        font-size: 22px;
         line-height: 1.25;
         font-weight: 500;
     }
@@ -508,7 +505,7 @@
         margin: 0;
         color: #fff;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(38px, 5vw, 66px);
+        font-size: clamp(32px, 4vw, 52px);
         line-height: 1.15;
         font-weight: 500;
     }
@@ -542,7 +539,7 @@
         margin: 0 0 15px;
         color: var(--dm-navy);
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 25px;
+        font-size: 22px;
         font-weight: 500;
     }
 
@@ -618,7 +615,7 @@
     .dm-news-content h3 {
         margin: 0 0 13px;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 23px;
+        font-size: 21px;
         line-height: 1.35;
     }
 
@@ -645,7 +642,7 @@
         margin: 0 0 15px;
         color: #fff;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(36px, 4vw, 55px);
+        font-size: clamp(30px, 3.5vw, 45px);
         font-weight: 500;
     }
 
@@ -663,8 +660,6 @@
 
     /* RESPONSIVE */
     @media (max-width: 991px) {
-
-        
 
         .dm-about-copy {
             padding: 45px 0 0;
@@ -685,109 +680,108 @@
         }
     }
 
-   
 
-      @media (max-width: 767px) {
+    @media (max-width: 767px) {
 
-    .dm-hero {
-        position: relative;
-        width: 100%;
-        height: auto;
-        min-height: 0;
-        max-height: none;
-        overflow: visible;
-        background: transparent;
+        .dm-hero {
+            position: relative;
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            max-height: none;
+            overflow: visible;
+            background: transparent;
+        }
+
+        .dm-hero-video {
+            position: relative;
+            top: 0;
+            right: auto;
+            bottom: auto;
+            left: auto;
+
+            display: block;
+            width: 100%;
+            height: 60%;
+            min-height: 300px;
+
+            margin: 0;
+            padding: 0;
+
+            object-fit:fill;
+            object-position: center center;
+
+            transform: none;
+        }
+
+        .dm-hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: rgba(0, 0, 0, .10);
+        }
+
+        .dm-hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            padding: 0 22px;
+        }
+
+        .dm-hero h1 {
+            font-size: 40px;
+            letter-spacing: -1px;
+        }
+
+        .dm-hero-text {
+            font-size: 15px;
+        }
+
+        .dm-scroll {
+            left: 22px;
+        }
+
+        .dm-hero-buttons {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dm-btn {
+            width: auto;
+            min-width: 190px;
+        }
+
+
+        /* =====================================================
+           MOBILE STATISTICS
+           ===================================================== */
+
+        .dm-stats {
+            position: relative;
+            z-index: 10;
+            margin-top: -28px;
+            width: 100%;
+            background: var(--dm-navy);
+        }
+
+        .dm-stat {
+            min-height: 120px;
+            padding: 25px 10px;
+        }
+
+        .dm-stat-number {
+            font-size: 32px;
+        }
+
+        .dm-stat-label {
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+
     }
 
-    .dm-hero-video {
-        position: relative;
-        top: 0;
-        right: auto;
-        bottom: auto;
-        left: auto;
 
-        display: block;
-        width: 100%;
-        height: 60%;
-        min-height: 300px;
-
-        margin: 0;
-        padding: 0;
-
-        object-fit:fill;
-        object-position: center center;
-
-        transform: none;
-    }
-
-    .dm-hero-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        background: rgba(0, 0, 0, .10);
-    }
-
-    .dm-hero-content {
-        position: relative;
-        z-index: 3;
-        height: 100%;
-        padding: 0 22px;
-    }
-
-    .dm-hero h1 {
-        font-size: 48px;
-        letter-spacing: -1px;
-    }
-
-    .dm-hero-text {
-        font-size: 15px;
-    }
-
-    .dm-scroll {
-        left: 22px;
-    }
-
-    .dm-hero-buttons {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .dm-btn {
-        width: auto;
-        min-width: 190px;
-    }
-
-
-    /* =====================================================
-       MOBILE STATISTICS
-       ===================================================== */
-
-    .dm-stats {
-    position: relative;
-    z-index: 10;
-    margin-top: -28px;
-    width: 100%;
-    background: var(--dm-navy);
-}
-
-    .dm-stat {
-        min-height: 120px;
-        padding: 25px 10px;
-    }
-
-    .dm-stat-number {
-        font-size: 35px;
-    }
-
-    .dm-stat-label {
-        font-size: 10px;
-        letter-spacing: 1px;
-    }
-
-
-}
-
-    
 </style>
 
 <div class="dm-home">
