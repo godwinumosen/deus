@@ -672,33 +672,6 @@
 
 
 /* =========================================================
-   WHATSAPP
-   ========================================================= */
-
-.dm-guides-whatsapp {
-    position: fixed;
-
-    right: 20px;
-    bottom: 30px;
-
-    z-index: 9999;
-}
-
-.dm-guides-whatsapp img {
-    width: 60px;
-    height: 60px;
-
-    display: block;
-
-    transition: transform 0.3s ease;
-}
-
-.dm-guides-whatsapp:hover img {
-    transform: scale(1.08);
-}
-
-
-/* =========================================================
    RESPONSIVE
    ========================================================= */
 
@@ -784,16 +757,6 @@
 
     .dm-guides-closing p {
         font-size: 14px;
-    }
-
-    .dm-guides-whatsapp {
-        right: 15px;
-        bottom: 20px;
-    }
-
-    .dm-guides-whatsapp img {
-        width: 55px;
-        height: 55px;
     }
 
 }
@@ -957,27 +920,6 @@
 
 
 </div>
-
-
-<!-- =========================================================
-     WHATSAPP
-     ========================================================= -->
-
-<a
-    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="dm-guides-whatsapp"
-    aria-label="Chat with Deus Magnus Limited on WhatsApp"
->
-
-    <img
-        src="{% static 'images/whatsapp.png' %}"
-        alt="Chat with us on WhatsApp"
-    >
-
-</a>
-
 
 {% endblock %}
 

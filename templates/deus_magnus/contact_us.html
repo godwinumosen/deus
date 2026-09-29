@@ -277,28 +277,6 @@
         background: #98681e;
     }
 
-
-    /* WHATSAPP */
-    .dm-whatsapp {
-        position: fixed;
-        right: 20px;
-        bottom: 25px;
-        width: 55px;
-        height: 55px;
-        z-index: 9999;
-        transition: .3s ease;
-    }
-
-    .dm-whatsapp img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .dm-whatsapp:hover {
-        transform: scale(1.08);
-    }
-
-
     /* MOBILE */
     @media (max-width: 767px) {
 
@@ -683,19 +661,5 @@
 
 </div>
 
-
-<!-- WHATSAPP -->
-<a
-    href="https://wa.me/2348124928163?text=Hi%20Deus%20Magnus%20Limited"
-    target="_blank"
-    rel="noopener"
-    class="dm-whatsapp"
-    aria-label="Chat with Deus Magnus on WhatsApp"
->
-    <img
-        src="{% static 'images/whatsapp.png' %}"
-        alt="WhatsApp"
-    >
-</a>
 
 {% endblock %}
