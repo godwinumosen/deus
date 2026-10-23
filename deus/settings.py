@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'deus_magnus'
+    'deus_magnus',
+    'site_checkbook',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +132,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+LOGIN_URL = "/site-checkbook/login/"
+LOGIN_REDIRECT_URL = "/site-checkbook/"
+LOGOUT_REDIRECT_URL = "/site-checkbook/login/"

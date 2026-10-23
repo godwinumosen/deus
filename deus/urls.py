@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path ('',include ('deus_magnus.urls')),
+    path('site-checkbook/',include('site_checkbook.urls')),
 ]
 
 admin.site.site_header = "Deusmagnus Admin "

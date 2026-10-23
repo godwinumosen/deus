@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Review Reports | Deus Magnus</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f5f7fb;
+        }
+
+        .content-card {
+            border: none;
+            border-radius: 12px;
+        }
+
+        .page-title {
+            color: #172033;
+        }
+
+        .table th {
+            white-space: nowrap;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .progress {
+            min-width: 70px;
+            height: 8px;
+        }
+
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           href="{% url 'site_checkbook:dashboard' %}">
+            Deus Magnus
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#reviewNavbar"
+                aria-controls="reviewNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="reviewNavbar">
+
+            <div class="navbar-nav ms-auto">
+
+                <a class="nav-link"
+                   href="{% url 'site_checkbook:dashboard' %}">
+                    Dashboard
+                </a>
+
+                {% if can_manage_projects %}
+                    <a class="nav-link"
+                       href="{% url 'site_checkbook:project_list' %}">
+                        Projects
+                    </a>
+
+                    <a class="nav-link"
+                       href="{% url 'site_checkbook:create_project' %}">
+                        Create Project
+                    </a>
+                {% endif %}
+
+                <a class="nav-link active"
+                   href="{% url 'site_checkbook:review_queue' %}">
+                    Review Reports
+                </a>
+
+                <form method="post"
+                      action="{% url 'site_checkbook:logout' %}"
+                      class="d-flex align-items-center ms-lg-3">
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            class="btn btn-outline-light btn-sm">
+                        Logout
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4 py-lg-5">
+
+    <!-- Notifications -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                 role="alert">
+
+                {{ message }}
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close">
+                </button>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Page heading -->
+    <div class="mb-4">
+
+        <a href="{% url 'site_checkbook:dashboard' %}"
+           class="text-decoration-none">
+            &larr; Back to Dashboard
+        </a>
+
+        <h2 class="fw-bold page-title mt-3 mb-1">
+            Site Report Reviews
+        </h2>
+
+        <p class="text-secondary">
+            Review daily site activities, monitor construction progress,
+            inspect submissions and manage reports.
+        </p>
+
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-md-3">
+            <div class="card content-card shadow-sm h-100">
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Total Reports
+                    </div>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ activities|length }}
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card content-card shadow-sm h-100">
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Awaiting Review
+                    </div>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ pending_count }}
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Reports table -->
+    <div class="card content-card shadow-sm">
+
+        <div class="card-body p-3 p-md-4">
+
+            <h5 class="fw-bold mb-3">
+                Daily Work Reports
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Report Date</th>
+                            <th>Project Name</th>
+                            <th>Site Engineer</th>
+                            <th>Activity / Task</th>
+                            <th>Progress</th>
+                            <th>Report Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for activity in activities %}
+
+                            <tr>
+
+                                <!-- Report date -->
+                                <td class="text-nowrap">
+                                    {{ activity.activity_date|date:"d M Y" }}
+                                </td>
+
+                                <!-- Project information -->
+                                <td>
+                                    <div class="fw-semibold">
+                                        {{ activity.project.name }}
+                                    </div>
+
+                                    <small class="text-secondary">
+                                        {{ activity.project.project_code }}
+                                    </small>
+                                </td>
+
+                                <!-- Engineer -->
+                                <td>
+                                    {{ activity.engineer.get_full_name|default:activity.engineer.username }}
+                                </td>
+
+                                <!-- Activity -->
+                                <td>
+                                    {{ activity.work_type }}
+                                </td>
+
+                                <!-- Progress bar -->
+                                <td>
+
+                                    <div class="progress"
+                                         role="progressbar"
+                                         aria-label="Construction progress"
+                                         aria-valuenow="{{ activity.progress_percentage }}"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+
+                                        <div class="progress-bar"
+                                             data-progress="{{ activity.progress_percentage }}"
+                                             style="width: 0%;">
+                                        </div>
+
+                                    </div>
+
+                                    <small class="text-secondary">
+                                        {{ activity.progress_percentage }}%
+                                    </small>
+
+                                </td>
+
+                                <!-- Status -->
+                                <td>
+
+                                    {% if activity.status == "submitted" %}
+
+                                        <span class="badge bg-warning text-dark">
+                                            Awaiting Review
+                                        </span>
+
+                                    {% elif activity.status == "reviewed" %}
+
+                                        <span class="badge bg-success">
+                                            Reviewed
+                                        </span>
+
+                                    {% elif activity.status == "returned" %}
+
+                                        <span class="badge bg-danger">
+                                            Needs Correction
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-secondary">
+                                            Draft
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <!-- Actions -->
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <a href="{% url 'site_checkbook:activity_detail' activity.pk %}"
+                                           class="btn btn-sm btn-primary">
+                                            Inspect
+                                        </a>
+
+                                        {% if can_manage_projects %}
+
+                                            <form method="post"
+                                                  action="{% url 'site_checkbook:delete_activity' activity.pk %}"
+                                                  onsubmit="return confirm('Are you sure you want to permanently delete this report and its attached photos? This action cannot be undone.');">
+
+                                                {% csrf_token %}
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+
+                                            </form>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="7"
+                                    class="text-center text-secondary py-5">
+
+                                    <p class="mb-1 fw-semibold">
+                                        No Daily Reports Found
+                                    </p>
+
+                                    <small>
+                                        Site engineer reports will appear here
+                                        after they are submitted.
+                                    </small>
+
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-secondary small mt-4">
+        Deus Magnus Site Checkbook &copy; {% now "Y" %}
+    </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Set progress-bar widths without Django variables in CSS values -->
+<script>
+    document.querySelectorAll('.progress-bar[data-progress]').forEach(function (bar) {
+        const progress = Number(bar.dataset.progress);
+
+        if (Number.isFinite(progress)) {
+            const safeProgress = Math.min(100, Math.max(0, progress));
+
+            bar.style.width = safeProgress + '%';
+        }
+    });
+</script>
+
+</body>
+</html>
