@@ -2,7 +2,7 @@
 
 from django import forms
 
-from .models import Project, SiteActivity
+from .models import Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
 from .permissions import is_hr_reviewer
 
 
@@ -156,5 +156,64 @@ class ProjectForm(forms.ModelForm):
             ),
             "is_active": forms.CheckboxInput(
                 attrs={"class": "form-check-input"}
+            ),
+        }
+
+
+class ChecklistSubmissionForm(forms.ModelForm):
+    """Form for selecting the project and inspection date."""
+
+    class Meta:
+        model = ChecklistSubmission
+        fields = ["project", "checklist", "inspection_date"]
+
+        widgets = {
+            "project": forms.Select(
+                attrs={"class": "form-select"}
+            ),
+            "checklist": forms.Select(
+                attrs={"class": "form-select"}
+            ),
+            "inspection_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "class": "form-control",
+                }
+            ),
+        }
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["project"].queryset = Project.objects.filter(
+            is_active=True,
+            engineers__id=user.pk,
+        ).distinct() if user and not is_hr_reviewer(user) else Project.objects.filter(
+            is_active=True
+        )
+
+        self.fields["checklist"].queryset = Checklist.objects.filter(
+            is_active=True,
+            department__is_active=True,
+        ).select_related("department")
+
+
+class ChecklistResponseForm(forms.ModelForm):
+    """One answer per checklist question: Yes, No, or N/A."""
+
+    class Meta:
+        model = ChecklistResponse
+        fields = ["answer", "comments"]
+
+        widgets = {
+            "answer": forms.Select(
+                attrs={"class": "form-select"}
+            ),
+            "comments": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 2,
+                    "placeholder": "Add comments (optional)",
+                }
             ),
         }

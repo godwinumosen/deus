@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Construction Checklist | Deus Magnus</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand: #174a78;
+            --brand-dark: #103654;
+            --page-bg: #f4f7fb;
+            --border: #e7edf4;
+            --muted: #718096;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #182638;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        .topbar {
+            background: var(--brand-dark);
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255,255,255,.14);
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .back-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 650;
+        }
+
+        .back-link:hover {
+            color: #d9eaff;
+        }
+
+        .page-wrap {
+            max-width: 1050px;
+        }
+
+        .eyebrow {
+            color: var(--brand);
+            font-size: .75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .page-title {
+            font-weight: 800;
+            letter-spacing: -.035em;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(23, 55, 89, .035);
+        }
+
+        .form-label {
+            font-weight: 700;
+            font-size: .9rem;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 46px;
+            border-color: #dbe3ed;
+            border-radius: 9px;
+            padding: .65rem .85rem;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #8cb5dd;
+            box-shadow: 0 0 0 .2rem rgba(23, 74, 120, .1);
+        }
+
+        .btn {
+            border-radius: 9px;
+            font-weight: 650;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            border-color: var(--brand);
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f1ff;
+            color: var(--brand);
+            border-radius: 10px;
+            font-weight: 800;
+        }
+
+        .question-card {
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .question-number {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            flex: 0 0 30px;
+            align-items: center;
+            justify-content: center;
+            background: #edf3fa;
+            color: var(--brand);
+            border-radius: 9px;
+            font-weight: 800;
+            font-size: .82rem;
+        }
+
+        .required-mark {
+            color: #dc3545;
+        }
+
+        .checklist-banner {
+            background: #f1f6fc;
+            border: 1px solid #dce9f7;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        footer {
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark topbar">
+    <div class="container-fluid page-wrap px-3 px-lg-4">
+        <a href="{% url 'site_checkbook:dashboard' %}" class="navbar-brand d-flex align-items-center gap-2 fw-bold mb-0">
+            <span class="brand-mark">DM</span>
+            <span>Deus Magnus <small class="d-block fw-normal opacity-75" style="font-size:.68rem;">SITE CHECKBOOK</small></span>
+        </a>
+
+        <a href="{% url 'site_checkbook:dashboard' %}" class="back-link">
+            &larr; Back to Dashboard
+        </a>
+    </div>
+</nav>
+
+<main class="container page-wrap px-3 px-lg-4 py-4 py-lg-5">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show border-0 shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="mb-4">
+        <div class="eyebrow mb-2">Site Inspection</div>
+        <h1 class="page-title h2 mb-2">Construction Checklist</h1>
+        <p class="muted mb-0">
+            Complete your site inspection and submit the checklist for HR review.
+        </p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if submission_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ submission_form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <!-- Inspection details -->
+        <section class="panel p-3 p-md-4 p-lg-5 mb-4">
+            <div class="d-flex align-items-start gap-3 mb-4">
+                <span class="step-number">1</span>
+                <div>
+                    <h2 class="h5 fw-bold mb-1">Inspection Details</h2>
+                    <p class="muted small mb-0">Select the project, checklist and inspection date.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label for="{{ submission_form.project.id_for_label }}" class="form-label">
+                        Construction Project <span class="required-mark">*</span>
+                    </label>
+                    {{ submission_form.project }}
+                    {% for error in submission_form.project.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-6">
+                    <label for="{{ submission_form.checklist.id_for_label }}" class="form-label">
+                        Inspection Checklist <span class="required-mark">*</span>
+                    </label>
+                    {{ submission_form.checklist }}
+                    {% for error in submission_form.checklist.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                    <div class="form-text">Choose a checklist, then load its questions.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="{{ submission_form.inspection_date.id_for_label }}" class="form-label">
+                        Inspection Date <span class="required-mark">*</span>
+                    </label>
+                    {{ submission_form.inspection_date }}
+                    {% for error in submission_form.inspection_date.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-4 pt-3 border-top">
+                <button type="submit"
+                        name="load_checklist"
+                        value="1"
+                        formnovalidate
+                        class="btn btn-outline-primary px-4">
+                    Load Checklist Questions &rarr;
+                </button>
+                <span class="small muted">Load the questions before completing the inspection.</span>
+            </div>
+        </section>
+
+        <!-- Checklist questions -->
+        {% if checklist %}
+            <section class="panel p-3 p-md-4 p-lg-5 mb-4">
+                <div class="checklist-banner mb-4">
+                    <div class="eyebrow mb-2">Selected Checklist</div>
+                    <h2 class="h4 fw-bold mb-2">{{ checklist.title }}</h2>
+                    <p class="mb-2">
+                        <strong>Department:</strong> {{ checklist.department.name }}
+                    </p>
+                    {% if checklist.description %}
+                        <p class="muted mb-0">{{ checklist.description }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex align-items-start gap-3 mb-4">
+                    <span class="step-number">2</span>
+                    <div>
+                        <h2 class="h5 fw-bold mb-1">Inspection Questions</h2>
+                        <p class="muted small mb-0">Complete each required item and add comments where necessary.</p>
+                    </div>
+                </div>
+
+                {% for question, response_form in response_forms %}
+                    <div class="question-card mb-3">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <span class="question-number">{{ forloop.counter }}</span>
+                            <div class="pt-1">
+                                <label for="{{ response_form.answer.id_for_label }}" class="form-label mb-1">
+                                    {{ question.question_text }}
+                                    {% if question.is_required %}
+                                        <span class="required-mark">*</span>
+                                    {% endif %}
+                                </label>
+                                {% if question.is_required %}
+                                    <div class="small muted">Required question</div>
+                                {% else %}
+                                    <div class="small muted">Optional question</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% for error in response_form.answer.errors %}
+                            <div class="text-danger small mb-2">{{ error }}</div>
+                        {% endfor %}
+
+                        {{ response_form.answer }}
+
+                        <div class="mt-3">
+                            <label for="{{ response_form.comments.id_for_label }}" class="form-label">
+                                Comments / Observations
+                            </label>
+                            {{ response_form.comments }}
+                            {% for error in response_form.comments.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-warning mb-0" role="alert">
+                        This checklist has no questions yet. Please contact HR to add inspection questions.
+                    </div>
+                {% endfor %}
+
+                {% if response_forms %}
+                    <div class="border-top pt-4 mt-4">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+                            <div>
+                                <div class="fw-bold">Ready to submit?</div>
+                                <div class="small muted">Check your responses before sending them for review.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg px-4">
+                                Submit Checklist for Review
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
+    </form>
+
+    <footer class="text-center small py-3">
+        Deus Magnus Site Checkbook &copy; {% now "Y" %}
+    </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

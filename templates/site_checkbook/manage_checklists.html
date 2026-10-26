@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Checklists | Deus Magnus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'site_checkbook:dashboard' %}">
+            Deus Magnus
+        </a>
+        <a href="{% url 'site_checkbook:dashboard' %}" class="btn btn-outline-light btn-sm">
+            Dashboard
+        </a>
+    </div>
+</nav>
+
+<main class="container py-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="fw-bold mb-1">Checklist Management</h2>
+    <p class="text-secondary mb-4">Create departments, inspection checklists, and questions.</p>
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="fw-bold">Add Department</h5>
+                    <form method="post" action="{% url 'site_checkbook:create_department' %}">
+                        {% csrf_token %}
+                        <label class="form-label">Department Name</label>
+                        <input name="name" class="form-control mb-3" required>
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control mb-3" rows="2"></textarea>
+                        <button class="btn btn-primary">Save Department</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold">Create Checklist</h5>
+                    <form method="post" action="{% url 'site_checkbook:create_checklist_frontend' %}">
+                        {% csrf_token %}
+
+                        <label class="form-label">Checklist Title</label>
+                        <input name="title" class="form-control mb-3" required>
+
+                        <label class="form-label">Department</label>
+                        <select name="department" class="form-select mb-3" required>
+                            <option value="">Select department</option>
+                            {% for department in departments %}
+                                {% if department.is_active %}
+                                    <option value="{{ department.pk }}">{{ department.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control mb-3" rows="2"></textarea>
+
+                        <hr>
+                        <h6 class="fw-bold">Checklist Questions</h6>
+                        <div id="questions">
+                            {% for i in "123" %}
+                                <div class="border rounded p-3 mb-3 question-row">
+                                    <label class="form-label">Question {{ forloop.counter }}</label>
+                                    <input name="question_text" class="form-control mb-2"
+                                           placeholder="Enter inspection question">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="question_required" value="{{ forloop.counter0 }}" checked>
+                                        <label class="form-check-label">Required question</label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <button type="button" class="btn btn-outline-secondary btn-sm mb-3"
+                                onclick="addQuestion()">+ Add Question</button>
+                        <br>
+                        <button class="btn btn-success">Create Checklist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Existing Checklists</h5>
+                    {% for checklist in checklists %}
+                        <div class="border rounded p-3 mb-3">
+                            <div class="d-flex justify-content-between gap-2">
+                                <strong>{{ checklist.title }}</strong>
+                                {% if checklist.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                {% endif %}
+                            </div>
+                            <div class="text-secondary small">{{ checklist.department.name }}</div>
+                            <p class="mb-1 mt-2">{{ checklist.description }}</p>
+                            <div class="small">{{ checklist.questions.count }} question(s)</div>
+                        </div>
+                    {% empty %}
+                        <p class="text-secondary">No checklists created yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+let questionCount = 3;
+
+function addQuestion() {
+    const container = document.getElementById("questions");
+    const index = questionCount++;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "border rounded p-3 mb-3 question-row";
+
+    const label = document.createElement("label");
+    label.className = "form-label";
+    label.textContent = "Question " + (index + 1);
+
+    const input = document.createElement("input");
+    input.name = "question_text";
+    input.className = "form-control mb-2";
+    input.placeholder = "Enter inspection question";
+
+    const checkWrapper = document.createElement("div");
+    checkWrapper.className = "form-check";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "question_required";
+    checkbox.value = index;
+    checkbox.checked = true;
+    checkbox.className = "form-check-input";
+
+    const checkLabel = document.createElement("label");
+    checkLabel.className = "form-check-label";
+    checkLabel.textContent = "Required question";
+
+    checkWrapper.append(checkbox, checkLabel);
+    wrapper.append(label, input, checkWrapper);
+    container.appendChild(wrapper);
+}
+</script>
+</body>
+</html>

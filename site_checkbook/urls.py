@@ -71,5 +71,29 @@ urlpatterns = [
     name="delete_activity",
     ),
 
+    path(
+    "checklists/submit/", 
+    views.create_checklist_submission,
+    name="create_checklist",
+    ),
+    
+    path(
+        "checklists/manage/",
+        views.manage_checklists,
+        name="manage_checklists",
+    ),
+    path(
+        "checklists/departments/new/",
+        views.create_department,
+        name="create_department",
+    ),
+    path(
+        "checklists/new/",
+        views.create_checklist_frontend,
+        name="create_checklist_frontend",
+    ),
 
+
+    
 ]
+ 
