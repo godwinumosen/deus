@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard | Deus Magnus Site Checkbook</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -23,9 +23,7 @@
             font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
         }
 
-        .topbar {
-            background: var(--brand-dark);
-        }
+        .topbar { background: var(--brand-dark); }
 
         .brand-mark {
             width: 38px;
@@ -51,9 +49,7 @@
             background: rgba(255,255,255,.12);
         }
 
-        .page-wrap {
-            max-width: 1500px;
-        }
+        .page-wrap { max-width: 1500px; }
 
         .eyebrow {
             color: var(--brand);
@@ -63,21 +59,15 @@
             letter-spacing: .12em;
         }
 
-        .page-title {
-            font-weight: 800;
-            letter-spacing: -.035em;
-        }
+        .page-title { font-weight: 800; letter-spacing: -.035em; }
+        .muted, .section-subtitle { color: var(--text-muted); }
+        .section-subtitle { font-size: .875rem; }
 
-        .muted {
-            color: var(--text-muted);
-        }
-
-        .panel,
-        .stat-card {
+        .panel, .stat-card {
             background: #fff;
             border: 1px solid var(--border);
             border-radius: 16px;
-            box-shadow: 0 4px 18px rgba(23, 55, 89, .035);
+            box-shadow: 0 4px 18px rgba(23,55,89,.035);
         }
 
         .stat-card {
@@ -88,7 +78,7 @@
 
         .stat-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(23, 55, 89, .08);
+            box-shadow: 0 10px 25px rgba(23,55,89,.08);
         }
 
         .stat-label {
@@ -113,6 +103,7 @@
             border-radius: 12px;
             font-size: 1.15rem;
             font-weight: 800;
+            flex-shrink: 0;
         }
 
         .icon-blue { background: #e8f1ff; color: #245bc3; }
@@ -120,19 +111,9 @@
         .icon-orange { background: #fff0dc; color: #a75b00; }
         .icon-purple { background: #f0eaff; color: #6741c5; }
 
-        .section-title {
-            font-weight: 750;
-            letter-spacing: -.02em;
-        }
+        .section-title { font-weight: 750; letter-spacing: -.02em; }
 
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: .875rem;
-        }
-
-        .table {
-            margin-bottom: 0;
-        }
+        .table { margin-bottom: 0; }
 
         .table thead th {
             background: #f7f9fc;
@@ -153,24 +134,11 @@
             font-size: .875rem;
         }
 
-        .table tbody tr:last-child td {
-            border-bottom: 0;
-        }
+        .table tbody tr:last-child td { border-bottom: 0; }
+        .table tbody tr:hover td { background: #fbfdff; }
 
-        .table tbody tr:hover td {
-            background: #fbfdff;
-        }
-
-        .record-title {
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .record-subtitle {
-            color: var(--text-muted);
-            font-size: .78rem;
-            margin-top: 3px;
-        }
+        .record-title { font-weight: 700; color: var(--text-main); }
+        .record-subtitle { color: var(--text-muted); font-size: .78rem; margin-top: 3px; }
 
         .status-pill {
             display: inline-flex;
@@ -191,12 +159,10 @@
             background: currentColor;
         }
 
-        .status-reviewed { background: #e3f7ec; color: #187747; }
+        .status-reviewed, .status-active { background: #e3f7ec; color: #187747; }
         .status-submitted { background: #fff2d8; color: #8d5b00; }
         .status-returned { background: #fde8e8; color: #b42332; }
-        .status-draft { background: #edf1f6; color: #536174; }
-        .status-active { background: #e3f7ec; color: #187747; }
-        .status-inactive { background: #edf1f6; color: #536174; }
+        .status-draft, .status-inactive { background: #edf1f6; color: #536174; }
 
         .progress {
             height: 7px;
@@ -205,14 +171,9 @@
             border-radius: 99px;
         }
 
-        .progress-bar {
-            border-radius: 99px;
-        }
+        .progress-bar { border-radius: 99px; }
 
-        .btn {
-            font-weight: 650;
-            border-radius: 9px;
-        }
+        .btn { font-weight: 650; border-radius: 9px; }
 
         .btn-primary {
             background: var(--brand);
@@ -224,10 +185,7 @@
             border-color: var(--brand-dark);
         }
 
-        .empty-state {
-            padding: 42px 20px;
-            text-align: center;
-        }
+        .empty-state { padding: 42px 20px; text-align: center; }
 
         .empty-icon {
             width: 54px;
@@ -262,10 +220,7 @@
             color: inherit;
         }
 
-        .quick-action-title {
-            font-weight: 750;
-            margin-bottom: 4px;
-        }
+        .quick-action-title { font-weight: 750; margin-bottom: 4px; }
 
         .quick-action-description {
             font-size: .82rem;
@@ -273,26 +228,25 @@
             margin: 0;
         }
 
-        footer {
-            color: var(--text-muted);
-        }
+        footer { color: var(--text-muted); }
 
         @media (max-width: 575.98px) {
             .stat-card { padding: 16px; }
-            .table thead th,
-            .table tbody td { padding: 13px 14px; }
+            .table thead th, .table tbody td { padding: 13px 14px; }
         }
     </style>
 </head>
 
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark topbar">
     <div class="container-fluid page-wrap px-3 px-lg-4">
         <a class="navbar-brand d-flex align-items-center gap-2 fw-bold"
            href="{% url 'site_checkbook:dashboard' %}">
             <span class="brand-mark">DM</span>
-            <span>Deus Magnus <small class="d-block fw-normal opacity-75" style="font-size:.68rem;">SITE CHECKBOOK</small></span>
+            <span>
+                Deus Magnus
+                <small class="d-block fw-normal opacity-75" style="font-size:.68rem;">SITE CHECKBOOK</small>
+            </span>
         </a>
 
         <button class="navbar-toggler" type="button"
@@ -318,6 +272,7 @@
 
                 {% if is_reviewer %}
                     <a class="nav-link" href="{% url 'site_checkbook:review_queue' %}">Review Reports</a>
+                    <a class="nav-link" href="{% url 'site_checkbook:checklist_review_queue' %}">Review Checklists</a>
                 {% endif %}
 
                 <form method="post" action="{% url 'site_checkbook:logout' %}" class="ms-lg-3 mt-2 mt-lg-0">
@@ -363,7 +318,12 @@
             {% if is_reviewer %}
                 <a href="{% url 'site_checkbook:review_queue' %}" class="btn btn-primary px-3">
                     Review Submissions
-                    {% if pending_reviews %}<span class="badge text-bg-light text-dark ms-1">{{ pending_reviews }}</span>{% endif %}
+                    {% if pending_reviews %}
+                        <span class="badge text-bg-light text-dark ms-1">{{ pending_reviews }}</span>
+                    {% endif %}
+                </a>
+                <a href="{% url 'site_checkbook:checklist_review_queue' %}" class="btn btn-outline-primary px-3">
+                    Review Checklists
                 </a>
                 {% if can_manage_projects %}
                     <a href="{% url 'site_checkbook:create_project' %}" class="btn btn-outline-primary px-3">+ New Project</a>
@@ -424,7 +384,7 @@
 
     <!-- Role-specific shortcuts -->
     {% if is_reviewer %}
-        <div class="mb-4 mb-lg-5">
+        <section class="mb-4 mb-lg-5">
             <div class="mb-3">
                 <h2 class="section-title h5 mb-1">Administration Shortcuts</h2>
                 <p class="section-subtitle mb-0">Manage construction operations from one place.</p>
@@ -437,6 +397,16 @@
                         <span>
                             <span class="quick-action-title d-block">Review Site Reports</span>
                             <span class="quick-action-description">Inspect submissions and approve or return reports for correction.</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a class="quick-action" href="{% url 'site_checkbook:checklist_review_queue' %}">
+                        <span class="stat-icon icon-green">✓</span>
+                        <span>
+                            <span class="quick-action-title d-block">Review Engineer Checklists</span>
+                            <span class="quick-action-description">Inspect submitted construction checklists and review engineers' answers.</span>
                         </span>
                     </a>
                 </div>
@@ -463,9 +433,9 @@
                     </div>
                 {% endif %}
             </div>
-        </div>
+        </section>
     {% else %}
-        <div class="mb-4 mb-lg-5">
+        <section class="mb-4 mb-lg-5">
             <div class="mb-3">
                 <h2 class="section-title h5 mb-1">Quick Actions</h2>
                 <p class="section-subtitle mb-0">Keep your daily site records up to date.</p>
@@ -492,8 +462,75 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
     {% endif %}
+
+    <!-- Inspection Checklist Categories -->
+    <section class="mb-4 mb-lg-5">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+            <div>
+                <div class="eyebrow mb-2">Site Inspections</div>
+                <h2 class="section-title h5 mb-1">Inspection Checklist Categories</h2>
+                <p class="section-subtitle mb-0">Choose a department and start the appropriate site inspection.</p>
+            </div>
+
+            {% if not is_reviewer %}
+                <a href="{% url 'site_checkbook:create_checklist' %}" class="btn btn-outline-primary">
+                    Open All Checklists
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="row g-3">
+            {% for category in checklist_categories %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="panel p-3 p-lg-4 h-100">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <span class="stat-icon icon-purple">C</span>
+                            <div>
+                                <h3 class="h6 fw-bold mb-1">{{ category.name }}</h3>
+                                <p class="small muted mb-0">
+                                    {% if category.description %}
+                                        {{ category.description }}
+                                    {% else %}
+                                        Inspection checklists for this department.
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="border-top pt-3">
+                            <div class="small fw-bold mb-2">Available Checklists</div>
+
+                            {% for checklist in category.checklists.all %}
+                                {% if checklist.is_active %}
+                                    <div class="d-flex justify-content-between align-items-center gap-3 py-2">
+                                        <div class="small fw-semibold">{{ checklist.title }}</div>
+                                        {% if not is_reviewer %}
+                                            <a href="{% url 'site_checkbook:create_checklist' %}?checklist={{ checklist.pk }}"
+                                               class="btn btn-sm btn-primary text-nowrap">Start</a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% empty %}
+                                <p class="small muted mb-0">No checklists are available in this category yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="panel empty-state">
+                        <div class="empty-icon">C</div>
+                        <h3 class="h6 fw-bold">No inspection categories available</h3>
+                        <p class="muted small mb-0">
+                            Active inspection categories and checklists will appear here when configured by HR.
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
     <!-- Projects -->
     <section class="panel overflow-hidden mb-4 mb-lg-5">
@@ -555,7 +592,7 @@
         </div>
     </section>
 
-    <!-- Daily reports -->
+    <!-- Daily Reports -->
     <section class="panel overflow-hidden">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-lg-4 border-bottom">
             <div>
@@ -661,7 +698,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".js-progress-bar").forEach(function (bar) {
         let progress = Number.parseInt(bar.dataset.progress, 10);
-        if (!Number.isFinite(progress)) progress = 0;
+
+        if (!Number.isFinite(progress)) {
+            progress = 0;
+        }
 
         progress = Math.min(100, Math.max(0, progress));
         bar.style.width = progress + "%";

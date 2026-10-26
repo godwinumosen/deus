@@ -1,163 +1,529 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manage Checklists | Deus Magnus</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+    <title>Checklist Management | Deus Magnus</title>
 
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'site_checkbook:dashboard' %}">
-            Deus Magnus
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand: #174a78;
+            --brand-dark: #103654;
+            --page-bg: #f4f7fb;
+            --border: #e7edf4;
+            --muted: #718096;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #182638;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        .topbar { background: var(--brand-dark); }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255,255,255,.14);
+            color: white;
+            font-weight: 800;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 650;
+        }
+
+        .back-link:hover { color: #d9eaff; }
+
+        .page-wrap { max-width: 1450px; }
+
+        .eyebrow {
+            color: var(--brand);
+            font-size: .75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .page-title {
+            font-weight: 800;
+            letter-spacing: -.035em;
+        }
+
+        .muted { color: var(--muted); }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(23,55,89,.035);
+        }
+
+        .panel-heading {
+            padding: 21px 23px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-body { padding: 23px; }
+
+        .form-label {
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .form-control, .form-select {
+            min-height: 44px;
+            border-color: #dbe3ed;
+            border-radius: 9px;
+            padding: .6rem .8rem;
+        }
+
+        textarea.form-control { min-height: 90px; }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #8cb5dd;
+            box-shadow: 0 0 0 .2rem rgba(23,74,120,.1);
+        }
+
+        .btn {
+            border-radius: 9px;
+            font-weight: 650;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            border-color: var(--brand);
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+        }
+
+        .section-number {
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #e8f1ff;
+            color: var(--brand);
+            font-weight: 800;
+            flex: 0 0 34px;
+        }
+
+        .question-row {
+            border: 1px solid var(--border);
+            background: #fbfcfe;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .question-row .form-control { background: white; }
+
+        .checklist-item {
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color .15s ease;
+        }
+
+        .checklist-item:hover { border-color: #b6cce1; }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-active { background: #e3f7ec; color: #187747; }
+        .status-inactive { background: #edf1f6; color: #536174; }
+
+        .count-chip {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 7px;
+            background: #edf3fa;
+            color: var(--brand);
+            font-size: .75rem;
+            font-weight: 750;
+        }
+
+        .empty-state {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: #edf3fa;
+            color: var(--brand);
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        footer { color: var(--muted); }
+
+        @media (max-width: 575.98px) {
+            .panel-body { padding: 17px; }
+            .panel-heading { padding: 17px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar py-3">
+    <div class="container-fluid page-wrap px-3 px-lg-4 d-flex justify-content-between align-items-center gap-3">
+        <a href="{% url 'site_checkbook:dashboard' %}"
+           class="d-flex align-items-center gap-2 text-white text-decoration-none">
+            <span class="brand-mark">DM</span>
+            <span class="fw-bold">
+                Deus Magnus
+                <small class="d-block fw-normal opacity-75" style="font-size:.68rem;">SITE CHECKBOOK</small>
+            </span>
         </a>
-        <a href="{% url 'site_checkbook:dashboard' %}" class="btn btn-outline-light btn-sm">
-            Dashboard
+
+        <a href="{% url 'site_checkbook:dashboard' %}" class="back-link">
+            &larr; Back to Dashboard
         </a>
     </div>
-</nav>
+</header>
 
-<main class="container py-4">
+<main class="container-fluid page-wrap px-3 px-lg-4 py-4 py-lg-5">
+
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show border-0 shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         {% endfor %}
     {% endif %}
 
-    <h2 class="fw-bold mb-1">Checklist Management</h2>
-    <p class="text-secondary mb-4">Create departments, inspection checklists, and questions.</p>
+    <div class="mb-4 mb-lg-5">
+        <div class="eyebrow mb-2">HR Administration</div>
+        <h1 class="page-title h2 mb-2">Checklist Management</h1>
+        <p class="muted mb-0">
+            Organise departments and build standardised construction inspection checklists.
+        </p>
+    </div>
 
-    <div class="row g-4">
+    <div class="row g-4 align-items-start">
+
+        <!-- Creation forms -->
         <div class="col-lg-5">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="fw-bold">Add Department</h5>
+
+            <!-- Department -->
+            <section class="panel mb-4">
+                <div class="panel-heading d-flex align-items-center gap-3">
+                    <span class="section-number">1</span>
+                    <div>
+                        <h2 class="h5 fw-bold mb-1">Add Department</h2>
+                        <p class="muted small mb-0">Create a department for inspection checklists.</p>
+                    </div>
+                </div>
+
+                <div class="panel-body">
                     <form method="post" action="{% url 'site_checkbook:create_department' %}">
                         {% csrf_token %}
-                        <label class="form-label">Department Name</label>
-                        <input name="name" class="form-control mb-3" required>
-                        <label class="form-label">Description</label>
-                        <textarea name="description" class="form-control mb-3" rows="2"></textarea>
-                        <button class="btn btn-primary">Save Department</button>
+
+                        <div class="mb-3">
+                            <label for="departmentName" class="form-label">Department Name</label>
+                            <input id="departmentName" name="name" class="form-control"
+                                   placeholder="e.g. Civil Engineering" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="departmentDescription" class="form-label">Description</label>
+                            <textarea id="departmentDescription" name="description"
+                                      class="form-control" rows="3"
+                                      placeholder="Describe the department's responsibilities"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            Save Department
+                        </button>
                     </form>
                 </div>
-            </div>
+            </section>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="fw-bold">Create Checklist</h5>
+            <!-- Checklist builder -->
+            <section class="panel">
+                <div class="panel-heading d-flex align-items-center gap-3">
+                    <span class="section-number">2</span>
+                    <div>
+                        <h2 class="h5 fw-bold mb-1">Create Checklist</h2>
+                        <p class="muted small mb-0">Define an inspection and its questions.</p>
+                    </div>
+                </div>
+
+                <div class="panel-body">
                     <form method="post" action="{% url 'site_checkbook:create_checklist_frontend' %}">
                         {% csrf_token %}
 
-                        <label class="form-label">Checklist Title</label>
-                        <input name="title" class="form-control mb-3" required>
+                        <div class="mb-3">
+                            <label for="checklistTitle" class="form-label">Checklist Title</label>
+                            <input id="checklistTitle" name="title" class="form-control"
+                                   placeholder="e.g. Concrete Pour Inspection" required>
+                        </div>
 
-                        <label class="form-label">Department</label>
-                        <select name="department" class="form-select mb-3" required>
-                            <option value="">Select department</option>
-                            {% for department in departments %}
-                                {% if department.is_active %}
-                                    <option value="{{ department.pk }}">{{ department.name }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
+                        <div class="mb-3">
+                            <label for="checklistDepartment" class="form-label">Department</label>
+                            <select id="checklistDepartment" name="department" class="form-select" required>
+                                <option value="">Select department</option>
+                                {% for department in departments %}
+                                    {% if department.is_active %}
+                                        <option value="{{ department.pk }}">{{ department.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">Only active departments are listed.</div>
+                        </div>
 
-                        <label class="form-label">Description</label>
-                        <textarea name="description" class="form-control mb-3" rows="2"></textarea>
+                        <div class="mb-4">
+                            <label for="checklistDescription" class="form-label">Description</label>
+                            <textarea id="checklistDescription" name="description"
+                                      class="form-control" rows="3"
+                                      placeholder="Explain when this checklist should be used"></textarea>
+                        </div>
 
-                        <hr>
-                        <h6 class="fw-bold">Checklist Questions</h6>
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+                            <div>
+                                <h3 class="h6 fw-bold mb-1">Inspection Questions</h3>
+                                <p class="muted small mb-0">Mark the questions that must be answered.</p>
+                            </div>
+                            <span class="count-chip" id="questionCount">3 questions</span>
+                        </div>
+
                         <div id="questions">
                             {% for i in "123" %}
-                                <div class="border rounded p-3 mb-3 question-row">
-                                    <label class="form-label">Question {{ forloop.counter }}</label>
-                                    <input name="question_text" class="form-control mb-2"
+                                <div class="question-row mb-3">
+                                    <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                                        <label class="form-label mb-0 question-label">
+                                            Question {{ forloop.counter }}
+                                        </label>
+                                        <button type="button" class="btn btn-sm btn-outline-danger remove-question">
+                                            Remove
+                                        </button>
+                                    </div>
+
+                                    <input name="question_text" class="form-control mb-3"
                                            placeholder="Enter inspection question">
+
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
-                                               name="question_required" value="{{ forloop.counter0 }}" checked>
-                                        <label class="form-check-label">Required question</label>
+                                               name="question_required"
+                                               value="{{ forloop.counter0 }}" checked>
+                                        <label class="form-check-label small">Required question</label>
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
 
-                        <button type="button" class="btn btn-outline-secondary btn-sm mb-3"
-                                onclick="addQuestion()">+ Add Question</button>
-                        <br>
-                        <button class="btn btn-success">Create Checklist</button>
+                        <button type="button" id="addQuestion"
+                                class="btn btn-outline-primary btn-sm mb-4">
+                            + Add Question
+                        </button>
+
+                        <div class="border-top pt-3">
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                Create Checklist
+                            </button>
+                        </div>
                     </form>
                 </div>
-            </div>
+            </section>
         </div>
 
+        <!-- Existing checklists -->
         <div class="col-lg-7">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3">Existing Checklists</h5>
+            <section class="panel">
+                <div class="panel-heading d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <h2 class="h5 fw-bold mb-1">Existing Checklists</h2>
+                        <p class="muted small mb-0">Checklists currently configured in the system.</p>
+                    </div>
+                    <span class="count-chip">
+                        {{ checklists|length }} checklist{{ checklists|length|pluralize }}
+                    </span>
+                </div>
+
+                <div class="panel-body">
                     {% for checklist in checklists %}
-                        <div class="border rounded p-3 mb-3">
-                            <div class="d-flex justify-content-between gap-2">
-                                <strong>{{ checklist.title }}</strong>
+                        <article class="checklist-item mb-3">
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div>
+                                    <h3 class="h6 fw-bold mb-2">{{ checklist.title }}</h3>
+                                    <div class="muted small">
+                                        {{ checklist.department.name }}
+                                    </div>
+                                </div>
+
                                 {% if checklist.is_active %}
-                                    <span class="badge bg-success">Active</span>
+                                    <span class="status-pill status-active">Active</span>
                                 {% else %}
-                                    <span class="badge bg-secondary">Inactive</span>
+                                    <span class="status-pill status-inactive">Inactive</span>
                                 {% endif %}
                             </div>
-                            <div class="text-secondary small">{{ checklist.department.name }}</div>
-                            <p class="mb-1 mt-2">{{ checklist.description }}</p>
-                            <div class="small">{{ checklist.questions.count }} question(s)</div>
-                        </div>
+
+                            {% if checklist.description %}
+                                <p class="small mt-3 mb-3">{{ checklist.description }}</p>
+                            {% endif %}
+
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 border-top pt-3 mt-3">
+                                <span class="small muted">
+                                    <strong>{{ checklist.questions.count }}</strong>
+                                    question{{ checklist.questions.count|pluralize }}
+                                </span>
+                                <span class="small muted">
+                                    Checklist ID: {{ checklist.pk }}
+                                </span>
+                            </div>
+                        </article>
                     {% empty %}
-                        <p class="text-secondary">No checklists created yet.</p>
+                        <div class="empty-state">
+                            <div class="empty-icon">C</div>
+                            <h3 class="h6 fw-bold">No checklists created yet</h3>
+                            <p class="muted small mb-0">
+                                Create a checklist using the form to get started.
+                            </p>
+                        </div>
                     {% endfor %}
                 </div>
-            </div>
+            </section>
         </div>
+
     </div>
+
+    <footer class="text-center small py-4">
+        Deus Magnus Site Checkbook &copy; {% now "Y" %}
+    </footer>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-let questionCount = 3;
-
-function addQuestion() {
+(function () {
     const container = document.getElementById("questions");
-    const index = questionCount++;
+    const addButton = document.getElementById("addQuestion");
+    const countLabel = document.getElementById("questionCount");
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "border rounded p-3 mb-3 question-row";
+    function updateQuestions() {
+        const rows = Array.from(container.querySelectorAll(".question-row"));
 
-    const label = document.createElement("label");
-    label.className = "form-label";
-    label.textContent = "Question " + (index + 1);
+        rows.forEach(function (row, index) {
+            const label = row.querySelector(".question-label");
+            const checkbox = row.querySelector('input[name="question_required"]');
 
-    const input = document.createElement("input");
-    input.name = "question_text";
-    input.className = "form-control mb-2";
-    input.placeholder = "Enter inspection question";
+            label.textContent = "Question " + (index + 1);
 
-    const checkWrapper = document.createElement("div");
-    checkWrapper.className = "form-check";
+            // The backend matches checkbox values to the position
+            // of the corresponding question_text input.
+            checkbox.value = index;
+        });
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.name = "question_required";
-    checkbox.value = index;
-    checkbox.checked = true;
-    checkbox.className = "form-check-input";
+        countLabel.textContent = rows.length + " question" + (rows.length === 1 ? "" : "s");
+    }
 
-    const checkLabel = document.createElement("label");
-    checkLabel.className = "form-check-label";
-    checkLabel.textContent = "Required question";
+    function addQuestion() {
+        const row = document.createElement("div");
+        row.className = "question-row mb-3";
 
-    checkWrapper.append(checkbox, checkLabel);
-    wrapper.append(label, input, checkWrapper);
-    container.appendChild(wrapper);
-}
+        const heading = document.createElement("div");
+        heading.className = "d-flex justify-content-between align-items-center gap-2 mb-2";
+
+        const label = document.createElement("label");
+        label.className = "form-label mb-0 question-label";
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "btn btn-sm btn-outline-danger remove-question";
+        removeButton.textContent = "Remove";
+
+        heading.append(label, removeButton);
+
+        const input = document.createElement("input");
+        input.name = "question_text";
+        input.className = "form-control mb-3";
+        input.placeholder = "Enter inspection question";
+
+        const checkWrapper = document.createElement("div");
+        checkWrapper.className = "form-check";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "question_required";
+        checkbox.className = "form-check-input";
+        checkbox.checked = true;
+
+        const checkLabel = document.createElement("label");
+        checkLabel.className = "form-check-label small";
+        checkLabel.textContent = "Required question";
+
+        checkWrapper.append(checkbox, checkLabel);
+        row.append(heading, input, checkWrapper);
+        container.appendChild(row);
+
+        updateQuestions();
+        input.focus();
+    }
+
+    addButton.addEventListener("click", addQuestion);
+
+    container.addEventListener("click", function (event) {
+        const removeButton = event.target.closest(".remove-question");
+
+        if (!removeButton) return;
+
+        const rows = container.querySelectorAll(".question-row");
+
+        if (rows.length <= 1) {
+            const input = rows[0].querySelector('input[name="question_text"]');
+            input.value = "";
+            input.focus();
+            return;
+        }
+
+        removeButton.closest(".question-row").remove();
+        updateQuestions();
+    });
+
+    updateQuestions();
+})();
 </script>
+
 </body>
 </html>

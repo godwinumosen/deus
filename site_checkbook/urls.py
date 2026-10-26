@@ -92,6 +92,27 @@ urlpatterns = [
         views.create_checklist_frontend,
         name="create_checklist_frontend",
     ),
+    path(
+    "projects/<int:pk>/edit/",
+    views.edit_project,
+    name="edit_project",
+    ),
+
+    path(
+    "checklists/review/",
+    views.checklist_review_queue,
+    name="checklist_review_queue",
+    ),
+    path(
+        "checklists/review/<int:submission_id>/",
+        views.checklist_review_detail,
+        name="checklist_review_detail",
+    ),
+    path(
+        "checklists/review/<int:submission_id>/action/",
+        views.review_checklist_submission,
+        name="review_checklist_submission",
+    ),
 
 
     

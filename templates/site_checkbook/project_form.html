@@ -1,99 +1,370 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create Project | Deus Magnus</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>
+        {% if project %}Edit Project{% else %}Create Project{% endif %}
+        | Deus Magnus Site Checkbook
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --brand: #174a78;
+            --brand-dark: #103654;
+            --page-bg: #f4f7fb;
+            --border: #e7edf4;
+            --muted: #718096;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-link {
+            color: var(--brand);
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: .02em;
+        }
+
+        .form-card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .heading-icon {
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #eaf1ff;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .form-control,
+        .form-select {
+            padding: .75rem .9rem;
+            border-color: #dce3ed;
+            border-radius: 9px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 .2rem rgba(23, 74, 120, .12);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+        }
+
+        .form-label {
+            color: #26364a;
+        }
+
+        .btn-brand {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
+        }
+
+        .btn-brand:hover {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+            color: #fff;
+        }
+
+        .section-label {
+            color: var(--brand);
+            font-size: .76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .engineer-help {
+            background: #f6f9fc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--brand);
+            border-color: var(--brand);
+        }
+
+        footer {
+            color: var(--muted);
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark">
+<body>
+
+<header class="page-header py-4">
     <div class="container">
-        <a class="navbar-brand fw-bold"
-           href="{% url 'site_checkbook:dashboard' %}">
-            Deus Magnus
+        <a href="{% url 'site_checkbook:project_list' %}"
+           class="text-decoration-none text-secondary small">
+            &larr; Back to Projects
         </a>
-        <a class="btn btn-outline-light btn-sm"
-           href="{% url 'site_checkbook:project_list' %}">
-            All Projects
-        </a>
-    </div>
-</nav>
 
-<main class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <a href="{% url 'site_checkbook:project_list' %}"
-               class="text-decoration-none">
-                &larr; Back to Projects
-            </a>
+        <div class="d-flex align-items-center gap-3 mt-3">
+            <div class="heading-icon">🏗️</div>
 
-            <div class="my-4">
-                <h2 class="fw-bold">Create Construction Project</h2>
-                <p class="text-secondary">
-                    Enter project details and assign the site engineers.
+            <div>
+                <h1 class="h3 fw-bold mb-1">
+                    {% if project %}
+                        Edit Construction Project
+                    {% else %}
+                        Create Construction Project
+                    {% endif %}
+                </h1>
+
+                <p class="text-secondary mb-0">
+                    {% if project %}
+                        Update project details and manage assigned site engineers.
+                    {% else %}
+                        Set up a construction project and assign the responsible site engineers.
+                    {% endif %}
                 </p>
             </div>
+        </div>
+    </div>
+</header>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4">
+<main class="container py-4 py-lg-5">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if 'error' in message.tags %}danger{% elif 'success' in message.tags %}success{% elif 'warning' in message.tags %}warning{% else %}info{% endif %} alert-dismissible fade show"
+                 role="alert">
+                {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+
+            <div class="card form-card shadow-sm">
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="mb-4">
+                        <div class="section-label mb-2">
+                            Project Details
+                        </div>
+
+                        <h2 class="h5 fw-bold mb-1">
+                            {% if project %}
+                                Update Project Information
+                            {% else %}
+                                Project Information
+                            {% endif %}
+                        </h2>
+
+                        <p class="text-secondary small mb-0">
+                            Complete the project information and select the engineers who should have access.
+                            Fields marked with <span class="text-danger">*</span> are required.
+                        </p>
+                    </div>
+
+                    {% if project %}
+                        <div class="engineer-help mb-4">
+                            <div class="small text-secondary mb-1">
+                                Editing project
+                            </div>
+                            <div class="fw-bold">
+                                {{ project }}
+                            </div>
+                            <div class="small text-secondary mt-1">
+                                Your changes will update this existing project.
+                            </div>
+                        </div>
+                    {% endif %}
+
                     <form method="post">
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
                             <div class="alert alert-danger">
-                                {{ form.non_field_errors }}
+                                {% for error in form.non_field_errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
                             </div>
                         {% endif %}
 
                         {% for field in form %}
-                            <div class="mb-3">
-                                {% if field.name == "is_active" %}
-                                    <div class="form-check">
+
+                            {% if field.name == "engineers" %}
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold"
+                                           for="{{ field.id_for_label }}">
+                                        {{ field.label|default:"Assign Site Engineers" }}
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
+                                    </label>
+
+                                    {{ field }}
+
+                                    {% if field.help_text %}
+                                        <div class="form-text">
+                                            {{ field.help_text }}
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="engineer-help mt-2">
+                                        <div class="fw-semibold small mb-1">
+                                            <span class="me-1">👷</span>
+                                            Engineer Assignment
+                                        </div>
+                                        <p class="text-secondary small mb-0">
+                                            Select the engineers responsible for this project.
+                                            Engineers generally see projects assigned to them.
+                                            You can select multiple engineers if the project has more than one.
+                                        </p>
+                                    </div>
+
+                                    {% for error in field.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elif field.name == "is_active" %}
+                                <div class="mb-4">
+                                    <div class="form-check form-switch">
                                         {{ field }}
-                                        <label class="form-check-label"
+
+                                        <label class="form-check-label fw-semibold"
                                                for="{{ field.id_for_label }}">
                                             {{ field.label }}
                                         </label>
                                     </div>
-                                {% else %}
+
+                                    {% if field.help_text %}
+                                        <div class="form-text">
+                                            {{ field.help_text }}
+                                        </div>
+                                    {% endif %}
+
+                                    {% for error in field.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% else %}
+                                <div class="mb-4">
                                     <label class="form-label fw-semibold"
                                            for="{{ field.id_for_label }}">
                                         {{ field.label }}
+
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
                                     </label>
+
                                     {{ field }}
-                                {% endif %}
 
-                                {% if field.help_text %}
-                                    <div class="form-text">
-                                        {{ field.help_text }}
-                                    </div>
-                                {% endif %}
+                                    {% if field.help_text %}
+                                        <div class="form-text">
+                                            {{ field.help_text }}
+                                        </div>
+                                    {% endif %}
 
-                                {% for error in field.errors %}
-                                    <div class="text-danger small">
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
+                                    {% for error in field.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
                         {% endfor %}
 
-                        <div class="d-flex gap-2 flex-wrap mt-4">
-                            <button type="submit" class="btn btn-primary">
-                                Save Project
+                        <hr class="my-4">
+
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button type="submit" class="btn btn-brand px-4 py-2">
+                                {% if project %}
+                                    Save Changes
+                                {% else %}
+                                    Save Project
+                                {% endif %}
                             </button>
+
                             <a href="{% url 'site_checkbook:project_list' %}"
-                               class="btn btn-outline-secondary">
+                               class="btn btn-light border px-4 py-2">
                                 Cancel
                             </a>
                         </div>
+
                     </form>
                 </div>
             </div>
+
+            <footer class="text-center small mt-4">
+                &copy; {% now "Y" %} Deus Magnus Site Checkbook
+            </footer>
+
         </div>
     </div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(
+        'input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]), select, textarea'
+    ).forEach(function (field) {
+        if (
+            !field.classList.contains("form-control") &&
+            !field.classList.contains("form-select")
+        ) {
+            field.classList.add(
+                field.tagName === "SELECT" ? "form-select" : "form-control"
+            );
+        }
+    });
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (field) {
+        field.classList.add("form-check-input");
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(function (field) {
+        field.classList.add("form-check-input");
+    });
+
+    document.querySelectorAll('select[multiple]').forEach(function (field) {
+        field.size = Math.min(Math.max(field.options.length, 4), 8);
+    });
+});
+</script>
 
 </body>
 </html>

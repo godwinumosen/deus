@@ -4,102 +4,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Project Management | Deus Magnus</title>
+    <title>Project Management | Deus Magnus Site Checkbook</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #e8edf4;
+        }
+
+        .content-card {
+            border: 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background: #f8faff;
+            color: #64748b;
+            font-size: .76rem;
+            text-transform: uppercase;
+            letter-spacing: .045em;
+            font-weight: 700;
+            white-space: nowrap;
+            padding: 1rem;
+            border-bottom: 1px solid #e8edf4;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            border-color: #edf0f5;
+        }
+
+        .project-code {
+            display: inline-block;
+            padding: .35rem .55rem;
+            border-radius: 7px;
+            background: #eef3ff;
+            color: #2457b2;
+            font-size: .8rem;
+            font-weight: 700;
+        }
+
+        .stat-card {
+            border: 0;
+            border-radius: 14px;
+        }
+
+        .empty-state {
+            padding: 3.5rem 1rem;
+        }
+
+        .engineer-badge {
+            font-weight: 500;
+        }
+
+        .btn-edit {
+            color: #174a78;
+            border: 1px solid #cbd9e8;
+            background: #fff;
+            font-weight: 600;
+        }
+
+        .btn-edit:hover {
+            color: #fff;
+            background: #174a78;
+            border-color: #174a78;
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark">
+<body>
+
+<header class="page-header py-4">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'site_checkbook:dashboard' %}">
-            Deus Magnus
+        <a href="{% url 'site_checkbook:dashboard' %}"
+           class="text-decoration-none text-secondary small">
+            &larr; Back to Dashboard
         </a>
-        <a class="btn btn-outline-light btn-sm"
-           href="{% url 'site_checkbook:dashboard' %}">
-            Dashboard
-        </a>
-    </div>
-</nav>
 
-<main class="container py-5">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-        <div>
-            <h2 class="fw-bold">Project Management</h2>
-            <p class="text-secondary mb-0">
-                Create projects and manage engineer assignments.
-            </p>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mt-3">
+            <div>
+                <h1 class="h3 fw-bold mb-1">Project Management</h1>
+                <p class="text-secondary mb-0">
+                    Manage construction projects, locations and engineer assignments.
+                </p>
+            </div>
+
+            <a href="{% url 'site_checkbook:create_project' %}"
+               class="btn btn-primary">
+                <span class="me-1">+</span> Create Project
+            </a>
         </div>
-        <a href="{% url 'site_checkbook:create_project' %}"
-           class="btn btn-primary">
-            + Create Project
-        </a>
     </div>
+</header>
+
+<main class="container py-4 py-lg-5">
 
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
+            <div class="alert alert-{% if 'error' in message.tags %}danger{% elif 'success' in message.tags %}success{% elif 'warning' in message.tags %}warning{% else %}info{% endif %} alert-dismissible fade show"
+                 role="alert">
+                {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
         {% endfor %}
     {% endif %}
 
-    <div class="card border-0 shadow-sm">
+    <!-- Project statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="text-secondary small mb-2">Total Projects</div>
+                    <div class="display-6 fw-bold">{{ projects|length }}</div>
+                    <div class="text-secondary small mt-1">Projects in this list</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="text-secondary small mb-2">Active Projects</div>
+                    <div class="display-6 fw-bold text-success" id="active-count">0</div>
+                    <div class="text-secondary small mt-1">Currently marked active</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="text-secondary small mb-2">Inactive Projects</div>
+                    <div class="display-6 fw-bold text-secondary" id="inactive-count">0</div>
+                    <div class="text-secondary small mt-1">Currently marked inactive</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Projects table -->
+    <div class="card content-card shadow-sm">
+
+        <div class="card-header bg-white border-0 p-3 p-md-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h2 class="h5 fw-bold mb-1">Construction Projects</h2>
+                    <p class="text-secondary small mb-0">
+                        View projects, assigned engineers and update assignments.
+                    </p>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <input type="search"
+                           id="project-search"
+                           class="form-control"
+                           placeholder="Search projects..."
+                           aria-label="Search projects">
+                </div>
+            </div>
+        </div>
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-dark">
+            <table class="table table-hover align-middle mb-0" id="projects-table">
+
+                <thead>
                     <tr>
-                        <th>Project Code</th>
-                        <th>Project Name</th>
-                        <th>Location</th>
+                        <th>Project</th>
+                        <th>Client</th>
+                        <th>Site Location</th>
                         <th>Assigned Engineers</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for project in projects %}
-                    <tr>
-                        <td>{{ project.project_code }}</td>
-                        <td>
-                            <strong>{{ project.name }}</strong>
-                            <div class="small text-secondary">
-                                {{ project.client }}
-                            </div>
-                        </td>
-                        <td>{{ project.site_location }}</td>
-                        <td>
-                            {% for engineer in project.engineers.all %}
-                                <span class="badge text-bg-secondary mb-1">
-                                    {{ engineer.username }}
+                        <tr data-active="{{ project.is_active|yesno:'true,false' }}">
+
+                            <td>
+                                <span class="project-code">
+                                    {{ project.project_code|default:"No code" }}
                                 </span>
-                            {% empty %}
-                                <span class="text-danger">No engineers assigned</span>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% if project.is_active %}
-                                <span class="badge text-bg-success">Active</span>
-                            {% else %}
-                                <span class="badge text-bg-secondary">Inactive</span>
-                            {% endif %}
-                        </td>
-                    </tr>
+                                <div class="fw-semibold mt-2">
+                                    {{ project.name }}
+                                </div>
+                            </td>
+
+                            <td>{{ project.client|default:"—" }}</td>
+
+                            <td>{{ project.site_location|default:"Not specified" }}</td>
+
+                            <td>
+                                {% for engineer in project.engineers.all %}
+                                    <span class="badge rounded-pill text-bg-light border text-dark engineer-badge mb-1">
+                                        {{ engineer.get_full_name|default:engineer.username }}
+                                    </span>
+                                {% empty %}
+                                    <span class="text-secondary small">
+                                        No engineers assigned
+                                    </span>
+                                {% endfor %}
+                            </td>
+
+                            <td>
+                                {% if project.is_active %}
+                                    <span class="badge rounded-pill text-bg-success">
+                                        Active
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill text-bg-secondary">
+                                        Inactive
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="{% url 'site_checkbook:edit_project' project.pk %}"
+                                   class="btn btn-sm btn-edit">
+                                    Edit
+                                </a>
+                            </td>
+
+                        </tr>
+
                     {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center py-5">
-                            <h5>No projects created yet</h5>
-                            <p class="text-secondary">
-                                Create your first project and assign an engineer.
-                            </p>
-                            <a href="{% url 'site_checkbook:create_project' %}"
-                               class="btn btn-primary">
-                                Create First Project
-                            </a>
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state text-center">
+                                    <div class="display-5 mb-3">🏗️</div>
+                                    <h2 class="h5 fw-bold">No projects yet</h2>
+                                    <p class="text-secondary">
+                                        Create your first construction project to get started.
+                                    </p>
+                                    <a href="{% url 'site_checkbook:create_project' %}"
+                                       class="btn btn-primary">
+                                        Create First Project
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    <tr id="no-search-results" class="d-none">
+                        <td colspan="6" class="text-center text-secondary py-4">
+                            No projects match your search.
                         </td>
                     </tr>
-                    {% endfor %}
                 </tbody>
+
             </table>
         </div>
     </div>
+
+    <footer class="text-center text-secondary small py-4">
+        &copy; {% now "Y" %} Deus Magnus Site Checkbook
+    </footer>
+
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const rows = Array.from(
+        document.querySelectorAll("#projects-table tbody tr[data-active]")
+    );
+
+    const active = rows.filter(
+        row => row.dataset.active === "true"
+    ).length;
+
+    const inactive = rows.filter(
+        row => row.dataset.active === "false"
+    ).length;
+
+    document.getElementById("active-count").textContent = active;
+    document.getElementById("inactive-count").textContent = inactive;
+
+    const search = document.getElementById("project-search");
+    const noResults = document.getElementById("no-search-results");
+
+    search.addEventListener("input", function () {
+        const query = search.value.trim().toLowerCase();
+        let visible = 0;
+
+        rows.forEach(function (row) {
+            const matches = row.textContent.toLowerCase().includes(query);
+
+            row.classList.toggle("d-none", !matches);
+
+            if (matches) {
+                visible++;
+            }
+        });
+
+        noResults.classList.toggle(
+            "d-none",
+            visible > 0 || rows.length === 0
+        );
+    });
+});
+</script>
 
 </body>
 </html>
