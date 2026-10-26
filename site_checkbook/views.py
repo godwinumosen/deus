@@ -80,7 +80,6 @@ def dashboard(request):
     )
 
 
-
 @login_required
 def create_activity(request):
     if request.method == "POST":
@@ -359,23 +358,24 @@ def delete_activity(request, activity_id):
 
 @login_required
 def create_checklist_submission(request):
+    """Allow an engineer to complete and submit a checklist."""
+
     is_post = request.method == "POST"
 
-    # Preserve the selected checklist on GET and POST.
+    submission_form = ChecklistSubmissionForm(
+        request.POST if is_post else None,
+        user=request.user,
+    )
+
+    checklist = None
+    response_forms = []
+
+    # Identify the selected checklist.
     checklist_id = (
         request.POST.get("checklist")
         if is_post
         else request.GET.get("checklist")
     )
-
-    submission_form = ChecklistSubmissionForm(
-        request.POST if is_post else None,
-        user=request.user,
-        initial={"checklist": checklist_id} if checklist_id else None,
-    )
-
-    checklist = None
-    response_forms = []
 
     if checklist_id:
         checklist = Checklist.objects.filter(
@@ -384,117 +384,153 @@ def create_checklist_submission(request):
             department__is_active=True,
         ).first()
 
-        if checklist is None:
-            messages.error(
-                request,
-                "The selected checklist is unavailable or inactive.",
-            )
-            checklist_id = None
-
+    # Build one response form for every checklist question.
     if checklist:
-        questions = checklist.questions.all().order_by(
-            "order",
-            "id",
-        )
+        questions = checklist.questions.all().order_by("order", "id")
 
         for question in questions:
-            prefix = f"question_{question.pk}"
-
             response_form = ChecklistResponseForm(
                 request.POST if is_post else None,
-                prefix=prefix,
+                prefix=f"question_{question.pk}",
+            )
+
+            response_form.fields["answer"].required = (
+                question.is_required
             )
 
             response_forms.append((question, response_form))
 
-    # The Load Questions button only loads the selected checklist.
+    # Handle the Load Questions button.
     if is_post and "load_checklist" in request.POST:
-        if checklist is None:
+        if not submission_form.is_valid():
             messages.error(
                 request,
-                "Please select an active checklist before loading questions.",
+                "Please check the inspection details.",
             )
-
-        return render(
-            request,
-            "site_checkbook/create_checklist.html",
-            {
-                "submission_form": submission_form,
-                "checklist": checklist,
-                "response_forms": response_forms,
-            },
-        )
-
-    # Save a completed inspection.
-    if is_post and "submit_checklist" in request.POST:
-        form_valid = submission_form.is_valid()
 
         if not checklist:
             messages.error(
                 request,
-                "Please select a valid checklist.",
+                "Please select a valid, active checklist.",
             )
-            form_valid = False
+        elif not checklist.questions.exists():
+            messages.warning(
+                request,
+                "This checklist has no questions yet. Please contact HR.",
+            )
+
+        return render(
+            request,
+            "site_checkbook/checklist_submission_form.html",
+            {
+                "submission_form": submission_form,
+                "checklist": checklist,
+                "response_forms": response_forms,
+                "is_reviewer": is_hr_reviewer(request.user),
+                "can_manage_projects": can_manage_projects(request.user),
+            },
+        )
+        
+
+    # Handle the final submission.
+    if is_post:
+        form_is_valid = submission_form.is_valid()
+
+        if not form_is_valid:
+            # Display the actual reason the inspection details failed.
+            for field, errors in submission_form.errors.items():
+                for error in errors:
+                    if field == "__all__":
+                        messages.error(request, error)
+                    else:
+                        field_label = submission_form.fields[field].label or field
+                        messages.error(
+                            request,
+                            f"{field_label}: {error}",
+                        )
+
+        elif not checklist:
+            messages.error(
+                request,
+                "Please select a valid checklist and load its questions.",
+            )
+
         elif (
-            form_valid
-            and submission_form.cleaned_data.get("checklist") != checklist
+            submission_form.cleaned_data["checklist"].pk
+            != checklist.pk
         ):
             messages.error(
                 request,
-                "The selected checklist does not match the submitted questions.",
+                "The selected checklist does not match the loaded questions. "
+                "Please load the questions again.",
             )
-            form_valid = False
 
-        responses_valid = True
-
-        for question, response_form in response_forms:
-            if not response_form.is_valid():
-                responses_valid = False
-
-        if not response_forms:
+        elif not response_forms:
             messages.error(
                 request,
-                "This checklist has no questions and cannot be submitted.",
+                "This checklist has no questions to submit.",
             )
-            responses_valid = False
 
-        if form_valid and responses_valid:
-            with transaction.atomic():
-                submission = submission_form.save(commit=False)
-                submission.engineer = request.user
-                submission.status = "submitted"
-                submission.save()
+        else:
+            all_responses_valid = True
 
-                for question, response_form in response_forms:
-                    answer = response_form.cleaned_data.get("answer")
-                    comments = response_form.cleaned_data.get("comments", "")
+            # Validate every question before saving anything.
+            for question, response_form in response_forms:
+                if not response_form.is_valid():
+                    all_responses_valid = False
 
-                    ChecklistResponse.objects.create(
-                        submission=submission,
-                        question=question,
-                        answer=answer,
-                        comments=comments,
+            if not all_responses_valid:
+                messages.error(
+                    request,
+                    "Please answer all required questions before submitting.",
+                )
+            else:
+                try:
+                    with transaction.atomic():
+                        submission = submission_form.save(commit=False)
+                        submission.engineer = request.user
+                        submission.status = "submitted"
+                        submission.save()
+
+                        # Save all provided answers and comments.
+                        for question, response_form in response_forms:
+                            answer = response_form.cleaned_data.get("answer")
+                            comments = (
+                                response_form.cleaned_data.get("comments")
+                                or ""
+                            )
+
+                            if answer not in (None, "") or comments.strip():
+                                response = response_form.save(commit=False)
+                                response.submission = submission
+                                response.question = question
+                                response.save()
+
+                    messages.success(
+                        request,
+                        "Your checklist has been submitted successfully "
+                        "for HR review.",
                     )
 
-            messages.success(
-                request,
-                "Your inspection checklist has been submitted to HR for review.",
-            )
+                    return redirect("site_checkbook:dashboard")
 
-            return redirect("site_checkbook:dashboard")
-
-        messages.error(
-            request,
-            "Please correct the errors below before submitting your checklist.",
-        )
+                except Exception:
+                    messages.error(
+                        request,
+                        "The checklist could not be saved. "
+                        "Please try again. If the problem continues, "
+                        "check the server error log.",
+                    )
 
     return render(
         request,
-        "site_checkbook/create_checklist.html",
+        "site_checkbook/checklist_submission_form.html",
         {
             "submission_form": submission_form,
             "checklist": checklist,
             "response_forms": response_forms,
+            "is_reviewer": is_hr_reviewer(request.user),
+            "can_manage_projects": can_manage_projects(request.user),
         },
     )
 
@@ -661,29 +697,32 @@ def is_hr_reviewer(user):
 
 @login_required
 def checklist_review_queue(request):
+    """
+    Show engineers' submitted checklists to HR and Supervisors.
+    """
     if not is_hr_reviewer(request.user):
         messages.error(
             request,
-            "You do not have permission to review inspection checklists.",
+            "You do not have permission to review inspection checklists."
         )
         return redirect("site_checkbook:dashboard")
 
+    submissions = (
+        ChecklistSubmission.objects
+        .select_related(
+            "checklist",
+            "engineer",
+            "project",
+        )
+        .order_by("-submitted_at", "-inspection_date", "-pk")
+    )
+
     status_filter = request.GET.get("status", "submitted")
 
-    if status_filter not in {
-        "submitted",
-        "reviewed",
-        "returned",
-        "all",
-    }:
-        status_filter = "submitted"
+    valid_statuses = {"submitted", "reviewed", "returned", "all"}
 
-    submissions = ChecklistSubmission.objects.select_related(
-        "checklist",
-        "checklist__department",
-        "engineer",
-        "project",
-    ).order_by("-pk")
+    if status_filter not in valid_statuses:
+        status_filter = "submitted"
 
     if status_filter != "all":
         submissions = submissions.filter(status=status_filter)
@@ -692,13 +731,13 @@ def checklist_review_queue(request):
         "submissions": submissions,
         "status_filter": status_filter,
         "pending_count": ChecklistSubmission.objects.filter(
-            status="submitted",
+            status="submitted"
         ).count(),
         "reviewed_count": ChecklistSubmission.objects.filter(
-            status="reviewed",
+            status="reviewed"
         ).count(),
         "returned_count": ChecklistSubmission.objects.filter(
-            status="returned",
+            status="returned"
         ).count(),
     }
 
@@ -707,86 +746,6 @@ def checklist_review_queue(request):
         "site_checkbook/checklist_review_queue.html",
         context,
     )
-
-
-@login_required
-def checklist_review_detail(request, submission_id):
-    if not is_hr_reviewer(request.user):
-        messages.error(
-            request,
-            "You do not have permission to review inspection checklists.",
-        )
-        return redirect("site_checkbook:dashboard")
-
-    submission = get_object_or_404(
-        ChecklistSubmission.objects.select_related(
-            "checklist",
-            "checklist__department",
-            "engineer",
-            "project",
-        ),
-        pk=submission_id,
-    )
-
-    responses = ChecklistResponse.objects.filter(
-        submission=submission,
-    ).select_related(
-        "question",
-    ).order_by(
-        "question__order",
-        "question_id",
-    )
-
-    return render(
-        request,
-        "site_checkbook/checklist_review_detail.html",
-        {
-            "submission": submission,
-            "responses": responses,
-        },
-    )
-
-
-@login_required
-@require_POST
-def review_checklist_submission(request, submission_id):
-    if not is_hr_reviewer(request.user):
-        messages.error(
-            request,
-            "You do not have permission to review inspection checklists.",
-        )
-        return redirect("site_checkbook:dashboard")
-
-    submission = get_object_or_404(
-        ChecklistSubmission,
-        pk=submission_id,
-    )
-
-    action = request.POST.get("action")
-
-    if action not in {"reviewed", "returned"}:
-        messages.error(request, "Invalid review action.")
-        return redirect(
-            "site_checkbook:checklist_review_detail",
-            submission_id=submission.pk,
-        )
-
-    submission.status = action
-    submission.save(update_fields=["status"])
-
-    if action == "reviewed":
-        messages.success(
-            request,
-            "The engineer's checklist has been marked as reviewed.",
-        )
-    else:
-        messages.warning(
-            request,
-            "The checklist has been returned to the engineer for correction.",
-        )
-
-    return redirect("site_checkbook:checklist_review_queue")
-
 
 
 @login_required
