@@ -532,6 +532,117 @@
         </div>
     </section>
 
+
+    
+    <!-- My Inspection Checklists -->
+    {% if not is_reviewer %}
+    <section class="panel overflow-hidden mb-4 mb-lg-5">
+        <div class="p-3 p-lg-4 border-bottom">
+            <h2 class="section-title h5 mb-1">My Inspection Checklists</h2>
+            <p class="section-subtitle mb-0">
+                Track the review status of your submitted inspections.
+            </p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <thead>
+                    <tr>
+                        <th>Checklist</th>
+                        <th>Inspection Date</th>
+                        <th>Status</th>
+                        <th>HR Comments</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                </thead>
+                <tbody>
+                    {% for submission in my_checklist_submissions %}
+                    <tr>
+                        <td>
+                            <span class="record-title">
+                                {{ submission.checklist.title }}
+                            </span>
+                            {% if submission.project %}
+                            <div class="record-subtitle">
+                                {{ submission.project.name }}
+                            </div>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-nowrap">
+                            {{ submission.inspection_date|date:"d M Y" }}
+                        </td>
+
+                        <td>
+                            {% if submission.status == "submitted" %}
+                                <span class="status-pill status-submitted">
+                                    Awaiting HR Review
+                                </span>
+                            {% elif submission.status == "reviewed" %}
+                                <span class="status-pill status-reviewed">
+                                    Reviewed by HR
+                                </span>
+                            {% elif submission.status == "returned" %}
+                                <span class="status-pill status-returned">
+                                    Returned for Correction
+                                </span>
+                            {% else %}
+                                <span class="status-pill status-draft">
+                                    {{ submission.get_status_display }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if submission.review_comments %}
+                                {{ submission.review_comments }}
+                            {% else %}
+                                <span class="muted">No comments yet</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-nowrap">
+                            {% if submission.status == "returned" %}
+                                <a href="{% url 'site_checkbook:edit_checklist_submission' submission.pk %}"
+                                class="btn btn-sm btn-primary">
+                                    Edit &amp; Resubmit
+                                </a>
+                            {% elif submission.status == "submitted" %}
+                                <span class="small muted">Awaiting HR</span>
+                            {% elif submission.status == "reviewed" %}
+                                <span class="small text-success fw-semibold">Reviewed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <div class="empty-icon">C</div>
+                                <h3 class="h6 fw-bold">
+                                    No submitted checklists yet
+                                </h3>
+                                <p class="muted small mb-3">
+                                    Your inspection submissions and HR decisions
+                                    will appear here.
+                                </p>
+                                <a href="{% url 'site_checkbook:create_checklist' %}"
+                                   class="btn btn-primary btn-sm">
+                                    Complete Construction Checklist
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% endif %}
+
+
     <!-- Projects -->
     <section class="panel overflow-hidden mb-4 mb-lg-5">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-lg-4 border-bottom">

@@ -56,6 +56,12 @@ def dashboard(request):
         .prefetch_related("checklists")
         .order_by("name")
     )
+    my_checklist_submissions = (
+        ChecklistSubmission.objects
+        .filter(engineer=user)
+        .select_related("checklist", "project")
+        .order_by("-inspection_date", "-pk")[:10]
+    )
 
     context = {
         "projects": projects,
@@ -71,13 +77,16 @@ def dashboard(request):
         "is_reviewer": reviewer,
         "can_manage_projects": can_manage_projects(user),
         "checklist_categories": checklist_categories,
+        "my_checklist_submissions": my_checklist_submissions,
     }
+       
 
     return render(
         request,
         "site_checkbook/dashboard.html",
         context,
     )
+
 
 
 @login_required
@@ -143,8 +152,6 @@ def activity_detail(request, pk):
             "can_manage_projects": can_manage_projects(request.user),
         },
     )
-
-
 
 
 
@@ -356,171 +363,147 @@ def delete_activity(request, activity_id):
 
 
 
+
 @login_required
-def create_checklist_submission(request):
-    """Allow an engineer to complete and submit a checklist."""
+def create_checklist_submission(request, submission_id=None):
+    """Create a checklist or correct a checklist returned by HR."""
 
     is_post = request.method == "POST"
+    editing = submission_id is not None
+
+    if editing:
+        submission = get_object_or_404(
+            ChecklistSubmission,
+            pk=submission_id,
+            engineer=request.user,
+            status="returned",
+        )
+    else:
+        submission = None
 
     submission_form = ChecklistSubmissionForm(
         request.POST if is_post else None,
+        instance=submission,
         user=request.user,
     )
 
-    checklist = None
+    if editing:
+        submission_form.fields["checklist"].disabled = True
+
+    checklist = submission.checklist if editing else None
     response_forms = []
 
-    # Identify the selected checklist.
-    checklist_id = (
-        request.POST.get("checklist")
-        if is_post
-        else request.GET.get("checklist")
+    if is_post and not editing:
+        checklist_id = request.POST.get("checklist")
+        if checklist_id:
+            checklist = Checklist.objects.filter(
+                pk=checklist_id,
+                is_active=True,
+                department__is_active=True,
+            ).first()
+    elif not is_post and not editing:
+        checklist_id = request.GET.get("checklist")
+        if checklist_id:
+            checklist = Checklist.objects.filter(
+                pk=checklist_id,
+                is_active=True,
+                department__is_active=True,
+            ).first()
+
+    questions = (
+        list(checklist.questions.all().order_by("order", "id"))
+        if checklist else []
     )
 
-    if checklist_id:
-        checklist = Checklist.objects.filter(
-            pk=checklist_id,
-            is_active=True,
-            department__is_active=True,
-        ).first()
+    existing_responses = {
+        response.question_id: response
+        for response in ChecklistResponse.objects.filter(
+            submission=submission
+        )
+    } if editing else {}
 
-    # Build one response form for every checklist question.
-    if checklist:
-        questions = checklist.questions.all().order_by("order", "id")
-
-        for question in questions:
-            response_form = ChecklistResponseForm(
-                request.POST if is_post else None,
-                prefix=f"question_{question.pk}",
-            )
-
-            response_form.fields["answer"].required = (
-                question.is_required
-            )
-
-            response_forms.append((question, response_form))
-
-    # Handle the Load Questions button.
-    if is_post and "load_checklist" in request.POST:
+    if is_post and "load_checklist" in request.POST and not editing:
         if not submission_form.is_valid():
-            messages.error(
-                request,
-                "Please check the inspection details.",
-            )
-
-        if not checklist:
-            messages.error(
-                request,
-                "Please select a valid, active checklist.",
-            )
-        elif not checklist.questions.exists():
+            messages.error(request, "Please check the inspection details.")
+        elif not checklist:
+            messages.error(request, "Please select a valid, active checklist.")
+        elif not questions:
             messages.warning(
                 request,
                 "This checklist has no questions yet. Please contact HR.",
             )
 
-        return render(
-            request,
-            "site_checkbook/checklist_submission_form.html",
-            {
-                "submission_form": submission_form,
-                "checklist": checklist,
-                "response_forms": response_forms,
-                "is_reviewer": is_hr_reviewer(request.user),
-                "can_manage_projects": can_manage_projects(request.user),
-            },
+    bind_answers = is_post and "submit_checklist" in request.POST
+
+    for question in questions:
+        response_form = ChecklistResponseForm(
+            request.POST if bind_answers else None,
+            instance=existing_responses.get(question.pk),
+            prefix=f"question_{question.pk}",
         )
-        
+        response_form.fields["answer"].required = question.is_required
+        response_forms.append((question, response_form))
 
-    # Handle the final submission.
-    if is_post:
-        form_is_valid = submission_form.is_valid()
-
-        if not form_is_valid:
-            # Display the actual reason the inspection details failed.
-            for field, errors in submission_form.errors.items():
-                for error in errors:
-                    if field == "__all__":
-                        messages.error(request, error)
-                    else:
-                        field_label = submission_form.fields[field].label or field
-                        messages.error(
-                            request,
-                            f"{field_label}: {error}",
-                        )
-
+    if bind_answers:
+        if not submission_form.is_valid():
+            messages.error(
+                request,
+                "Please correct the inspection details before submitting.",
+            )
         elif not checklist:
             messages.error(
                 request,
                 "Please select a valid checklist and load its questions.",
             )
-
         elif (
-            submission_form.cleaned_data["checklist"].pk
-            != checklist.pk
+            submission_form.cleaned_data["checklist"].pk != checklist.pk
         ):
             messages.error(
                 request,
                 "The selected checklist does not match the loaded questions. "
                 "Please load the questions again.",
             )
-
         elif not response_forms:
             messages.error(
                 request,
                 "This checklist has no questions to submit.",
             )
+        elif all(form.is_valid() for _, form in response_forms):
+            try:
+                with transaction.atomic():
+                    saved_submission = submission_form.save(commit=False)
 
-        else:
-            all_responses_valid = True
+                    if not editing:
+                        saved_submission.engineer = request.user
 
-            # Validate every question before saving anything.
-            for question, response_form in response_forms:
-                if not response_form.is_valid():
-                    all_responses_valid = False
+                    saved_submission.status = "submitted"
+                    saved_submission.review_comments = ""
+                    saved_submission.reviewed_at = None
+                    saved_submission.save()
 
-            if not all_responses_valid:
+                    for question, response_form in response_forms:
+                        response = response_form.save(commit=False)
+                        response.submission = saved_submission
+                        response.question = question
+                        response.save()
+
+                messages.success(
+                    request,
+                    "Your checklist has been submitted successfully for HR review.",
+                )
+                return redirect("site_checkbook:dashboard")
+
+            except Exception:
                 messages.error(
                     request,
-                    "Please answer all required questions before submitting.",
+                    "The checklist could not be saved. Please try again "
+                    "and check the server error log if the problem continues.",
                 )
-            else:
-                try:
-                    with transaction.atomic():
-                        submission = submission_form.save(commit=False)
-                        submission.engineer = request.user
-                        submission.status = "submitted"
-                        submission.save()
-
-                        # Save all provided answers and comments.
-                        for question, response_form in response_forms:
-                            answer = response_form.cleaned_data.get("answer")
-                            comments = (
-                                response_form.cleaned_data.get("comments")
-                                or ""
-                            )
-
-                            if answer not in (None, "") or comments.strip():
-                                response = response_form.save(commit=False)
-                                response.submission = submission
-                                response.question = question
-                                response.save()
-
-                    messages.success(
-                        request,
-                        "Your checklist has been submitted successfully "
-                        "for HR review.",
-                    )
-
-                    return redirect("site_checkbook:dashboard")
-
-                except Exception:
-                    messages.error(
-                        request,
-                        "The checklist could not be saved. "
-                        "Please try again. If the problem continues, "
-                        "check the server error log.",
-                    )
+        else:
+            messages.error(
+                request,
+                "Please answer all required questions before submitting.",
+            )
 
     return render(
         request,
@@ -529,10 +512,19 @@ def create_checklist_submission(request):
             "submission_form": submission_form,
             "checklist": checklist,
             "response_forms": response_forms,
+            "submission": submission,
+            "is_editing": editing,
             "is_reviewer": is_hr_reviewer(request.user),
             "can_manage_projects": can_manage_projects(request.user),
         },
     )
+
+
+@login_required
+def edit_checklist_submission(request, submission_id):
+    """Open a returned checklist for correction."""
+    return create_checklist_submission(request, submission_id=submission_id)
+
 
 
 

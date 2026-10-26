@@ -192,10 +192,23 @@
 
     <div class="mb-4">
         <div class="eyebrow mb-2">Site Inspection</div>
-        <h1 class="page-title h2 mb-2">Construction Checklist</h1>
+        <h1 class="page-title h2 mb-2">
+            {% if is_editing %}
+                Correct Returned Checklist
+            {% else %}
+                Construction Checklist
+            {% endif %}
+        </h1>
         <p class="muted mb-0">
-            Complete your site inspection and submit the checklist for HR review.
+        Complete your site inspection and submit the checklist for HR review.
         </p>
+
+        {% if is_editing and submission.review_comments %}
+            <div class="alert alert-warning mt-3">
+                <h2 class="h6 fw-bold">HR Correction Comments</h2>
+                <p class="mb-0">{{ submission.review_comments }}</p>
+            </div>
+        {% endif %}
     </div>
 
     <form method="post">
@@ -267,11 +280,14 @@
 
             <div class="d-flex flex-wrap align-items-center gap-3 mt-4 pt-3 border-top">
                 <button type="submit"
-                        name="load_checklist"
+                        name="submit_checklist"
                         value="1"
-                        formnovalidate
-                        class="btn btn-outline-primary px-4">
-                    Load Checklist Questions &rarr;
+                        class="btn btn-primary btn-lg px-4">
+                    {% if is_editing %}
+                        Resubmit Corrected Checklist
+                    {% else %}
+                        Submit Checklist for Review
+                    {% endif %}
                 </button>
 
                 <span class="small muted">
@@ -373,7 +389,11 @@
                                     name="submit_checklist"
                                     value="1"
                                     class="btn btn-primary btn-lg px-4">
-                                Submit Checklist for Review
+                                {% if is_editing %}
+                                    Resubmit Corrected Checklist
+                                {% else %}
+                                    Submit Checklist for Review
+                                {% endif %}
                             </button>
                         </div>
                     </div>

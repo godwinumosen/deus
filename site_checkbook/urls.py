@@ -114,6 +114,12 @@ urlpatterns = [
         name="review_checklist_submission",
     ),
 
+    path(
+        "checklists/<int:submission_id>/edit/",
+        views.edit_checklist_submission,
+        name="edit_checklist_submission",
+    ),
+
 
     
 ]
