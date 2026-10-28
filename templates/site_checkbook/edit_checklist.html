@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Checklist | Deus Magnus</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<header class="bg-dark text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <strong>Deus Magnus</strong>
+        <a href="{% url 'site_checkbook:manage_checklists' %}"
+           class="text-white text-decoration-none">
+            &larr; Back to Checklist Management
+        </a>
+    </div>
+</header>
+
+<main class="container py-4" style="max-width: 950px;">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="mb-4">
+        <h1 class="h3 fw-bold">Edit Existing Checklist</h1>
+        <p class="text-secondary">
+            Update the checklist details and inspection questions.
+            Engineers will use the updated checklist for future submissions.
+        </p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                        Checklist Title
+                    </label>
+                    <input type="text" id="title" name="title"
+                           class="form-control"
+                           value="{{ checklist.title }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="department" class="form-label fw-semibold">
+                        Department
+                    </label>
+                    <select id="department" name="department"
+                            class="form-select" required>
+                        <option value="">Select department</option>
+                        {% for department in departments %}
+                            <option value="{{ department.pk }}"
+                                {% if department.pk == checklist.department_id %}selected{% endif %}>
+                                {{ department.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="description" class="form-label fw-semibold">
+                        Description
+                    </label>
+                    <textarea id="description" name="description"
+                              class="form-control" rows="3">{{ checklist.description }}</textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white p-4">
+                <h2 class="h5 fw-bold mb-1">Inspection Questions</h2>
+                <p class="text-secondary small mb-0">
+                    Edit existing questions or add missing inspection items.
+                </p>
+            </div>
+
+            <div class="card-body p-4">
+                <div id="questions">
+                    {% for row in question_rows %}
+                        <div class="question-row border rounded-3 p-3 mb-3 bg-light">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-semibold question-label">
+                                    Question {{ forloop.counter }}
+                                </label>
+
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger remove-question">
+                                    Remove
+                                </button>
+                            </div>
+
+                            <input type="hidden" name="question_id"
+                                   value="{{ row.id }}">
+
+                            <input type="text" name="question_text"
+                                   class="form-control mb-3"
+                                   value="{{ row.text }}"
+                                   placeholder="Enter inspection question"
+                                   required>
+
+                            <div class="form-check">
+                                <input type="checkbox"
+                                       class="form-check-input required-checkbox"
+                                       name="question_required"
+                                       value="{{ forloop.counter0 }}"
+                                       {% if row.required %}checked{% endif %}>
+
+                                <label class="form-check-label">
+                                    Required question
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="button" id="addQuestion"
+                        class="btn btn-outline-primary">
+                    + Add Question
+                </button>
+            </div>
+
+            <div class="card-footer bg-white p-3 d-flex flex-wrap gap-2 justify-content-between">
+                <a href="{% url 'site_checkbook:manage_checklists' %}"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit" class="btn btn-primary px-4">
+                    Save Checklist Changes
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(function () {
+    const container = document.getElementById("questions");
+    const addButton = document.getElementById("addQuestion");
+
+    function updateQuestions() {
+        const rows = container.querySelectorAll(".question-row");
+
+        rows.forEach(function (row, index) {
+            row.querySelector(".question-label").textContent =
+                "Question " + (index + 1);
+
+            row.querySelector(".required-checkbox").value = index;
+        });
+    }
+
+    addButton.addEventListener("click", function () {
+        const row = document.createElement("div");
+        row.className = "question-row border rounded-3 p-3 mb-3 bg-light";
+
+        row.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label fw-semibold question-label"></label>
+                <button type="button"
+                        class="btn btn-sm btn-outline-danger remove-question">
+                    Remove
+                </button>
+            </div>
+
+            <input type="hidden" name="question_id" value="">
+
+            <input type="text" name="question_text"
+                   class="form-control mb-3"
+                   placeholder="Enter inspection question" required>
+
+            <div class="form-check">
+                <input type="checkbox"
+                       class="form-check-input required-checkbox"
+                       name="question_required" checked>
+                <label class="form-check-label">Required question</label>
+            </div>
+        `;
+
+        container.appendChild(row);
+        updateQuestions();
+        row.querySelector('input[name="question_text"]').focus();
+    });
+
+    container.addEventListener("click", function (event) {
+        const button = event.target.closest(".remove-question");
+
+        if (!button) return;
+
+        if (container.querySelectorAll(".question-row").length <= 1) {
+            alert("At least one question row must remain.");
+            return;
+        }
+
+        button.closest(".question-row").remove();
+        updateQuestions();
+    });
+
+    updateQuestions();
+})();
+</script>
+
+</body>
+</html>

@@ -528,6 +528,176 @@ def edit_checklist_submission(request, submission_id):
 
 
 
+@login_required
+def edit_checklist(request, checklist_id):
+    if not is_hr_reviewer(request.user):
+        raise PermissionDenied
+
+    checklist = get_object_or_404(
+        Checklist.objects.select_related("department").prefetch_related("questions"),
+        pk=checklist_id,
+    )
+
+    departments = Department.objects.all().order_by("name")
+
+    questions = list(
+        checklist.questions.all().order_by("order", "id")
+    )
+
+    if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        description = request.POST.get("description", "").strip()
+        department_id = request.POST.get("department", "")
+
+        question_ids = request.POST.getlist("question_id")
+        question_texts = request.POST.getlist("question_text")
+        required_indexes = set(
+            request.POST.getlist("question_required")
+        )
+
+        department = Department.objects.filter(
+            pk=department_id
+        ).first()
+
+        rows = [
+            {
+                "id": question_ids[i] if i < len(question_ids) else "",
+                "text": question_texts[i].strip(),
+                "required": str(i) in required_indexes,
+            }
+            for i in range(len(question_texts))
+        ]
+
+        errors = []
+
+        if not title:
+            errors.append("Checklist title is required.")
+
+        if not department:
+            errors.append("Please select a valid department.")
+
+        if not rows or not any(row["text"] for row in rows):
+            errors.append("Add at least one inspection question.")
+
+        if any(not row["text"] for row in rows):
+            errors.append("Every question must have text.")
+
+        existing_questions = {
+            str(question.pk): question
+            for question in questions
+        }
+
+        # Reject question IDs that do not belong to this checklist.
+        for row in rows:
+            if row["id"] and row["id"] not in existing_questions:
+                errors.append(
+                    "An invalid question was submitted. Please reload the page."
+                )
+                break
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+
+            return render(
+                request,
+                "site_checkbook/edit_checklist.html",
+                {
+                    "checklist": checklist,
+                    "departments": departments,
+                    "question_rows": rows,
+                },
+            )
+
+        try:
+            with transaction.atomic():
+                checklist.title = title
+                checklist.description = description
+                checklist.department = department
+                checklist.save()
+
+                retained_ids = set()
+
+                for index, row in enumerate(rows, start=1):
+                    question = existing_questions.get(row["id"])
+
+                    if question is None:
+                        question = ChecklistQuestion(
+                            checklist=checklist
+                        )
+
+                    question.question_text = row["text"]
+                    question.is_required = row["required"]
+                    question.order = index
+                    question.save()
+
+                    retained_ids.add(question.pk)
+
+                # Remove omitted questions only when no saved responses
+                # depend on them. Preserve historical inspection data.
+                protected_questions = []
+
+                for question in questions:
+                    if question.pk in retained_ids:
+                        continue
+
+                    if question.responses.exists():
+                        protected_questions.append(question)
+                    else:
+                        question.delete()
+
+            messages.success(
+                request,
+                "Checklist updated successfully."
+            )
+
+            if protected_questions:
+                messages.warning(
+                    request,
+                    "Some removed questions were retained because "
+                    "they are linked to existing inspection responses. "
+                    "Your historical inspection records were preserved."
+                )
+
+            return redirect("site_checkbook:manage_checklists")
+
+        except Exception:
+            messages.error(
+                request,
+                "The checklist could not be updated. Please try again."
+            )
+
+            return render(
+                request,
+                "site_checkbook/edit_checklist.html",
+                {
+                    "checklist": checklist,
+                    "departments": departments,
+                    "question_rows": rows,
+                },
+            )
+
+    question_rows = [
+        {
+            "id": question.pk,
+            "text": question.question_text,
+            "required": question.is_required,
+        }
+        for question in questions
+    ]
+
+    return render(
+        request,
+        "site_checkbook/edit_checklist.html",
+        {
+            "checklist": checklist,
+            "departments": departments,
+            "question_rows": question_rows,
+        },
+    )
+
+
+
 from django.forms import inlineformset_factory
 from .models import Department, Checklist, ChecklistQuestion
 from .permissions import is_hr_reviewer

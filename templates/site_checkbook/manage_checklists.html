@@ -402,15 +402,25 @@
                                 <p class="small mt-3 mb-3">{{ checklist.description }}</p>
                             {% endif %}
 
+                            
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 border-top pt-3 mt-3">
-                                <span class="small muted">
-                                    <strong>{{ checklist.questions.count }}</strong>
-                                    question{{ checklist.questions.count|pluralize }}
-                                </span>
-                                <span class="small muted">
-                                    Checklist ID: {{ checklist.pk }}
-                                </span>
+                                <div>
+                                    <span class="small muted">
+                                        <strong>{{ checklist.questions.count }}</strong>
+                                        question{{ checklist.questions.count|pluralize }}
+                                    </span>
+                                    <span class="small muted ms-2">
+                                        Checklist ID: {{ checklist.pk }}
+                                    </span>
+                                </div>
+
+                               
+                                <a href="{% url 'site_checkbook:edit_checklist' checklist.pk %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    Edit Checklist
+                                </a>
                             </div>
+
                         </article>
                     {% empty %}
                         <div class="empty-state">
