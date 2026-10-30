@@ -640,7 +640,7 @@
 
 
                             <p class="dm-blog-card-description">
-                                {{ blog.blog_deus_magnus_description|truncatechars:200 }}
+                                {{ blog.blog_deus_magnus_description|striptags|truncatechars:200 }}
                             </p>
 
 

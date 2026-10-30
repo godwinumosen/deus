@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block title %}Delete Article | Deus Magnus{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card border-0 shadow-sm mx-auto" style="max-width:600px">
+        <div class="card-body p-4">
+            <h1 class="h4 mb-3">Delete Article?</h1>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ post.blog_deus_magnus_title }}</strong>?
+            </p>
+
+            <p class="text-danger small">
+                This action cannot be undone.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    Yes, Delete Article
+                </button>
+                <a href="{% url 'blog_management' %}"
+                   class="btn btn-outline-secondary ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

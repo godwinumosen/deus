@@ -134,6 +134,15 @@ class BlogDeusMagnus(models.Model):
     blog_deus_magnus_img = models.ImageField(upload_to='blog_images/')
     blog_deus_magnus_publish_date = models.DateTimeField (auto_now_add= True)
     blog_deus_magnus_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog_deus_magnus_subtitle = models.CharField(max_length=300,blank=True,)
+
+    STATUS_CHOICES = [
+        ("draft", "Draft"),
+        ("published", "Published"),
+    ]
+
+    blog_deus_magnus_status = models.CharField(max_length=10,choices=STATUS_CHOICES,default="published",)
+    blog_deus_magnus_published_at = models.DateTimeField(null=True,blank=True,)
 
     class Meta:
         ordering =['-blog_deus_magnus_publish_date']
@@ -142,8 +151,8 @@ class BlogDeusMagnus(models.Model):
         return self.blog_deus_magnus_title + ' | ' + str(self.blog_deus_magnus_author)
     
     def get_absolute_url(self):
-        return reverse('home','sub_video_img_detail','sub_detail_video','sub_detail',
-                       'last_detail','second_detail','detail','board_detail','blog_detail',)
+        return reverse("blog_detail", kwargs={"pk": self.pk})
+    
 
 #The deus_magnus_event view model page
 class DeusMagnusEventBlog(models.Model):

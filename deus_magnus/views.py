@@ -1,5 +1,8 @@
+
+from django.utils import timezone
 from xml.dom import ValidationErr
 
+import bleach
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView,ListView
 from django.contrib.auth.decorators import login_required
@@ -9,12 +12,16 @@ from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+
+from deus_magnus.forms import BlogDeusMagnusForm
 from .models import ClientReview, FeaturedProjects, NewsletterSubscriber, ServicesPagePicture,RealEstatePicture,FacilityManagementPicture,ConstructionPicture
 from .models import SubPicture_1, SubPicture_2,VideoSubImage, BlogDeusMagnus,DeusMagnusEventBlog,FAQs,Mainvideo
 from .models import DeusMagnusMainPost, SecondDeusMagnusMainPicturePost,FounderPicture,BashPicture
 from .models import OurManagementsInDeusMagnus,GLOSSARY,Guides,Contactvideo
 from .models import EquipmentHire,BoomPump,ConcreteSupply,MaterialSupply,SpecializedServices
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin  
 
@@ -242,18 +249,243 @@ def message (request):
 
 #This is the blog services category of deus magnus
 
-class BlogView(ListView):
+"""class BlogView(ListView):
     model = BlogDeusMagnus
     template_name = 'deus_magnus/blog.html'
     
 #The blog article of the blog project of Deus Magnus
 class BlogArticleDetail(DetailView):
     model = BlogDeusMagnus
-    template_name = 'deus_magnus/blog_article_detail.html'
+    template_name = "deus_magnus/blog_article_detail.html"
+    context_object_name = "object"
 
     def BlogArticleDetail(request, pk):  
         object = get_object_or_404(BlogDeusMagnus, pk=pk)
-        return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})
+        return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})"""
+
+
+
+class BlogView(ListView):
+    model = BlogDeusMagnus
+    template_name = "deus_magnus/blog.html"
+    context_object_name = "blogs"
+
+    def get_queryset(self):
+        return BlogDeusMagnus.objects.filter(
+            blog_deus_magnus_status="published"
+        )
+
+
+class BlogArticleDetail(DetailView):
+    model = BlogDeusMagnus
+    template_name = "deus_magnus/blog_article_detail.html"
+    context_object_name = "object"
+
+    def get_queryset(self):
+        return BlogDeusMagnus.objects.filter(
+            blog_deus_magnus_status="published"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["safe_blog_content"] = sanitize_blog_html(
+            self.object.blog_deus_magnus_description
+        )
+        return context
+
+
+
+# Only authenticated Django staff users can access these views.
+
+ALLOWED_BLOG_TAGS = [
+    "p", "br", "h1", "h2", "h3", "h4",
+    "strong", "b", "em", "i", "u", "s",
+    "ul", "ol", "li", "blockquote",
+    "a", "img", "figure", "figcaption",
+    "div", "span", "hr", "pre", "code",
+]
+
+ALLOWED_BLOG_ATTRIBUTES = {
+    "a": ["href", "title", "target", "rel"],
+    "img": ["src", "alt", "width", "height"],
+    "p": ["class"],
+    "h1": ["class"],
+    "h2": ["class"],
+    "h3": ["class"],
+    "blockquote": ["class"],
+}
+
+ALLOWED_BLOG_PROTOCOLS = ["http", "https", "mailto"]
+
+
+def sanitize_blog_html(content):
+    return bleach.clean(
+        content or "",
+        tags=ALLOWED_BLOG_TAGS,
+        attributes=ALLOWED_BLOG_ATTRIBUTES,
+        protocols=ALLOWED_BLOG_PROTOCOLS,
+        strip=True,
+    )
+
+
+@staff_member_required
+def blog_management(request):
+    posts = BlogDeusMagnus.objects.select_related(
+        "blog_deus_magnus_author"
+    ).all()
+
+    return render(
+        request,
+        "deus_magnus/blog_management.html",
+        {"posts": posts},
+    )
+
+
+
+@staff_member_required
+def blog_create(request):
+
+    if request.method == "POST":
+
+        form = BlogDeusMagnusForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+
+            post = form.save(commit=False)
+
+            # Assign the currently logged-in staff user
+            post.blog_deus_magnus_author = request.user
+
+            # Sanitize article content
+            post.blog_deus_magnus_description = sanitize_blog_html(
+                post.blog_deus_magnus_description
+            )
+
+            # Handle publication status
+            if post.blog_deus_magnus_status == "published":
+                post.blog_deus_magnus_published_at = timezone.now()
+            else:
+                post.blog_deus_magnus_published_at = None
+
+            # Save article and featured image
+            post.save()
+
+            messages.success(
+                request,
+                "Article created successfully!"
+            )
+
+            return redirect("blog_management")
+
+        else:
+            print("BLOG FORM ERRORS:", form.errors)
+
+            messages.error(
+                request,
+                "Article could not be saved. Please check the errors below."
+            )
+
+    else:
+        form = BlogDeusMagnusForm()
+
+    return render(
+        request,
+        "deus_magnus/blog_form.html",
+        {
+            "form": form,
+            "page_title": "Create Blog Post",
+            "post": None,
+        }
+    )
+
+
+
+@staff_member_required
+def blog_edit(request, pk):
+
+    post = get_object_or_404(
+        BlogDeusMagnus,
+        pk=pk
+    )
+
+    if request.method == "POST":
+
+        form = BlogDeusMagnusForm(
+            request.POST,
+            request.FILES,
+            instance=post
+        )
+
+        if form.is_valid():
+
+            post = form.save(commit=False)
+
+            # Sanitize article HTML
+            post.blog_deus_magnus_description = sanitize_blog_html(
+                post.blog_deus_magnus_description
+            )
+
+            # Handle publication date
+            if post.blog_deus_magnus_status == "published":
+
+                if not post.blog_deus_magnus_published_at:
+                    post.blog_deus_magnus_published_at = timezone.now()
+
+            else:
+                post.blog_deus_magnus_published_at = None
+
+            post.save()
+
+            messages.success(
+                request,
+                "Article updated successfully!"
+            )
+
+            return redirect("blog_management")
+
+        else:
+            print("BLOG FORM ERRORS:", form.errors)
+
+            messages.error(
+                request,
+                "Please correct the errors below."
+            )
+
+    else:
+        form = BlogDeusMagnusForm(instance=post)
+
+    return render(
+        request,
+        "deus_magnus/blog_form.html",
+        {
+            "form": form,
+            "page_title": "Edit Blog Post",
+            "post": post,
+        },
+    )
+
+
+
+@staff_member_required
+def blog_delete(request, pk):
+    post = get_object_or_404(BlogDeusMagnus, pk=pk)
+
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Article deleted successfully.")
+        return redirect("blog_management")
+
+    return render(
+        request,
+        "deus_magnus/blog_confirm_delete.html",
+        {"post": post},
+    )
+
+
+
     
 #This article belong to deus_magnus Guids view
 class GuidesView(ListView):

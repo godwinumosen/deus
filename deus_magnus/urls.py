@@ -19,8 +19,14 @@ urlpatterns = [
     path('sub_picture/<int:pk>/', SubPictureDetailView.as_view(), name="sub_detail"),
     path('sub_video/<int:pk>/', SubVideoDetailView.as_view(), name="sub_detail_video"),
     path('sub_video_img/<int:pk>/', VideoImageDetailView.as_view(), name="sub_video_img_detail"),
-    path('blog/', BlogView.as_view(), name='blog'),
-    path('blog_article/<int:pk>/', BlogArticleDetail.as_view(), name="blog_detail"),
+
+    path("blog/", BlogView.as_view(), name="blog"),
+    path("blog_article/<int:pk>/",BlogArticleDetail.as_view(),name="blog_detail",),
+    path("blog-management/",views.blog_management,name="blog_management",),
+    path("blog-management/add/",views.blog_create,name="blog_create",),
+    path("blog-management/<int:pk>/edit/",views.blog_edit,name="blog_edit",),
+    path("blog-management/<int:pk>/delete/",views.blog_delete,name="blog_delete",),
+
     #path('projectvideo/', ProjectVideo.as_view(), name='projectvideo'),
     
     path('deus_magnus_event/', EventBlog.as_view(), name='deus_magnus_event'),

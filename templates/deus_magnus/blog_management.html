@@ -1,0 +1,86 @@
+
+{% extends "base.html" %}
+
+{% block title %}Blog Management | Deus Magnus{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h1 class="h3 fw-bold">Blog Management</h1>
+            <p class="text-muted">Manage your articles and publications.</p>
+        </div>
+        <a href="{% url 'blog_create' %}" class="btn btn-primary">
+            + Add New Article
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Article</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr>
+                            <td>
+                                {% if post.blog_deus_magnus_img %}
+                                <img src="{{ post.blog_deus_magnus_img.url }}"
+                                     alt=""
+                                     style="width:70px;height:55px;object-fit:cover"
+                                     class="rounded">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong>{{ post.blog_deus_magnus_title|default:"Untitled" }}</strong>
+                                <div class="small text-muted">
+                                    {{ post.blog_deus_magnus_subtitle }}
+                                </div>
+                            </td>
+                            <td>
+                                {% if post.blog_deus_magnus_status == "published" %}
+                                    <span class="badge bg-success">Published</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Draft</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ post.blog_deus_magnus_publish_date|date:"d M Y" }}</td>
+                            <td class="text-nowrap">
+                                {% if post.blog_deus_magnus_status == "published" %}
+                                <a href="{% url 'blog_detail' post.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">View</a>
+                                {% endif %}
+                                <a href="{% url 'blog_edit' post.pk %}"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="{% url 'blog_delete' post.pk %}"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                No articles yet. Click <strong>Add New Article</strong> to begin.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
