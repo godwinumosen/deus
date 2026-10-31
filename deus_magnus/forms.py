@@ -38,7 +38,7 @@ class BlogDeusMagnusForm(forms.ModelForm):
                 "class": "form-control",
                 "rows": 12,
                 "id": "id_blog_content",
-            }),
+            }), 
             "blog_deus_magnus_status": forms.Select(attrs={
                 "class": "form-select",
             }),

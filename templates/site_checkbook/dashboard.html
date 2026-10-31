@@ -304,9 +304,9 @@
                 Welcome back,
                 <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>.
                 {% if is_reviewer %}
-                    Here is your site reporting and review overview.
+                    Here is your site review overview.
                 {% else %}
-                    Here is your project activity and daily reporting overview.
+                    Project activity and daily reporting overview.
                 {% endif %}
             </p>
         </div>

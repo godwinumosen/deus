@@ -249,21 +249,6 @@ def message (request):
 
 #This is the blog services category of deus magnus
 
-"""class BlogView(ListView):
-    model = BlogDeusMagnus
-    template_name = 'deus_magnus/blog.html'
-    
-#The blog article of the blog project of Deus Magnus
-class BlogArticleDetail(DetailView):
-    model = BlogDeusMagnus
-    template_name = "deus_magnus/blog_article_detail.html"
-    context_object_name = "object"
-
-    def BlogArticleDetail(request, pk):  
-        object = get_object_or_404(BlogDeusMagnus, pk=pk)
-        return render(request, 'deus_magnus/blog_article_detail.html', {'blog_detail': object})"""
-
-
 
 class BlogView(ListView):
     model = BlogDeusMagnus
