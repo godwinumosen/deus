@@ -1,24 +1,38 @@
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+import logging
 
-from site_checkbook.forms import User
+User = get_user_model()
+
+logger = logging.getLogger(__name__)
+
 
 def send_submission_notification(submission, request):
+    """Notify HR and Supervisors when an engineer submits a checklist."""
 
-    supervisor_emails = User.objects.filter(
-        groups__name="Supervisor",
-        is_active=True
-    ).exclude(email="").values_list("email", flat=True)
+    recipients = list(
+        User.objects.filter(
+            is_active=True
+        ).filter(
+            Q(groups__name__in=["HR", "Supervisors"])
+            | Q(is_superuser=True)
+        ).exclude(
+            email__isnull=True
+        ).exclude(
+            email=""
+        ).values_list(
+            "email", flat=True
+        ).distinct()
+    )
 
-    hr_emails = User.objects.filter(
-        groups__name="HR",
-        is_active=True
-    ).exclude(email="").values_list("email", flat=True)
-
-    recipients = list(set(
-        list(supervisor_emails) + list(hr_emails)
-    ))
+    if not recipients:
+        logger.warning(
+            "No HR or Supervisor email recipients found."
+        )
+        return
 
     review_url = request.build_absolute_uri(
         reverse(
@@ -27,21 +41,40 @@ def send_submission_notification(submission, request):
         )
     )
 
-    if recipients:
+    try:
         send_mail(
-            subject="New Site Checklist Submitted",
+            subject="New Site Checklist Submitted - Awaiting Review",
             message=f"""
-A new site checklist has been submitted.
+A new site checklist has been submitted and is awaiting review.
 
-Engineer: {submission.engineer.username}
+Engineer: {submission.engineer.get_full_name() or submission.engineer.username}
+Engineer Email: {submission.engineer.email}
+
 Project: {submission.project.name}
 Checklist: {submission.checklist.title}
+Department: {submission.checklist.department.name}
+Inspection Date: {submission.inspection_date}
 
-Please review the submission using this link:
+Please log in to the Site Checkbook system to review this submission.
 
+Review Checklist:
 {review_url}
+
+Deus Magnus Site Checkbook
             """,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=recipients,
             fail_silently=False,
+        )
+
+        logger.info(
+            "Checklist notification sent for submission %s to %s",
+            submission.pk,
+            recipients,
+        )
+
+    except Exception:
+        logger.exception(
+            "Failed to send checklist notification for submission %s",
+            submission.pk,
         )

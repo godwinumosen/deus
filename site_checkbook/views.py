@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from deus import settings
+from site_checkbook.utils import send_submission_notification
 
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
@@ -489,6 +490,14 @@ def create_checklist_submission(request, submission_id=None):
                         response.submission = saved_submission
                         response.question = question
                         response.save()
+
+                    # Send notification after the database transaction commits.
+                    transaction.on_commit(
+                        lambda: send_submission_notification(
+                            saved_submission,
+                            request
+                        )
+                    )
 
                 messages.success(
                     request,
