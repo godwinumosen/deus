@@ -86,6 +86,12 @@
                 <div class="fw-semibold">{{ submission.inspection_date|date:"d F Y" }}</div>
             </div>
             <div class="col-md-6">
+                <div class="small muted">Current inspection location</div>
+                <div class="fw-semibold">
+                    {{ submission.current_location|default:"Location not provided" }}
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="small muted">Submitted at</div>
                 <div class="fw-semibold">
                     {% if submission.submitted_at %}

@@ -161,11 +161,16 @@ class ProjectForm(forms.ModelForm):
 
 
 class ChecklistSubmissionForm(forms.ModelForm):
-    """Form for selecting the project and inspection date."""
+    """Form for selecting the project, inspection date and current location."""
 
     class Meta:
         model = ChecklistSubmission
-        fields = ["project", "checklist", "inspection_date"]
+        fields = [
+            "project",
+            "checklist",
+            "inspection_date",
+            "current_location",
+        ]
 
         widgets = {
             "project": forms.Select(
@@ -180,22 +185,33 @@ class ChecklistSubmissionForm(forms.ModelForm):
                     "class": "form-control",
                 }
             ),
+            "current_location": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter the inspection site address or location",
+                }
+            ),
         }
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["project"].queryset = Project.objects.filter(
-            is_active=True,
-            engineers__id=user.pk,
-        ).distinct() if user and not is_hr_reviewer(user) else Project.objects.filter(
-            is_active=True
+        self.fields["project"].queryset = (
+            Project.objects.filter(
+                is_active=True,
+                engineers__id=user.pk,
+            ).distinct()
+            if user and not is_hr_reviewer(user)
+            else Project.objects.filter(is_active=True)
         )
 
         self.fields["checklist"].queryset = Checklist.objects.filter(
             is_active=True,
             department__is_active=True,
         ).select_related("department")
+
+        self.fields["current_location"].required = True
+
 
 
 class ChecklistResponseForm(forms.ModelForm):

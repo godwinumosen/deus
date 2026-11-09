@@ -184,6 +184,14 @@ class ChecklistSubmission(models.Model):
         choices=STATUS_CHOICES,
         default="submitted",
     )
+    inspection_date = models.DateField()
+
+    current_location = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Enter the exact location where the inspection is taking place."
+    )
+
     submitted_at = models.DateTimeField(auto_now_add=True)
     reviewed_at = models.DateTimeField(null=True, blank=True)
     review_comments = models.TextField(blank=True)
@@ -195,7 +203,7 @@ class ChecklistSubmission(models.Model):
         return f"{self.checklist.title} - {self.engineer}"
 
 
-# YES / NO / N/A AND COMMENTS FOR EACH QUESTION
+
 
 
 class ChecklistResponse(models.Model):

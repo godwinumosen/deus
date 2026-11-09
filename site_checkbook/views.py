@@ -465,6 +465,8 @@ def create_checklist_submission(request, submission_id=None):
         response_forms.append((question, response_form))
 
     if bind_answers:
+        print("POST LOCATION:", request.POST.get("current_location"))
+        print("ALL POST DATA:", request.POST.dict())
         if not submission_form.is_valid():
             messages.error(
                 request,
@@ -1104,6 +1106,7 @@ def download_checklist_pdf(request, submission_id):
         else "—"
     )
 
+    
     details = [
         [
             Paragraph("<b>Engineer</b>", normal_style),
@@ -1124,12 +1127,17 @@ def download_checklist_pdf(request, submission_id):
             Paragraph(safe_text(submitted_at), normal_style),
         ],
         [
+            Paragraph("<b>Current Inspection Location</b>", normal_style),
+            Paragraph(
+                safe_text(submission.current_location or "Location not provided"),
+                normal_style
+            ),
             Paragraph("<b>Current Status</b>", normal_style),
             Paragraph(safe_text(submission.status.title()), normal_style),
-            Paragraph("<b>Submission ID</b>", normal_style),
-            Paragraph(str(submission.pk), normal_style),
         ],
+     
     ]
+
 
     details_table = Table(
         details,
