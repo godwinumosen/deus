@@ -2,10 +2,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
+
+from deus import settings
 
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
@@ -950,12 +953,15 @@ def checklist_review_detail(request, submission_id):
     )
 
 
+
 @login_required
 @require_POST
 def review_checklist_submission(request, submission_id):
     """
     HR can mark a submission reviewed or return it for correction.
+    The engineer receives an email after the decision.
     """
+
     if not is_hr_reviewer(request.user):
         messages.error(
             request,
@@ -985,13 +991,14 @@ def review_checklist_submission(request, submission_id):
     if action == "returned" and not review_comments:
         messages.error(
             request,
-            "Please explain what the engineer needs to correct before returning the checklist.",
+            "Please explain what the engineer needs to correct."
         )
         return redirect(
             "site_checkbook:checklist_review_detail",
             submission_id=submission.pk,
         )
 
+    # Save HR decision
     with transaction.atomic():
         submission.status = action
         submission.review_comments = review_comments
@@ -1009,15 +1016,74 @@ def review_checklist_submission(request, submission_id):
             ]
         )
 
-    if action == "reviewed":
-        messages.success(
-            request,
-            "The inspection checklist has been marked as reviewed.",
-        )
+    # SEND EMAIL TO ENGINEER
+    engineer_email = submission.engineer.email
+
+    if engineer_email:
+        if action == "reviewed":
+            subject = "Checklist Reviewed Successfully"
+
+            message = f"""
+Hello {submission.engineer.username},
+
+Your site checklist has been reviewed successfully by HR.
+
+Project: {submission.project.name}
+Checklist: {submission.checklist.title}
+
+Status: REVIEWED
+
+Thank you.
+Deus Magnus Site Checkbook
+"""
+
+        else:
+            subject = "Checklist Returned for Correction"
+
+            message = f"""
+Hello {submission.engineer.username},
+
+Your site checklist has been returned for correction by HR.
+
+Project: {submission.project.name}
+Checklist: {submission.checklist.title}
+
+HR Comments:
+{review_comments}
+
+Please log in to your Site Checkbook account,
+make the necessary corrections and resubmit.
+
+Thank you.
+Deus Magnus Site Checkbook
+"""
+
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[engineer_email],
+                fail_silently=False,
+            )
+
+            messages.success(
+                request,
+                f"Review saved and notification sent to {engineer_email}."
+            )
+
+        except Exception:
+            messages.warning(
+                request,
+                "Review saved, but the email could not be sent. "
+                "Please check your email configuration."
+            )
+            
+
     else:
         messages.warning(
             request,
-            "The inspection checklist has been returned to the engineer for correction.",
+            "Review saved, but this engineer has no email address registered."
         )
 
     return redirect("site_checkbook:checklist_review_queue")
