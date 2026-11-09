@@ -109,6 +109,12 @@ urlpatterns = [
         name="checklist_review_detail",
     ),
     path(
+    "checklists/review/<int:submission_id>/download/",
+    views.download_checklist_pdf,
+    name="download_checklist_pdf",
+    ),
+
+    path(
         "checklists/review/<int:submission_id>/action/",
         views.review_checklist_submission,
         name="review_checklist_submission",

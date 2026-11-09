@@ -7,13 +7,29 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-
 from deus import settings
 from site_checkbook.utils import send_submission_notification
-
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
 from .permissions import can_manage_projects, is_hr_reviewer
+import io
+
+from xml.sax.saxutils import escape
+
+from django.http import HttpResponse
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import mm
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle,
+    KeepTogether,
+)
 
 
 @login_required
@@ -960,6 +976,268 @@ def checklist_review_detail(request, submission_id):
         "site_checkbook/checklist_review_detail.html",
         context,
     )
+
+
+
+@login_required
+def download_checklist_pdf(request, submission_id):
+    """
+    Allow HR, Supervisors and superusers to download
+    an engineer's submitted checklist as a PDF.
+    """
+
+    if not is_hr_reviewer(request.user):
+        messages.error(
+            request,
+            "You do not have permission to download inspection checklists."
+        )
+        return redirect("site_checkbook:dashboard")
+
+    submission = get_object_or_404(
+        ChecklistSubmission.objects.select_related(
+            "checklist",
+            "checklist__department",
+            "engineer",
+            "project",
+        ),
+        pk=submission_id,
+    )
+
+    responses = (
+        ChecklistResponse.objects
+        .filter(submission=submission)
+        .select_related("question")
+        .order_by("question__order", "question_id")
+    )
+
+    # Create PDF in memory
+    buffer = io.BytesIO()
+
+    document = SimpleDocTemplate(
+        buffer,
+        pagesize=A4,
+        rightMargin=18 * mm,
+        leftMargin=18 * mm,
+        topMargin=18 * mm,
+        bottomMargin=18 * mm,
+    )
+
+    styles = getSampleStyleSheet()
+
+    title_style = ParagraphStyle(
+        "ReportTitle",
+        parent=styles["Title"],
+        fontSize=17,
+        leading=22,
+        textColor=colors.HexColor("#04245c"),
+        alignment=TA_CENTER,
+        spaceAfter=8,
+    )
+
+    heading_style = ParagraphStyle(
+        "SectionHeading",
+        parent=styles["Heading2"],
+        fontSize=12,
+        textColor=colors.HexColor("#04245c"),
+        spaceBefore=12,
+        spaceAfter=8,
+    )
+
+    normal_style = ParagraphStyle(
+        "ReportNormal",
+        parent=styles["Normal"],
+        fontSize=9,
+        leading=13,
+    )
+
+    question_style = ParagraphStyle(
+        "QuestionStyle",
+        parent=normal_style,
+        fontSize=9,
+        leading=13,
+    )
+
+    small_style = ParagraphStyle(
+        "SmallStyle",
+        parent=normal_style,
+        fontSize=8,
+        leading=11,
+        textColor=colors.HexColor("#475569"),
+    )
+
+    def safe_text(value):
+        """Safely format database text for ReportLab."""
+        return escape(str(value or "—")).replace("\n", "<br/>")
+
+    story = []
+
+    # Report title
+    story.append(
+        Paragraph("DEUS MAGNUS", title_style)
+    )
+    story.append(
+        Paragraph("SITE CHECKBOOK - INSPECTION REPORT", heading_style)
+    )
+    story.append(Spacer(1, 8))
+
+    # Submission information
+    engineer_name = (
+        submission.engineer.get_full_name()
+        or submission.engineer.username
+    )
+
+    submitted_at = (
+        submission.submitted_at.strftime("%d %B %Y, %H:%M")
+        if submission.submitted_at
+        else "—"
+    )
+
+    inspection_date = (
+        submission.inspection_date.strftime("%d %B %Y")
+        if submission.inspection_date
+        else "—"
+    )
+
+    department = (
+        submission.checklist.department.name
+        if submission.checklist.department
+        else "—"
+    )
+
+    details = [
+        [
+            Paragraph("<b>Engineer</b>", normal_style),
+            Paragraph(safe_text(engineer_name), normal_style),
+            Paragraph("<b>Project</b>", normal_style),
+            Paragraph(safe_text(submission.project.name), normal_style),
+        ],
+        [
+            Paragraph("<b>Checklist</b>", normal_style),
+            Paragraph(safe_text(submission.checklist.title), normal_style),
+            Paragraph("<b>Department</b>", normal_style),
+            Paragraph(safe_text(department), normal_style),
+        ],
+        [
+            Paragraph("<b>Inspection Date</b>", normal_style),
+            Paragraph(safe_text(inspection_date), normal_style),
+            Paragraph("<b>Submitted At</b>", normal_style),
+            Paragraph(safe_text(submitted_at), normal_style),
+        ],
+        [
+            Paragraph("<b>Current Status</b>", normal_style),
+            Paragraph(safe_text(submission.status.title()), normal_style),
+            Paragraph("<b>Submission ID</b>", normal_style),
+            Paragraph(str(submission.pk), normal_style),
+        ],
+    ]
+
+    details_table = Table(
+        details,
+        colWidths=[28 * mm, 57 * mm, 28 * mm, 57 * mm],
+    )
+
+    details_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#f4f7fb")),
+        ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#dbe3ed")),
+        ("INNERGRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#dbe3ed")),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+    ]))
+
+    story.append(details_table)
+    story.append(Spacer(1, 15))
+
+    # Inspection answers
+    story.append(
+        Paragraph("INSPECTION QUESTIONS AND ANSWERS", heading_style)
+    )
+
+    if responses.exists():
+
+        for index, response in enumerate(responses, start=1):
+
+            answer = response.answer or "No answer"
+
+            if answer.lower() == "na":
+                answer = "N/A"
+
+            question_content = [
+                Paragraph(
+                    f"<b>{index}. {safe_text(response.question.question_text)}</b>",
+                    question_style,
+                ),
+                Spacer(1, 4),
+                Paragraph(
+                    f"<b>Answer:</b> {safe_text(answer)}",
+                    normal_style,
+                ),
+                Spacer(1, 3),
+                Paragraph(
+                    f"<b>Engineer Comment:</b> "
+                    f"{safe_text(response.comments or 'No comment provided.')}",
+                    small_style,
+                ),
+            ]
+
+            if response.question.is_required:
+                question_content.append(
+                    Paragraph("<b>Required question</b>", small_style)
+                )
+
+            story.append(KeepTogether(question_content))
+            story.append(Spacer(1, 10))
+
+    else:
+        story.append(
+            Paragraph(
+                "No saved responses were found for this submission.",
+                normal_style,
+            )
+        )
+
+    # HR review comments
+    story.append(
+        Paragraph("HR REVIEW COMMENTS", heading_style)
+    )
+
+    story.append(
+        Paragraph(
+            safe_text(
+                submission.review_comments or "No HR review comments recorded."
+            ),
+            normal_style,
+        )
+    )
+
+    story.append(Spacer(1, 20))
+
+    story.append(
+        Paragraph(
+            "Generated by Deus Magnus Site Checkbook",
+            small_style,
+        )
+    )
+
+    # Build the PDF
+    document.build(story)
+
+    pdf_data = buffer.getvalue()
+    buffer.close()
+
+    response = HttpResponse(
+        pdf_data,
+        content_type="application/pdf",
+    )
+
+    response["Content-Disposition"] = (
+        f'attachment; filename="checklist-{submission.pk}.pdf"'
+    )
+
+    return response
+
 
 
 
