@@ -162,7 +162,6 @@ class ChecklistSubmission(models.Model):
         ("reviewed", "Reviewed"),
         ("returned", "Returned for Correction"),
     ]
-
     checklist = models.ForeignKey(
         Checklist,
         on_delete=models.PROTECT,

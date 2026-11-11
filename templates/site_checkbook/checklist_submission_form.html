@@ -234,7 +234,7 @@
                 <div class="col-md-6">
                     <label for="{{ submission_form.project.id_for_label }}"
                            class="form-label">
-                        Construction Project <span class="required-mark">*</span>
+                        Construction Project <span class="required-mark"></span>
                     </label>
 
                     {{ submission_form.project }}
@@ -247,7 +247,7 @@
                 <div class="col-md-6">
                     <label for="{{ submission_form.checklist.id_for_label }}"
                            class="form-label">
-                        Inspection Checklist <span class="required-mark">*</span>
+                        Inspection Checklist <span class="required-mark"></span>
                     </label>
 
                     {{ submission_form.checklist }}
@@ -264,7 +264,7 @@
                 <div class="col-md-6">
                     <label for="{{ submission_form.inspection_date.id_for_label }}"
                            class="form-label">
-                        Inspection Date <span class="required-mark">*</span>
+                        Inspection Date <span class="required-mark"></span>
                     </label>
 
                     {{ submission_form.inspection_date }}
@@ -277,14 +277,10 @@
                 <div class="col-md-6">
                     <label for="{{ submission_form.current_location.id_for_label }}"
                         class="form-label">
-                        Current Inspection Location *
+                        Current Inspection Location 
                     </label>
 
                     {{ submission_form.current_location }}
-
-                    <div class="form-text">
-                        Enter the exact address where the inspection is taking place.
-                    </div>
 
                     {% for error in submission_form.current_location.errors %}
                         <div class="text-danger small">{{ error }}</div>
@@ -349,7 +345,7 @@
                                     {{ question.question_text }}
 
                                     {% if question.is_required %}
-                                        <span class="required-mark">*</span>
+                                        <span class="required-mark"></span>
                                     {% endif %}
                                 </label>
 
