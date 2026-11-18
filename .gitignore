@@ -4,3 +4,7 @@ env/
 #password ' info@deusmagnus.com '/
 #AWS EC2 login ' info@josepdam.com/
 #AWS EC2 password ' Josepdam123@ '/
+
+# Email
+#EMAIL_HOST_USER=deusmagnusteam@gmail.com
+#EMAIL_HOST_PASSWORD=rcyaljkqaelcgztd
