@@ -377,7 +377,7 @@ def delete_activity(request, activity_id):
 
     activity.delete()
 
-    messages.success(request, "Daily report deleted successfully.")
+    messages.success(request, "Weekly report deleted successfully.")
 
     return redirect("site_checkbook:reviews")
 

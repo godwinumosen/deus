@@ -265,7 +265,7 @@
                 {% endif %}
 
                 {% if not is_reviewer %}
-                    <a class="nav-link" href="{% url 'site_checkbook:create_activity' %}">Daily Report</a>
+                    <a class="nav-link" href="{% url 'site_checkbook:create_activity' %}">Weekly Report</a>
                     <a class="nav-link" href="{% url 'site_checkbook:create_checklist' %}">Inspection Checklist</a>
                 {% endif %}
 
@@ -306,7 +306,7 @@
                 {% if is_reviewer %}
                     Here is your site review overview.
                 {% else %}
-                    Project activity and daily reporting overview.
+                    Project activity and weekly reporting overview.
                 {% endif %}
             </p>
         </div>
@@ -326,7 +326,7 @@
                     <a href="{% url 'site_checkbook:create_project' %}" class="btn btn-outline-primary px-3">+ New Project</a>
                 {% endif %}
             {% else %}
-                <a href="{% url 'site_checkbook:create_activity' %}" class="btn btn-primary px-3">+ Submit Daily Report</a>
+                <a href="{% url 'site_checkbook:create_activity' %}" class="btn btn-primary px-3">+ Submit Weekly Report</a>
                 <a href="{% url 'site_checkbook:create_checklist' %}" class="btn btn-outline-primary px-3">Complete Checklist</a>
             {% endif %}
         </div>
@@ -699,11 +699,11 @@
         </div>
     </section>
 
-    <!-- Daily Reports -->
+    <!-- Weekly Reports -->
     <section class="panel overflow-hidden">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-lg-4 border-bottom">
             <div>
-                <h2 class="section-title h5 mb-1">Recent Daily Work Reports</h2>
+                <h2 class="section-title h5 mb-1">Recent Weekly Work Reports</h2>
                 <p class="section-subtitle mb-0">
                     {% if is_reviewer %}Latest reports submitted by site engineers.{% else %}Your ten most recent site activity records.{% endif %}
                 </p>
@@ -779,7 +779,7 @@
                             <td colspan="{% if is_reviewer %}7{% else %}6{% endif %}">
                                 <div class="empty-state">
                                     <div class="empty-icon">R</div>
-                                    <h3 class="h6 fw-bold">No daily reports yet</h3>
+                                    <h3 class="h6 fw-bold">No weekly reports yet</h3>
                                     <p class="muted small mb-3">New site activity reports will appear here.</p>
                                     {% if not is_reviewer %}
                                         <a href="{% url 'site_checkbook:create_activity' %}" class="btn btn-primary btn-sm">Submit First Report</a>

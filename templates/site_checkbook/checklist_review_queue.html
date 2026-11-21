@@ -30,7 +30,7 @@
         </a>
         <div class="d-flex flex-wrap gap-2">
             <a class="btn btn-sm btn-outline-light" href="{% url 'site_checkbook:dashboard' %}">Dashboard</a>
-            <a class="btn btn-sm btn-outline-light" href="{% url 'site_checkbook:review_queue' %}">Daily Reports</a>
+            <a class="btn btn-sm btn-outline-light" href="{% url 'site_checkbook:review_queue' %}">Weekly Reports</a>
             <form method="post" action="{% url 'site_checkbook:logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-sm btn-light">Sign out</button>
