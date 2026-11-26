@@ -1,4 +1,6 @@
 
+from venv import logger
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -8,7 +10,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from deus import settings
-from site_checkbook.utils import send_submission_notification
+#from site_checkbook.utils import send_submission_notification
+from site_checkbook.utils import (
+    send_submission_notification,
+    send_activity_notification,
+    send_activity_review_notification,
+)
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
 from .permissions import can_manage_projects, is_hr_reviewer
@@ -119,22 +126,42 @@ def create_activity(request):
         )
 
         if form.is_valid():
-            activity = form.save(commit=False)
-            activity.engineer = request.user
-            activity.status = "submitted"
-            activity.save()
+            try:
+                with transaction.atomic():
+                    activity = form.save(commit=False)
+                    activity.engineer = request.user
+                    activity.status = "submitted"
+                    activity.save()
 
-            for image in request.FILES.getlist("photos"):
-                ActivityPhoto.objects.create(
-                    activity=activity,
-                    image=image,
+                    for image in request.FILES.getlist("photos"):
+                        ActivityPhoto.objects.create(
+                            activity=activity,
+                            image=image,
+                        )
+
+                    # Send email only after successful database commit.
+                    transaction.on_commit(
+                        lambda: send_activity_notification(
+                            activity,
+                            request,
+                        )
+                    )
+
+                messages.success(
+                    request,
+                    "Your site activity report has been submitted successfully.",
                 )
 
-            messages.success(
-                request,
-                "Your site activity report has been submitted.",
-            )
-            return redirect("site_checkbook:dashboard")
+                return redirect("site_checkbook:dashboard")
+
+            except Exception:
+                logger.exception("Failed to save site activity report.")
+
+                messages.error(
+                    request,
+                    "Your report could not be submitted. Please try again.",
+                )
+
     else:
         form = SiteActivityForm(user=request.user)
 
@@ -147,6 +174,8 @@ def create_activity(request):
             "can_manage_projects": can_manage_projects(request.user),
         },
     )
+
+
 
 
 @login_required
@@ -178,10 +207,17 @@ def activity_detail(request, pk):
 @login_required
 @require_POST
 def review_activity(request, pk):
+
     if not is_hr_reviewer(request.user):
         raise PermissionDenied
 
-    activity = get_object_or_404(SiteActivity, pk=pk)
+    activity = get_object_or_404(
+        SiteActivity.objects.select_related(
+            "project",
+            "engineer",
+        ),
+        pk=pk,
+    )
 
     if activity.status != "submitted":
         messages.warning(
@@ -195,31 +231,58 @@ def review_activity(request, pk):
 
     action = request.POST.get("action")
 
-    if action == "approve":
-        activity.status = "reviewed"
-        activity.save(update_fields=["status", "updated_at"])
-
-        messages.success(
-            request,
-            "Report marked as reviewed.",
-        )
-
-    elif action == "return":
-        activity.status = "returned"
-        activity.save(update_fields=["status", "updated_at"])
-
-        messages.warning(
-            request,
-            "Report returned for correction.",
-        )
-
-    else:
+    if action not in ["approve", "return"]:
         messages.error(request, "Invalid review action.")
+        return redirect(
+            "site_checkbook:activity_detail",
+            pk=activity.pk,
+        )
+
+    try:
+        with transaction.atomic():
+
+            if action == "approve":
+                activity.status = "reviewed"
+
+            elif action == "return":
+                activity.status = "returned"
+
+            activity.save(
+                update_fields=["status", "updated_at"]
+            )
+
+            transaction.on_commit(
+                lambda: send_activity_review_notification(activity)
+            )
+
+        if action == "approve":
+            messages.success(
+                request,
+                "Report reviewed successfully. Engineer notification has been queued.",
+            )
+
+        else:
+            messages.warning(
+                request,
+                "Report returned for correction. Engineer notification has been queued.",
+            )
+
+    except Exception:
+        logger.exception(
+            "Failed to review activity report %s",
+            activity.pk,
+        )
+
+        messages.error(
+            request,
+            "The report review could not be saved.",
+        )
 
     return redirect(
         "site_checkbook:activity_detail",
         pk=activity.pk,
     )
+
 
 
 @login_required
