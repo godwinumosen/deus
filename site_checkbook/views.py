@@ -16,7 +16,7 @@ from site_checkbook.utils import (
     send_activity_review_notification,
 )
 from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
@@ -1449,7 +1449,6 @@ Deus Magnus Site Checkbook
     return redirect("site_checkbook:checklist_review_queue")
 
 
-
 class CustomPasswordChangeView(PasswordChangeView):
     template_name = "site_checkbook/password_change_form.html"
 
@@ -1464,6 +1463,10 @@ class CustomPasswordChangeView(PasswordChangeView):
 
         if engineer.email:
             try:
+                login_url = self.request.build_absolute_uri(
+                    reverse("site_checkbook:login")
+                )
+
                 send_mail(
                     subject="Your Site Checkbook Password Has Been Changed",
                     message=f"""
@@ -1474,6 +1477,10 @@ Your Deus Magnus Site Checkbook password has been successfully changed.
 If you made this change, no further action is required.
 
 If you did not change your password, please contact the administrator immediately.
+
+You can access your Site Checkbook account here:
+
+{login_url}
 
 Regards,
 Deus Magnus Team
