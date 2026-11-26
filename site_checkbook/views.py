@@ -1,5 +1,5 @@
-
-from venv import logger
+import logging
+logger = logging.getLogger(__name__)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -15,6 +15,9 @@ from site_checkbook.utils import (
     send_activity_notification,
     send_activity_review_notification,
 )
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.conf import settings
 from .forms import ChecklistResponseForm, ChecklistSubmissionForm, ProjectForm, SiteActivityForm
 from .models import ActivityPhoto, Checklist, ChecklistResponse, ChecklistSubmission, Project, SiteActivity
 from .permissions import can_manage_projects, is_hr_reviewer
@@ -1447,3 +1450,48 @@ Deus Magnus Site Checkbook
 
 
 
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = "site_checkbook/password_change_form.html"
+
+    success_url = reverse_lazy(
+        "site_checkbook:password_change_done"
+    )
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        engineer = self.request.user
+
+        if engineer.email:
+            try:
+                send_mail(
+                    subject="Your Site Checkbook Password Has Been Changed",
+                    message=f"""
+Hello {engineer.get_full_name() or engineer.username},
+
+Your Deus Magnus Site Checkbook password has been successfully changed.
+
+If you made this change, no further action is required.
+
+If you did not change your password, please contact the administrator immediately.
+
+Regards,
+Deus Magnus Team
+                    """,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[engineer.email],
+                    fail_silently=False,
+                )
+
+                logger.info(
+                    "Password change email sent to %s",
+                    engineer.email,
+                )
+
+            except Exception:
+                logger.exception(
+                    "Could not send password change email to %s",
+                    engineer.email,
+                )
+
+        return response

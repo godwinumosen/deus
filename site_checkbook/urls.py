@@ -23,12 +23,7 @@ urlpatterns = [
 
     path(
     "password/change/",
-    auth_views.PasswordChangeView.as_view(
-        template_name="site_checkbook/password_change_form.html",
-        success_url=reverse_lazy(
-            "site_checkbook:password_change_done"
-        ),
-    ),
+    views.CustomPasswordChangeView.as_view(),
     name="password_change",
     ),
 
