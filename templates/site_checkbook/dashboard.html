@@ -265,7 +265,7 @@
                 {% endif %}
 
                 {% if not is_reviewer %}
-                    <a class="nav-link" href="{% url 'site_checkbook:create_activity' %}">Weekly Report</a>
+                    
                     <a class="nav-link" href="{% url 'site_checkbook:create_checklist' %}">Inspection Checklist</a>
                 {% endif %}
 
@@ -273,6 +273,10 @@
                     <a class="nav-link" href="{% url 'site_checkbook:review_queue' %}">Review Reports</a>
                     <a class="nav-link" href="{% url 'site_checkbook:checklist_review_queue' %}">Review Checklists</a>
                 {% endif %}
+
+                <a class="nav-link" href="{% url 'site_checkbook:password_change' %}">
+                    Change Password
+                </a>
 
                 <form method="post" action="{% url 'site_checkbook:logout' %}" class="ms-lg-3 mt-2 mt-lg-0">
                     {% csrf_token %}
