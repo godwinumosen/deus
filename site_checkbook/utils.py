@@ -240,19 +240,3 @@ Deus Magnus Site Checkbook
         return False
     
 
-
-
-
-
-
-
-from django.core.mail import send_mail
-from django.conf import settings
-
-send_mail(
-    subject="Site Checkbook Email Test",
-    message="Congratulations! Your Django email configuration is working.",
-    from_email=settings.DEFAULT_FROM_EMAIL,
-    recipient_list=["godwinsenwin@gmail.com"],
-    fail_silently=False,
-)
